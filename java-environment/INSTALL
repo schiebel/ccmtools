@@ -1,0 +1,40 @@
+Install java-environment 
+========================
+
+Install Ant:
+------------
+Before you can build the java-environment, you have to install the Ant build tool 
+(see http://ant.apache.org).
+
+
+Using Ant to build java-environment:
+------------------------------------
+After installing Ant, you can build and install the java-environment with a single call:
+
+  # Build and install java-environment:
+  $ ant install -Dprefix=<install-path>	
+
+
+Additionally, you can use the following ant variants:
+
+  # Clean up the project directory	
+  $ ant clean:   
+
+  # Run a uml2idl test: 	
+  $ ant test
+
+  # Generate javaDoc:
+  $ ant doc		
+
+
+Update your CLASSPATH:
+----------------------
+To use the java-environment tools, you have to add the *.jar files installed
+in the <install-path>/lib directory to your CLASSPATH:
+
+  $ export CLASSPATH=<install-path>/lib/antlr.jar:        \
+                     <install-path>/lib/dtd2java.jar:     \
+		     <install-path>/lib/jdom.jar:         \	
+                     <install-path>/lib/mdr01.jar:        \
+                     <install-path>/lib/uml2idl.jar:      \
+	             $CLASSPATH

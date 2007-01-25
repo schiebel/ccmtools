@@ -1,0 +1,281 @@
+/* CCM Tools : ccmtools test case base class
+ * Egon Teiniker <egon.teiniker@salomon.at>
+ * Copyright (C) 2002 - 2005 Salomon Automation
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+
+/*
+ * This file defines interfaces used by the Lightweight CORBA Component Model (LwCCM)
+ */  
+
+module Components {
+
+  //  typePrefix Components "omg.org";
+
+  /*
+   * ----------------------------------------------------------------------
+   * External Interfaces
+   * ----------------------------------------------------------------------
+   */
+
+  /*
+   * Base Types
+   */
+
+  typedef string FeatureName;
+  typedef sequence<FeatureName> NameList;
+
+  exception InvalidName {};
+  exception InvalidConfiguration {};
+  exception AlreadyConnected {};
+  exception InvalidConnection {};
+  exception NoConnection {};
+  exception ExceededConnectionLimit {};
+  exception CookieRequired {};
+
+  valuetype Cookie {
+    public sequence<octet> CookieValue;
+  };
+
+  //  abstract valuetype EventBase {};
+
+  /*
+   * Facets
+   */
+
+  interface Navigation {
+    Object provide_facet (in FeatureName name)
+      raises (InvalidName);
+  };
+
+
+  /*
+   * Receptacles
+   */
+
+  interface Receptacles {
+    Cookie connect (in FeatureName name, in Object connection)
+      raises (InvalidName, InvalidConnection,
+	      AlreadyConnected, ExceededConnectionLimit);
+
+    void disconnect (in FeatureName name, in Cookie ck)
+      raises (InvalidName, InvalidConnection,
+	      CookieRequired, NoConnection);
+  };
+
+
+  /*
+   * Events are currently not supported
+   */
+
+
+  /*
+   * CCMObject
+   */
+
+  interface CCMHome;
+
+  interface CCMObject : Navigation, Receptacles /*, Events*/ {
+    CCMHome get_ccm_home ();
+    void configuration_complete ();
+    void remove ();
+  };
+
+
+  /*
+   * Homes
+   */
+
+  exception DuplicateKeyValue {};
+  exception UnknownKeyValue {};
+  exception InvalidKey {};
+
+  interface CCMHome {
+    void remove_component (in CCMObject comp);
+  };
+
+  typedef sequence<CCMHome> CCMHomes;
+
+  interface KeylessCCMHome {
+    CCMObject create_component ();
+  };
+
+  exception HomeNotFound {};
+
+  interface HomeFinder {
+    CCMHome find_home_by_component_type (in string comp_repid)
+      raises (HomeNotFound);
+    CCMHome find_home_by_home_type (in string home_repid)
+      raises (HomeNotFound);
+    CCMHome find_home_by_name (in string home_name);
+  };
+
+
+
+  /*
+   * Configurator
+   */
+
+  exception WrongComponentType {};
+
+  interface Configurator {
+    void configure (in CCMObject comp)
+      raises (WrongComponentType);
+  };
+
+
+  valuetype ConfigValue {
+    public FeatureName name;
+    public any value;
+  };
+
+  typedef sequence<ConfigValue> ConfigValues;
+
+  interface StandardConfigurator : Configurator {
+    void set_configuration (in ConfigValues descr);
+  };
+
+  /*
+   * ----------------------------------------------------------------------
+   * Internal Interfaces
+   * ----------------------------------------------------------------------
+   */
+
+  /*
+   * Context
+   */
+
+  /*
+   * typedef SecurityLevel2::Credentials Principal;
+   */
+
+  exception IllegalState {};
+
+
+  /*
+   * ----------------------------------------------------------------------
+   * Callback Interfaces
+   * ----------------------------------------------------------------------
+   */
+
+  /*
+   * Component base interfaces
+   */
+
+  enum CCMExceptionReason {
+    SYSTEM_ERROR,
+    CREATE_ERROR,
+    REMOVE_ERROR,
+    DUPLICATE_KEY,
+    FIND_ERROR,
+    OBJECT_NOT_FOUND,
+    NO_SUCH_ENTITY
+  };
+
+  exception CCMException {
+    CCMExceptionReason reason;
+  };
+
+
+  /*
+   * ----------------------------------------------------------------------
+   * Deployment Interfaces
+   * ----------------------------------------------------------------------
+   */
+
+  exception UnknownImplId {};
+  exception InvalidLocation {};
+  exception CreateFailure {};
+  exception RemoveFailure {};
+  exception InstallationFailure {};
+  exception InvalidAssembly {};
+
+  interface Container;
+  typedef sequence<Container> Containers;
+
+  interface ComponentServer;
+  typedef sequence<ComponentServer> ComponentServers;
+
+  typedef string UUID;
+  typedef string Location;
+
+  interface ComponentInstallation {
+    void install (in UUID implUUID, in Location component_loc)
+      raises (InvalidLocation, InstallationFailure);
+    void replace (in UUID implUUID, in Location component_loc)
+      raises (InvalidLocation, InstallationFailure);
+    void remove (in UUID implUUID)
+      raises (UnknownImplId, RemoveFailure);
+    Location get_implementation (in UUID implUUID)
+      raises (UnknownImplId, InstallationFailure);
+  };
+
+  interface Assembly;
+  interface AssemblyFactory {
+    Cookie create (in Location assembly_loc)
+      raises (InvalidLocation, CreateFailure);
+    Assembly lookup (in Cookie c)
+      raises (InvalidAssembly);
+    void destroy (in Cookie c)
+      raises (InvalidAssembly, RemoveFailure);
+  };
+
+  enum AssemblyState {
+    INACTIVE,
+    INSERVICE
+  };
+
+  interface Assembly {
+    void build () raises (CreateFailure);
+    void tear_down () raises (RemoveFailure);
+    AssemblyState get_state ();
+  };
+
+  interface ServerActivator {
+    ComponentServer create_component_server (in ConfigValues config)
+      raises (CreateFailure, InvalidConfiguration);
+    void remove_component_server (in ComponentServer server)
+      raises (RemoveFailure);
+    ComponentServers get_component_servers ();
+  };
+
+  interface ComponentServer {
+    readonly attribute ConfigValues configuration;
+    ServerActivator get_server_activator ();
+    Container create_container (in ConfigValues config)
+      raises (CreateFailure, InvalidConfiguration);
+    void remove_container (in Container cref)
+      raises (RemoveFailure);
+    Containers get_containers ();
+    void remove ()
+      raises (RemoveFailure);
+  };
+
+  interface Container {
+    readonly attribute ConfigValues configuration;
+    ComponentServer get_component_server ();
+    CCMHome install_home (in string id,
+			  in string entrypt,
+			  in ConfigValues config)
+      raises (InvalidConfiguration, InstallationFailure);
+    void remove_home (in CCMHome href)
+      raises (RemoveFailure);
+    CCMHomes get_homes ();
+    void remove ()
+      raises (RemoveFailure);
+  };
+}; // /module Components
+

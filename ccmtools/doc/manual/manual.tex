@@ -1,0 +1,72 @@
+%============================================================================
+%  CCM Tools Manual
+%=============================================================================
+
+% PAKETE =====================================================================
+\documentclass{book}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{alltt}
+
+% new float environment for example code, using framed verbatim minipages.
+\usepackage{float}
+\newfloat{Example}{htb}{loe}[section]
+
+\setlength{\fboxsep}{5mm}
+\newlength{\minifboxwidth}
+\setlength{\minifboxwidth}{\columnwidth}
+\addtolength{\minifboxwidth}{-5mm}
+\newsavebox{\fmbox}
+\newenvironment{minifbox}
+  {\begin{lrbox}{\fmbox}\begin{minipage}{\minifboxwidth}}
+  {\end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}}
+
+% length definitions for paragraph spacing and indent.
+\setlength{\parindent}{0cm}
+
+% custom controls over float placement and page flow.
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\floatpagefraction}{0.1}
+\setcounter{totalnumber}{5}
+
+%=Content======================================================================
+\author{
+  Egon Teiniker <egon.teiniker@tugraz.at>\\
+  Leif Johnson <leif@ambient.2y.net>
+%  \vspace{1em}
+}
+
+\title{{\Huge CCM Tools}\\Developer's Manual}
+
+\begin{document}
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+
+\newpage
+\pagenumbering{arabic}
+\setlength{\parskip}{1em}
+
+\input{Introduction}
+\input{CCMMetamodelLib}
+\input{IDLParser}
+\input{ComponentGeneratorTools}
+\input{AssemblyGeneratorTools}
+\input{TestingTools}
+
+\begin{appendix}
+\input{Installing}
+\end{appendix}
+
+%=References===================================================================
+\bibliographystyle{plain}
+\bibliography{cbse,doc,pattern}
+
+\end{document}
+

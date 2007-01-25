@@ -1,0 +1,5 @@
+interface __INTERFACE__ {
+  string __OPERATION__ ( inout long value );
+};
+component __COMPONENT__ supports __INTERFACE__ { };
+home __HOME__ manages __COMPONENT__ { };

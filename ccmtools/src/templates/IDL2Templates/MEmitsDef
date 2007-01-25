@@ -1,0 +1,19 @@
+module %(ComponentType)sEventConsumers
+{
+  interface %(EventType)sConsumer :
+    Components::EventConsumerBase
+  {
+    void push ( in %(EventType)s evt );
+  };
+};
+
+interface %(ComponentType)s :
+  Components::CCMObject
+{
+  void connect_%(Identifier)s ( in %(ComponentType)sEventConsumers::%(EventType)sConsumer consumer )
+    raises ( Components::AlreadyConnected );
+
+  %(ComponentType)sEventConsumers::%(EventType)sConsumer %disconnect_%(Identifier)s (  )
+    raises ( Components::NoConnection );
+};
+

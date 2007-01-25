@@ -1,0 +1,8 @@
+%(LanguageTypeCoda)s
+%(Object)s::%(Identifier)s(%(MParameterDefAllStdImplCoda)s)
+{
+
+    // TODO : IMPLEMENT ME HERE !
+}
+
+

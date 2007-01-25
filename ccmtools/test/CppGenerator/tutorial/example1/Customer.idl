@@ -1,0 +1,17 @@
+#ifndef __CUSTOMER_IDL__
+#define __CUSTOMER_IDL__
+
+module BigBusiness {
+
+  struct Customer {
+    long id;
+    string first_name;
+    string last_name;
+    double mileage;
+  };
+  
+  typedef sequence<Customer> CustomerList;
+  
+}; // End of module BigBusiness
+
+#endif

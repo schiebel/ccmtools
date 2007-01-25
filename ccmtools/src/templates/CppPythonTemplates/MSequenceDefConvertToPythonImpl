@@ -1,0 +1,50 @@
+PyObject *
+convert_%(Identifier)s_to_python ( ::%(LocalNamespace)s%(Identifier)s &obj )
+{
+    %(CodaPolymorphFrom)s
+    %(UsingElementType)s
+    PyObject *result = PyList_New (obj.size());
+    for ( unsigned i = 0; i < obj.size (  ); ++i )
+        PyList_SetItem ( result, i, convert_%(ElementTypeSymbol)s_to_python( obj[i] ) );
+    return result;
+}
+
+int convert_%(Identifier)s_from_python ( PyObject *obj, void *s ) {
+
+    if ( ! s ) {
+        PyErr_SetString( PyExc_StandardError, "bad conversion target for %(Identifier)s" );
+        return 0;
+    }
+
+    %(CodaPolymorphTo)s
+    if ( ! is_python_%(Identifier)s(obj) ) {
+        PyErr_SetString( PyExc_StandardError, "cannot convert to %(Identifier)s" );
+        return 0;
+    }
+
+    ::%(LocalNamespace)s%(Identifier)s *to = (::%(LocalNamespace)s%(Identifier)s*) s;
+    int size = PyList_Size(obj);
+    to->clear( );
+    to->reserve( PyList_Size(obj) );
+    for ( int i = 0; i < size; ++i ) {
+        %(ElementType)s v;
+	if ( ! convert_%(ElementTypeSymbol)s_from_python( PyList_GetItem( obj, i ), &v ) ) {
+	     PyErr_Format( PyExc_StandardError, "error converting %(Identifier)s, element %d", i );
+	     return 0;
+	}
+    	to->push_back( v );
+    }
+
+    return 1;
+}
+
+int is_python_%(Identifier)s( PyObject *o ) {
+    if ( ! PyList_Check(o) )
+       return 0;
+    for ( int i=0; i < PyList_Size(o); ++i ) {
+    	if ( ! is_python_%(ElementTypeSymbol)s(PyList_GetItem(o,i) ) )
+	   return 0;
+    }
+    return 1;
+}
+

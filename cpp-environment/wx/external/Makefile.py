@@ -1,0 +1,2 @@
+#PACKAGE_NAME('wx-external')
+#PACKAGE_VERSION('1.0')

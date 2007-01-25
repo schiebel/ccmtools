@@ -1,0 +1,29 @@
+
+CORBA Benchmark bauen:
+----------------------
+$ cd corba
+$ confix.py --packageroot=`pwd`/server --bootstrap --configure --make --targets=install
+
+$ confix.py --packageroot=`pwd`/server --bootstrap --configure --make --targets=install
+
+$ confix.py --packageroot=`pwd`/client  --bootstrap --configure --make
+
+
+Server mit collocated Client:
+-----------------------------
+$ cd corba
+$ confix.py --packageroot=`pwd`/server  --make --targets=check
+$ time ~/tmp/ccmtools_tmp/server/test/server_test__check_CORBA_collocated
+
+
+
+Remote C++ Server mit remote C++ Client:
+----------------------------------------
+$ cd server/cpp_server
+$
+
+
+$ cd client/cpp_client
+$ 
+
+

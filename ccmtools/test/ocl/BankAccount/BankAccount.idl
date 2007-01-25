@@ -1,0 +1,22 @@
+/*  $Id: BankAccount.idl,v 1.1 2004/03/06 09:14:43 rlechner Exp $
+*/
+
+interface BankAccount
+{
+    void deposit(in long amount);
+    void withdraw(in long amount);
+    long balance();
+    long overdraftLimit();
+    void setOverdraftLimit(in long newLimit);
+};
+
+
+component Bank
+{
+    provides BankAccount account;
+};
+
+
+home BankHome manages Bank
+{
+};

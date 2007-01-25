@@ -1,0 +1,46 @@
+/**
+ * Test case: remote facet module exception 
+ *
+ */
+
+module world {
+  module europe {
+    module austria {
+      
+      struct ErrorInfo
+      {
+	long code;
+	string message;
+      };
+      
+      typedef sequence<ErrorInfo> ErrorInfoList;
+      
+      exception ErrorException
+      {
+	ErrorInfoList info;
+      };
+      
+      exception SuperError{};
+
+      exception FatalError
+      {
+	string what;
+      };
+      
+      interface IFace {
+	long foo(in string msg)
+	  raises (ErrorException, SuperError, FatalError);
+      };
+      
+      component Test
+      {
+	provides IFace iface;
+      };
+      
+      home TestHome manages Test
+      {
+      };
+
+    }; // end of module austria
+  }; // end of module europe
+}; // end of module world

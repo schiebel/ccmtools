@@ -1,0 +1,17 @@
+const %(LanguageType)s
+CCM_%(ComponentType)s_impl::%(Identifier)s() const
+    throw(LocalComponents::CCMException)
+{
+    DEBUGNL(" CCM_%(ComponentType)s_impl->%(Identifier)s()");
+    return %(Identifier)s_;
+}
+
+void
+CCM_%(ComponentType)s_impl::%(Identifier)s(const %(LanguageType)s value)
+  throw(LocalComponents::CCMException)
+{
+    DEBUGNL(" CCM_%(ComponentType)s_impl->%(Identifier)s()");
+    %(Identifier)s_ = value;
+}
+
+

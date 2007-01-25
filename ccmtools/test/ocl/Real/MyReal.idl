@@ -1,0 +1,17 @@
+// $Id: MyReal.idl,v 1.1 2004/02/09 13:32:42 rlechner Exp $
+
+typedef sequence<double> DoubleSeq;
+typedef sequence<DoubleSeq> DoubleSeqSeq;
+typedef double DoubleArray[10];
+
+component MyReal
+{
+  attribute DoubleSeq seq1;
+  attribute DoubleSeqSeq seq2;
+  attribute DoubleArray array1;
+  attribute double value1;
+};
+
+home MyRealHome manages MyReal
+{
+};

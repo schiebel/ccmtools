@@ -1,0 +1,149 @@
+This document describes the planned and realized workpackages for ccmtools
+related to a particular release version. We plan four releases for 2005.
+   o) means planned workpackage
+   *) means realized workpackage  
+      - means workpackage (sub)task
+       
+==============================================================================
+Release 0.5.1 (31.3.2005)
+==============================================================================
+
+Dokumentation:
+--------------
+o) add HelloComponent example to the Tutorial
+o) add remote example to the Tutorial
+o) add nested component composition example to the Tutorial
+o) add DbC example to the Tutorial
+
+
+idl3 generator:
+---------------
+
+
+idl3mirror generator:
+---------------------
+
+
+c++local generator:
+-------------------
+*) generate deploy_CCM_Local*() and undeploy_CCM_Local*() functions with coded namespace.
+*) add Constants.Version to all generated files.
+o) generate debug output with parameter values.
+o) overwrite impl/ComponentHome_entry.h by each generator start.
+o) implement a C++ version of deploy_* and undeploy_* too.
+*) Performance Measurement
+o) optimize get_connection_* calls for nested component composition and run
+   the benchmark again
+   - pass SmartPtr<> per reference
+   - inlining
+o) add test case for nested component composition
+o) add AssemblyFactory Template to CCM.h   	
+
+
+c++local-test generator:
+------------------------
+o) derive CppLocalTestGenerator from CppLocalGenerator to reuse code
+
+
+idl2 generator:
+---------------
+o) remove CORBA_Stubs namespace from generated idl2 files
+o) remove multiple generation of the same #include statements in ILD2 files 
+
+
+c++remote generator:
+--------------------
+*) separate deploy_CCM_Local*() from deploy_CCM_Remote*()
+*) generate deploy_CCM_Remote*() functions with coded namespace.
+*) add a deploy_with_ior_CCM_Remote*() function to run without NameService
+*) remove second context object created by the c++remote generator and use receptacle 
+   Adapter as a local receptacle for connection to a local component 
+   - change connect method
+   - change disconnect method
+*) add ccmtools/idl/CCM.idl directory
+*) add Constants.Version to all generated files.
+*) add test cases for component attributes
+*) add test case for facet attributes
+*) add test case for receptacle attributes
+o) add test case for nested component composition
+o) add support for multiple receptacles
+o) add test case for multiple receptacle
+o) add test cases for supported interfaces
+o) add test cases for interfaces as parameters
+o) collect test cases 
+   - facet_simple, facet_basic_types, facet_user_types => facet_types
+   - attribute_simple, attribute_basic_types => attribute_types
+o) generate debug output with parameter values.
+*) Performance Measurement
+o) implement undeploy_*() functions (delete servant too)
+o) implement a C++ version of deploy_* and undeploy_* too.
+o) add the namespace into the converter file-name 
+*) generate adapter classes (*ToCorba, *FromCorba) for each IDL interface and use these
+   adapter classes within the remote component logic as facet and receptacle adapters.
+*) add #ifdef HAVE_MICO to each generated source file (c++generator and cpp-environment/CCM_Remote)
+
+
+
+c++remote-test generator:
+-------------------------
+o) add undeploy_*() functions at test client end.
+o) derive CppRemoteTestGenerator from CppRemoteGenerator to reuse code
+
+
+java-client generator:
+----------------------
+
+
+cpp-environment:
+----------------
+*) organize package structure
+   - move WX::Utils and external to a wx directory
+   - move CCM_* to a ccm directory
+o) generate CCM.{h,cc} from ccmtools/idl/CCM.idl
+
+
+java-environment:
+-----------------
+*) move uml2java from java-environment to ccmtools package.
+o) implement utils.CORBA.setDefaultValue() for structures.
+o) add Components.jar build from ccmtools/idl/CCM.idl
+
+
+uml2idl:
+--------
+*) generate include statements from <<extern>> declarations
+o) check modeling errors 
+
+
+bugfixes:
+---------
+*) 1100738 The same exception will be generated many times
+*) 1101544 Namespace conflict using exceptions
+*) 1101651 Namespace conflict using interfaces in remote component
+
+
+ccmtools refactoring:
+---------------------
+o) remove base_namespace from local and remote generators 
+o) organize generation of namespaces and scoped names across generator hierarchies
+o) use ccmtools.utils.text.* in all generators (instead inheritance of join, etc)
+o) replace bin/Python scripts with shell scripts that define their own CLASSPATH
+o) Use the CCM_INSTALL environment variable from .confix to define prefix
+*) replace ccmtools/bin/* Python scripts with shell scripts
+
+
+
+
+==============================================================================
+Release 0.5.2 
+==============================================================================
+
+
+==============================================================================
+Release 0.5.3 
+==============================================================================
+
+
+==============================================================================
+Release 0.5.4 
+==============================================================================

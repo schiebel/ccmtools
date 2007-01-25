@@ -1,0 +1,5 @@
+    PyObject *convert_%(Identifier)s_to_python ( ::%(LocalNamespace)s%(Identifier)s &arg );
+    int convert_%(Identifier)s_from_python ( PyObject *obj, void *s );
+    int is_python_%(Identifier)s( PyObject * );
+    
+

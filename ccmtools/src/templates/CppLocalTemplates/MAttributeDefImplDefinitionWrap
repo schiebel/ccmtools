@@ -1,0 +1,13 @@
+const %(LanguageType)s
+%(ComponentType)::%(Identifier)s() const
+{
+    return %(Identifier)s_;
+}
+
+void
+%(ComponentType)s::%(Identifier)s(const %(LanguageType)s value)
+{
+    %(Identifier)s_ = value;
+}
+
+

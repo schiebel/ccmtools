@@ -1,0 +1,34 @@
+//
+//  ------  get & set for %(Identifier)s  ------    <MAttributeDefImpl>
+//
+static PyObject *
+Py%(Identifier)s_getter( Py%(InterfaceType)s_object *self, void *closure ) {
+    return convert_%(IdentifierTypeSymbol)s_to_python( (*self->interface)->%(Identifier)s( ) );
+}
+
+static int
+Py%(Identifier)s_setter( Py%(InterfaceType)s_object *self, PyObject *arg, void *closure ) {
+
+    if ( arg == NULL ) {
+        PyErr_SetString(PyExc_TypeError, "null attribute field");
+	return -1;
+    }
+
+    if ( ! is_python_%(IdentifierTypeSymbol)s(arg) ) {
+        PyErr_SetString(PyExc_TypeError, "invalid type, expected %(IdentifierTypeSymbol)s");
+	return -1;
+    }
+
+    %(FieldFree)s
+
+    %(IdentifierType)s param_;
+    if ( ! convert_%(IdentifierTypeSymbol)s_from_python( arg, &param_ ) ) {
+       PyErr_SetString(PyExc_TypeError, "conversion failed for type: %(IdentifierType)s");
+       return -1;
+    }
+
+    (*self->interface)->%(Identifier)s( param_ );
+    return 0;
+}
+
+

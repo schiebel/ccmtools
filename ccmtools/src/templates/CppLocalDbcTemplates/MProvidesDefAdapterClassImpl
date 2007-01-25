@@ -1,0 +1,36 @@
+//==============================================================================
+// Local facet DbC adapter implementation
+//==============================================================================
+
+#define __LOCAL__ADAPTER__NAME__ %(Identifier)sFacetAdapter
+
+DbC_%(Identifier)sFacetAdapter::DbC_%(Identifier)sFacetAdapter(%(ComponentType)s* c,
+  CCM_%(ComponentType)s* lc, bool disablePostconditionCheck) throw(LocalComponents::CCMException)
+  : disablePostconditionCheck__(disablePostconditionCheck)
+{
+  static const char* DbC_FUNCTION_NAME =
+    "DbC_%(Identifier)sFacetAdapter::DbC_%(Identifier)sFacetAdapter(%(ComponentType)s*, CCM_%(ComponentType)s*)";
+  DEBUGNL("+DbC_%(Identifier)sFacetAdapter->DbC_%(Identifier)sFacetAdapter()");
+  component = c;
+  local_component = lc;
+  ValidConnection = true;  
+  facet = local_component->get_%(Identifier)s();
+  DbC_check_invariant(DbC_FUNCTION_NAME,true);
+}
+
+DbC_%(Identifier)sFacetAdapter::~DbC_%(Identifier)sFacetAdapter()
+{
+  DEBUGNL ( "-DbC_%(Identifier)sFacetAdapter->~DbC_%(Identifier)sFacetAdapter()" );
+}
+
+void DbC_%(Identifier)sFacetAdapter::DbC_check_invariant(const char* DbC_FUNCTION_NAME, bool DbC_onExit)
+  throw(CCM_OCL::OclException)
+{
+%(InvariantInvocation)s
+}
+
+%(MAttributeDefProvidesDefinition)s
+%(MOperationProvidesAdapterDefinition)s
+
+#undef __LOCAL__ADAPTER__NAME__
+

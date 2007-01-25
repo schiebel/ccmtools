@@ -1,0 +1,2 @@
+PACKAGE_NAME('wx')
+PACKAGE_VERSION('0.5.1-pre5')

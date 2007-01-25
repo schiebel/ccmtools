@@ -1,0 +1,25 @@
+struct Record
+{
+  string id;
+  string first_name;
+  string last_name;
+  string email;
+};
+
+typedef sequence<Record> RecordSet;
+
+interface Address
+{
+  void write(in Record r);
+  RecordSet read(in Record r);
+};
+
+component AddressBook
+{
+  provides Address addr;
+};
+
+home AddressBookHome manages AddressBook
+{
+};
+

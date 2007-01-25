@@ -1,0 +1,38 @@
+<project name="Client" default="client">
+
+  <description>
+  </description>
+
+
+  <!-- Define different paths that are used in the following tasks -->
+
+  <!-- Define properties that are used in the following tasks.
+       Note that a property can be set from command-line:
+          $ ant -Dprefix=/usr/local
+  -->
+  <property name="src" location="src" />
+  <property name="build" location="build" />
+  <property name="lib" location="lib" />
+
+  <path id="compile.classpath">
+      <pathelement path="${lib}/Components.jar" />
+      <pathelement path="${lib}/ClientStubs.jar" />
+      <pathelement path="${java.class.path}" />
+  </path>
+
+
+  <!-- Create the generated and build directory-->
+  <target name="init"
+      description="Creates the generate and build directory." >
+      <mkdir dir="${build}" />
+  </target>
+
+  <!-- Compile generated Java files-->
+  <target name="client" depends="init"
+      description="" >
+      <javac srcdir="${src}" destdir="${build}" debug="on" >
+          <classpath refid="compile.classpath" />  
+      </javac>
+  </target>
+
+</project>

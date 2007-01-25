@@ -1,0 +1,37 @@
+//==============================================================================
+// %(Identifier)s - python conversion prototypes <MAliasDef>
+//==============================================================================
+
+#ifndef __Alias__%(PreprocIdentifier)s__PYTHON__H__
+#define __Alias__%(PreprocIdentifier)s__PYTHON__H__
+
+%(IncludeLocalHeader)s
+
+#include <Python.h>
+
+%(OpenNamespace)s
+
+%(ConvertToPythonDecl)s
+
+%(CloseNamespace)s
+
+#endif
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s - python conversion implementation - <MAliasDef>
+//==============================================================================
+
+#include "%(Identifier)s_python.h"
+%(IncludeElementConvert)s
+#include <CCM_Python/BasicTypes.h>
+
+%(ConvertToPythonInclude)s
+
+%(OpenNamespace)s
+
+%(ConvertToPythonImpl)s
+
+%(CloseNamespace)s
+
+

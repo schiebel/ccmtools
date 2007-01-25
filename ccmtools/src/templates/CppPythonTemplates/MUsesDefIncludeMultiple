@@ -1,0 +1,12 @@
+#include <WX/Utils/smartptr.h>
+#include <CCM_Utils/LocalComponents.h>
+
+#include <%(UsesInclude)s.h>
+
+#ifndef __MAPPING__%(PreprocIdentifier)s__
+#define __MAPPING__%(PreprocIdentifier)s__
+typedef std::map<LocalComponents::Cookie, CCM_Utils::SmartPtr<CCM_Local::%(CCMUsesType)s> > %(Identifier)sConnections;
+#endif
+
+
+

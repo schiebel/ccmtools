@@ -1,0 +1,53 @@
+package GLOBAL
+
+context MySequence
+	inv lit_01: Sequence{1,2,3}<>Sequence{3,2,1}
+	inv lit_02: Sequence{1,2,3}->size()=3
+	inv lit_03: Sequence{1,2,3}->includes(2)
+	inv lit_04: Sequence{1,2,3}->excludes(4)
+	inv lit_05: Sequence{1,2,3,4,5}->includesAll(Set{1,2,3})
+	inv lit_06: Sequence{1,2}->excludesAll(Set{3,4})
+	inv lit_07: Sequence{1,2}->isEmpty()=false
+	inv lit_08: Sequence{1,2}->notEmpty()
+	inv lit_09: Sequence{1,2,2,3}->asSet()=Set{1,2,3}
+
+	inv lit_10a: Sequence{1,2}->count(2)=1
+	inv lit_10b: Sequence{1,2}->count(3)=0
+	inv lit_11: Sequence{1,2,3}->union(Sequence{3,4,5})=Sequence{1,2,3,3,4,5}
+	inv lit_12: Sequence{1,2,3}->append(4)=Sequence{1,2,3,4}
+	inv lit_13: Sequence{1,2,3}->prepend(0)=Sequence{0,1,2,3}
+	inv lit_14: Sequence{1,2,3,4,5}->subSequence(2,4)=Sequence{2,3,4}
+	inv lit_15a: Sequence{1,2,3}->at(2)=2
+	inv lit_15b: Sequence{'ab','cd','ef'}->at(2)='cd'
+	inv lit_16: Sequence{1,2,3}->first()=1
+	inv lit_17: Sequence{1,2,3}->last()=3
+	inv lit_18: Sequence{1,2,3}->including(4)=Sequence{1,2,3,4}
+	inv lit_19: Sequence{1,2,3}->excluding(1)=Sequence{2,3}
+
+	inv lit_20a: Sequence{1.2,3,4.5}=Sequence{1.2,3.0,4.5}
+	inv lit_20b: Sequence{1.2,3..5}->sum()=1.2+3+4+5
+	
+	inv sequence1_1: seq1->size()>=0
+	inv sequence1_2: seq1->isEmpty() = not seq1->notEmpty()
+	inv sequence1_4: seq1->asSet()->isEmpty() = seq1->isEmpty()
+	inv sequence1_5: Sequence{1,seq1}->size() = seq1->size()+1
+
+	inv array_01: array1->size()=0
+	inv array_02: array1->isEmpty()=true
+	inv array_03: array1->notEmpty()=false
+	inv array_04: array1->asSet()->isEmpty()
+	inv array_05: Sequence{1,array1}->size()=1
+
+	inv sequence2_1: seq2->size()=0
+	inv sequence2_2: seq2->isEmpty()=true
+	inv sequence2_3: seq2->notEmpty()=false
+	inv sequence2_4: seq2->asSet()->isEmpty()
+
+context MySequence::func1(param:Sequence(Integer))
+     pre pre1: param->size() > 0
+     pre pre2: param->size() < 1000
+
+context MySequence::func2(x:Integer)
+     pre pre1: x > 0
+
+endpackage

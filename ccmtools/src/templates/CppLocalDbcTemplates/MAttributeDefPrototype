@@ -1,0 +1,4 @@
+  // Equivalent operations for %(Identifier)s attribute
+  virtual %(LanguageType)s %(Identifier)s (  ) throw(LocalComponents::CCMException);
+  virtual void %(Identifier)s ( %(LanguageType)s value ) throw(LocalComponents::CCMException);
+

@@ -1,0 +1,39 @@
+#ifndef __DBC_BENCHMARK__H__
+#define __DBC_BENCHMARK__H__
+
+typedef sequence<long> LongList;
+
+interface DbcBenchmarkInv1 {
+  attribute long longAttr;
+  void f0();
+};
+
+interface DbcBenchmarkInv2 {
+  attribute string stringAttr;
+  void f0();
+};
+
+interface DbcBenchmarkInv3 {
+  attribute LongList seqAttr;
+  void f0();
+};
+
+interface DbcBenchmarkPre {
+  void f_in1(in long l1);
+  void f_in2(in string s1);
+  void f_in3(in LongList ll1);
+};
+
+interface DbcBenchmarkPost {
+  // All results will be set from the test client, thus
+  // business methods don't have to generate variable lenght values.
+  attribute long f1_result;
+  attribute string f2_result;
+  attribute LongList f3_result;
+
+  long     f_ret1();
+  string   f_ret2();
+  LongList f_ret3();
+};
+
+#endif /* __DBC_BENCHMARK__H__ */

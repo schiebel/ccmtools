@@ -1,0 +1,8 @@
+    if ( ! Py%(Identifier)s_enum ) {
+        Py%(Identifier)s_enum = (Py%(EnumType)s_object*) Py%(EnumType)s_type.tp_new( &Py%(EnumType)s_type, NULL, NULL );
+        if ( Py%(Identifier)s_enum )
+            Py%(Identifier)s_enum->value = ::%(LocalNamespace)s%(Identifier)s;
+	else
+            ++fails;
+    }
+

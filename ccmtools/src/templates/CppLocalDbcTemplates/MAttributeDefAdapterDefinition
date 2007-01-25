@@ -1,0 +1,20 @@
+%(LanguageType)s
+DbC_%(ComponentType)s::%(Identifier)s()
+  throw(LocalComponents::CCMException)
+{
+  DEBUGNL ( " DbC_%(ComponentType)s->%(Identifier)s (  ) - get semantic");
+  return %(ComponentType)s::%(Identifier)s();
+}
+
+void
+DbC_%(ComponentType)s::%(Identifier)s ( %(LanguageType)s value )
+  throw(LocalComponents::CCMException)
+{
+  static const char* DbC_FUNCTION_NAME = "DbC_%(ComponentType)s::%(Identifier)s(%(LanguageType)s)";
+  DEBUGNL ( " DbC_%(ComponentType)s->%(Identifier)s (  ) - set semantic");
+  DbC_check_invariant(DbC_FUNCTION_NAME,false);
+  %(ComponentType)s::%(Identifier)s(value);
+  DbC_check_invariant(DbC_FUNCTION_NAME,true);
+}
+
+

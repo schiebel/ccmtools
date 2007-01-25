@@ -1,0 +1,25 @@
+#ifndef __CUSTOMER_MAINTENANCE_IDL__
+#define __CUSTOMER_MAINTENANCE_IDL__
+
+#include"Exceptions.idl"
+#include"Customer.idl"
+
+module BigBusiness {
+
+  interface CustomerMaintenance
+  {
+    void createCustomer(in Customer person) 
+      raises (CreateCustomerException);
+    Customer retrieveCustomer(in long id)  
+      raises (NoCustomerException);
+    CustomerList retrieveAllCustomers()  
+      raises (NoCustomerException);
+    void updateCustomer(in Customer person)  
+      raises (NoCustomerException);
+    void deleteCustomer(in long id)  
+      raises (RemoveCustomerException);
+  };
+  
+}; // End of module BigBusiness
+
+#endif

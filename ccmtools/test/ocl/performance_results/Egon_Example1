@@ -1,0 +1,80 @@
+Experimental Results
+====================
+
+Test platform:
+--------------
+All measurements have been done on a HP OmniBook XE3 (700MHz), Linux, 
+gcc 3.2.2 -O2 and mico 2.3.11
+
+
+We have tested the Example1 (stack) in different DbC variants.
+Here are the results of a pair of push/pop calls:
+
+a) Local Component without DbC verifcation:
+
+sequence length      time in us
+--------------------------------
+   10e1                0.1
+   10e2                0.09
+   10e3                0.09
+   10e4                0.09 
+
+We use these values to scale the following measurements to 
+factors
+
+
+b) Local Component with DbC adapter overhead:
+  (without constraints)
+
+sequence length      time in us      factor
+-------------------------------------------
+   10e1                0.17          1.7        
+   10e2                0.17          1.89
+   10e3                0.163         1.81
+   10e4                0.17          1.89
+
+
+c) Local Component with precondition validation:
+
+sequence length      time in us     factor
+------------------------------------------
+   10e1                1.8          18
+   10e2                3.3          36.7 
+   10e3                8.67         96.33
+   10e4                101          1122
+
+Note that the sequence value is passed by value for validation.
+
+
+d) Local Component with precondition and invariant 
+   (DbC_deploy("",true)) validation:
+
+sequence length      time in us     factor
+------------------------------------------
+   10e1                2.9          29 
+   10e2                5.55         61.7
+   10e3                14.45        160.6
+   10e4                167          1856
+
+
+e) Local Component with pre- postcondition and invariant 
+   (DbC_deploy("",false)) validation:
+
+sequence length      time in us     factor
+------------------------------------------
+   10e1                9            90         
+   10e2                18.3         203.3
+   10e3                66.98        744.2
+   10e4                745          8278
+
+
+f) Remote Component without DbC verifcation:
+   (we have used MicoCCM)
+
+sequence length      time in us     factor  
+------------------------------------------
+   10e1                247.2        2747
+   10e2                291.4        3238
+   10e3                252.2        2802
+   10e4                263.6        2929
+

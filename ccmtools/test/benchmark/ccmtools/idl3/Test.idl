@@ -1,0 +1,12 @@
+
+#include<Benchmark.idl>
+
+component Test
+{
+  provides Benchmark bm;
+};
+
+home TestHome manages Test
+{
+};
+

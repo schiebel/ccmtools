@@ -1,0 +1,13 @@
+//==============================================================================
+// %(CCMProvidesType)s facet implementation
+//==============================================================================
+
+%(CCMProvidesType)s*
+CCM_%(ComponentType)s_impl::get_%(Identifier)s()
+{
+    DEBUGNL(" CCM_%(ComponentType)s_impl->get_%(Identifier)s()");
+    %(Identifier)s_impl* facet = new %(Identifier)s_impl(this);
+    return dynamic_cast<%(CCMProvidesType)s*>(facet);
+}
+
+

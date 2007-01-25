@@ -1,0 +1,4 @@
+        %(ComponentType)s_ck_%(Identifier)s = 
+            my%(ComponentType)sMirror->connect("%(Identifier)s_mirror", 
+                %(ComponentType)s_provides_%(Identifier)s);
+

@@ -1,0 +1,27 @@
+/*  $Id: Example2.idl,v 1.1 2004/02/25 09:54:43 rlechner Exp $
+*/
+
+
+struct Point
+{
+    double x;
+    double y;
+};
+
+
+interface Line
+{
+    attribute Point startPt;
+    attribute Point endPt;
+    void move( in double dx, in double dy );
+};
+
+
+component Grfx
+{
+    provides Line line;
+};
+
+home GrfxHome manages Grfx
+{
+};

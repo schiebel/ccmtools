@@ -1,0 +1,17 @@
+
+
+%(CORBAAttributeResult)s %(ComponentType)s_impl::%(Identifier)s() 
+    throw(CORBA::SystemException)
+{
+    LDEBUGNL(CCM_REMOTE, " %(ComponentType)s_impl::%(Identifier)s()");
+    
+%(ConvertComponentGetAttributeFromCorba)s 
+}
+
+void %(ComponentType)s_impl::%(Identifier)s(const %(CORBAAttributeParameter)s value)
+    throw(CORBA::SystemException)
+{
+    LDEBUGNL(CCM_REMOTE, " %(ComponentType)s_impl::%(Identifier)s(value)");
+
+%(ConvertComponentSetAttributeFromCorba)s  
+}

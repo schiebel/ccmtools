@@ -1,0 +1,5 @@
+  // Equivalent operations for facet %(Identifier)s
+
+  WX::Utils::SmartPtr<%(ProvidesType)s> provide_%(Identifier)s (  );
+
+

@@ -1,0 +1,22 @@
+/***
+ * receptacle_object test case
+ *
+ * This test case shows the usage of an object to be connected with
+ * a receptacle.
+ ***/
+
+interface IFace 
+{
+  long   op_b1 (in long p1, inout long p2, out long p3);
+  string op_b2 (in string p1, inout string p2, out string p3);
+};
+
+component Test
+{ 
+  uses IFace iface; 
+};
+
+home TestHome manages Test 
+{ 
+};
+

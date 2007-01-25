@@ -1,0 +1,2 @@
+  %(ComponentType)s %(Identifier)s ( %(MParameterDef)s ) %(MExceptionDefName)s;
+

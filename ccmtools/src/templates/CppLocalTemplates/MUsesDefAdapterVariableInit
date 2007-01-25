@@ -1,0 +1,3 @@
+    %(Identifier)s_receptacle = SmartPtr<%(CCMUsesType)s>();
+
+

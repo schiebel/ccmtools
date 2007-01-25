@@ -1,0 +1,20 @@
+module __TEST__ {
+
+component __COMPONENT__ {
+    attribute long __ATTRIBUTE__;
+};
+
+home __HOME__ manages __COMPONENT__ { };
+
+interface __INTERFACE__ {
+    __COMPONENT__ __OPERATION__(in string __STRING__);
+};
+
+component __SECOND_COMPONENT__ {
+    attribute string __SECOND_ATTRIBUTE__;
+    provides __INTERFACE__ __PROVIDES__;
+};
+
+home __SECOND_HOME__ manages __SECOND_COMPONENT__ { };
+
+};

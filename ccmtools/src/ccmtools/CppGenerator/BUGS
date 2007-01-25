@@ -1,0 +1,16 @@
+
++ Components will only be implemented properly if they have exactly one
+  associated home.
+
++ Events are not supported at all. This means the following IDL declarations
+  will be ignored :
+  o emits
+  o publishes
+  o consumes
+  o eventport
+  o event
+
++ Value box and value member are not supported.
+
++ Unions are currently not generated properly, though they should be shortly.
+

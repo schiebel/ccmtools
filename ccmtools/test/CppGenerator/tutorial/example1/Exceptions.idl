@@ -1,0 +1,12 @@
+#ifndef __EXCEPTION_IDL__
+#define __EXCEPTION_IDL__
+
+module BigBusiness {
+
+  exception CreateCustomerException{};
+  exception RemoveCustomerException{};
+  exception NoCustomerException{};
+
+}; // End of module BigBusiness
+
+#endif

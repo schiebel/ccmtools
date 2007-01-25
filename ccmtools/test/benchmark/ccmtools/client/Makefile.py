@@ -1,0 +1,2 @@
+PACKAGE_NAME('client')
+PACKAGE_VERSION('0.1')

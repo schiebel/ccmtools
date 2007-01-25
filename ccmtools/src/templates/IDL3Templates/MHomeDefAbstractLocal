@@ -1,0 +1,24 @@
+%(MFactoryDefInclude)s
+%(MFinderDefInclude)s
+%(MSupportsDefInclude)s
+
+#ifndef __HOME__%(PreprocIdentifier)s__
+#define __HOME__%(PreprocIdentifier)s__
+
+#include <%(ComponentInclude)s.idl>
+
+%(OpenNamespace)s
+
+abstract local home %(Identifier)s manages %(ComponentType)s
+ %(MSupportsDef)s
+{
+%(MFactoryDef)s
+%(MFinderDef)s
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

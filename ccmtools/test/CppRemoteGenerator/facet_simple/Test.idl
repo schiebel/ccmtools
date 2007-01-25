@@ -1,0 +1,14 @@
+interface I2
+{
+  long op1(in string str);
+};
+
+component Test
+{
+  provides I2 my_facet;
+};
+
+home TestHome manages Test
+{
+};
+

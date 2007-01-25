@@ -1,0 +1,2 @@
+  virtual LocalComponents::EnterpriseComponent* %(Identifier)s ( %(MParameterDefAll)s )
+    throw(LocalComponents::CCMException, LocalComponents::CreateFailure);

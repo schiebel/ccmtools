@@ -1,0 +1,4 @@
+    { "provide_%(Identifier)s", (PyCFunction) provide_%(Identifier)s, METH_NOARGS,
+      "retrieve %(Identifier)s"
+    },                                                            /* <MProvidesDefEqInterfaceMethod> */
+

@@ -1,0 +1,18 @@
+%(MUnionFieldDefInclude)s
+
+#ifndef __UNION__%(PreprocIdentifier)s__
+#define __UNION__%(PreprocIdentifier)s__
+
+%(OpenNamespace)s
+
+union %(Identifier)s
+{
+%(MUnionFieldDef)s
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

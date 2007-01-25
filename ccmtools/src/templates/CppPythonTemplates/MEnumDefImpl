@@ -1,0 +1,18 @@
+//
+//  ------  get & set for %(Identifier)s  ------    <MEnumDefImpl>
+//
+static PyObject *
+Py%(Identifier)s_getter( Py%(EnumType)s_object *self, void *closure ) {
+
+    Py_INCREF( Py%(Identifier)s_enum );
+    return (PyObject*) Py%(Identifier)s_enum;
+}
+
+static int
+Py%(Identifier)s_setter( Py%(EnumType)s_object *self, PyObject *arg, void *closure ) {
+
+    PyErr_SetString( Py%(Module)s_exception(), "cannot modify enum values" );
+    return -1;
+}
+
+

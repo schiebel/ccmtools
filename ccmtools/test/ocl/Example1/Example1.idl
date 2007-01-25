@@ -1,0 +1,31 @@
+/*  $Id: Example1.idl,v 1.1 2004/02/24 14:29:32 rlechner Exp $
+*/
+
+
+typedef sequence<long> IntegerVector;
+
+
+/**
+ * A stack for integers.
+ */
+interface IntegerStack
+{
+    attribute IntegerVector field;
+    attribute long maxSize;
+    boolean isEmpty();
+    boolean isFull();
+    void push( in long value );
+    long pop();
+    long top();
+};
+
+
+component Math
+{
+    provides IntegerStack stack;
+};
+
+home MathHome manages Math
+{
+};
+

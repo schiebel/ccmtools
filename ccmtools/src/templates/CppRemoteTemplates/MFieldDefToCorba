@@ -1,0 +1,2 @@
+    convertToCorba(in.%(Identifier)s, out.%(CORBATypeInOut)s);
+

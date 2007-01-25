@@ -1,0 +1,20 @@
+
+#ifndef __BEAMER_IDL__
+#define __BEAMER_IDL__
+
+#include "OutputDeviceConnector.idl"
+
+module SimpleComputer
+{
+  component Beamer
+  {
+    attribute string Type;
+    provides OutputDeviceConnector connector;
+  };
+  
+  home BeamerFactory manages Beamer
+  {
+  };
+};
+  
+#endif

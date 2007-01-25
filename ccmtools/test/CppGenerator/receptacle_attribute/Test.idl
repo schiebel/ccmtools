@@ -1,0 +1,19 @@
+/**
+ * Test case: receptacle_attribute 
+ *
+ */
+
+interface Console 
+{
+  attribute long max_size;
+};
+
+component Test
+{
+  uses Console console;
+};
+
+home TestHome manages Test
+{
+};
+

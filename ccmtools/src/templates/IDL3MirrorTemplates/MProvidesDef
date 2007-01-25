@@ -1,0 +1,2 @@
+  uses %(ProvidesType)s %(Identifier)s_mirror;
+

@@ -1,0 +1,198 @@
+This is a collection of test cases for ccmtools-0.2.2:
+
+
+Test of component features
+==========================
+
+attribute: OK
+----------
+A component with a simple string attribute.
+
+attribute_basic_types: OK
+----------------------
+A component with attributes of different basic types
+(short, long, float, double, etc.).
+
+attribute_user_types: !!!! (Hello_user_types.h not included)
+---------------------
+A component with attributes of different user types 
+(typedef, enum, struct, sequence, etc.).
+=> If there is no interface defined for the component, the Hello_user_types.h
+   fill will not be included.
+
+
+supports: OK
+---------
+A component that supports an interface that is stored in the 
+same idl file.
+
+supports_basic_types: OK
+---------------------
+A component that supports an interface that contains methods with
+different basic types as in/inout/out parameters as well as as return value.
+All source code is stored in the same IDL file.
+
+supports_exception: OK
+-------------------
+A component that supports an interface which has a method declaration
+including a raises statement.
+All source code is stored in the same IDL file.
+ 
+supports_user_types: OK
+--------------------
+A component that supports an interface which has different methods
+that use some user types (typedef, enum, struct, sequence, etc.).
+All source code is stored in the same IDL file.
+
+
+facet: OK
+------
+A component with one facet that is defined in the same IDL file.
+
+facet_basic_types: OK
+------------------
+A component that provides an interface as facet that contains methods with
+different basic types as in/inout/out parameters as well as as return value.
+All source code is stored in the same IDL file.
+
+facet_exception: OK
+----------------
+A component that provides an interface as facet which has a method declaration
+including a raises statement.
+All source code is stored in the same IDL file.
+ 
+facet_user_types: OK
+----------------- 
+A component that provides an interface which has different methods
+that use some user types (typedef, enum, struct, sequence, etc.).
+All source code is stored in the same IDL file.
+
+
+receptacle: OK
+-----------
+A component with a single receptacle. The interface of the
+receptacle is stored in the same IDL file.
+
+receptacle_multiple: OK 
+--------------------
+A component with a multiple receptacle. The interface of the
+receptacle is stored in the same IDL file.
+
+receptacle_basic_types: OK 
+-----------------------
+A component that uses an interface as receptacle that contains methods with
+different basic types as in/inout/out parameters as well as as return value.
+All source code is stored in the same IDL file.
+
+receptacle_exception: OK
+---------------------
+A component that uses an interface as receptacle which has a method declaration
+including a raises statement.
+All source code is stored in the same IDL file.
+
+receptacle_user_types: OK
+----------------------
+A component that uses an interface which has different methods
+that use some user types (typedef, enum, struct, sequence, etc.).
+All source code is stored in the same IDL file.
+
+
+home_factory: OK
+-------------
+A component with an attribute that has a home with an explicit factory
+method.
+
+home_basic_type: OK
+----------------
+A component that supports a home that contains factory methods with
+different basic types as in parameters.
+All source code is stored in the same IDL file.
+
+home_exception: !!!! (Parser error)
+---------------
+A component with an attribute that has a home with an explicit factory
+method that contains a raises statement.
+=>java.lang.RuntimeException: Errors during parsing:
+  java.lang.ClassCastException: ccmtools.Metamodel.BaseIDL.MExceptionDefImpl
+  Error while generating IDL3 mirror files.
+
+home_user_type: TODO
+---------------
+
+
+Test of source code structure
+=============================
+
+include: OK
+--------
+A component with an attribute, a facet and a receptacle.
+The interfaces of the facet and receptacles are stored in
+separated idl files and included by the component idl file.
+
+include_dir: OK
+------------
+A component with an attribute, a facet and a receptacle, 
+where the component idl and the interface idl of facet and receptacle
+are stored in different files in different directories.
+(ccmtools-c++-generate -d -p hello -Icomp -Iifaces comp/*.idl ifaces/*.idl) 
+
+include_nested: OK
+---------------
+A component with an attribute, a facet and a receptacle, 
+where the interfaces are stored in different idl files.
+One interface file includes another idl file that contains
+a structure definition.
+
+ 
+
+Test of source code modularity
+==============================
+
+module: OK
+-------
+A component with an attribute that is defined within a
+module definition in a single idl file.
+
+module_nested: OK
+--------------
+A component with an attribute that is defined within 
+three nested modules in a single IDL file.
+
+module_reopen: OK
+--------------
+A compoent with an attribute and a facet defined in two
+IDL files, where in each file there is the same module
+definition.
+
+module_mixed: !!!!! (Parser error)
+-------------
+A component with an attribute and a facet defined in two
+IDL files. The component and the facet interface is defined in 
+their own modules.
+=> java.lang.RuntimeException: Errors during parsing:
+   antlr.TokenStreamException: identifier 'Console' is undefined or of the wrong type
+
+
+Real world examples
+===================
+
+Claculator: OK
+-----------
+The main component (Calculator) has an attribute, a facet, a
+singleand a multiple receptacle as well as a home with a
+factory method.
+Two other components (IntegerCalculator and Display) supports
+a facet that can be connected to the Calculator's receptacles.
+
+owudb: OK
+------
+Two components that are connected via two facet/receptacle
+interfaces. The source code is distributed between 10 IDL files.
+
+
+
+
+
+
+
+

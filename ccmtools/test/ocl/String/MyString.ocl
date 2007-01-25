@@ -1,0 +1,31 @@
+-- $Id: MyString.ocl,v 1.1 2004/02/09 13:32:42 rlechner Exp $
+
+package GLOBAL
+
+context MyString
+	inv op1:	'xy'='xy'
+	inv op2:	'xy'<>'XY'
+	
+	inv size_1:	'xy'.size()=2
+	inv size_2:	('').size()=0
+	
+	inv concat:	'12'.concat('34')='1234'
+	
+	inv upper_1:	'xy'.toUpper()='XY'
+	inv upper_2:	'XY12ab'.toUpper()='XY12AB'
+	
+	inv lower_1:	'XY'.toLower()='xy'
+	inv lower_2:	'XY12ab'.toLower()='xy12ab'
+	
+	inv sub_1:	'12345'.substring(2,4)='234'
+	inv sub_2a:	'xyz'.substring(1,1)='x'
+	inv sub_2b:	'xyz'.substring(2,2)='y'
+	inv sub_2c:	'xyz'.substring(3,3)='z'
+	
+	
+	inv misc_1:	'12'.concat('34').concat('56')='123456'
+	inv misc_2a:	'abXY'.toUpper().toLower()='abxy'
+	inv misc_2b:	'abXY'.toLower().toUpper()='ABXY'
+	inv misc_3:	'12345678'.substring(1,6).substring(3,6)='3456'
+
+endpackage

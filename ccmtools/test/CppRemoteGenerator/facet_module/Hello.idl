@@ -1,0 +1,43 @@
+/**
+ * Test case: facet user types with modules 
+ *
+ */
+
+module world {
+  module europe {
+    module austria {
+
+      exception error{};
+
+      enum Color {red, green, blue, black, orange};
+
+      struct Person {
+	long id;
+	string name;
+      };
+      
+      typedef sequence<long> LongList;
+      typedef sequence<string> StringList;
+      typedef sequence<Person> PersonMap;
+      
+      interface Console {
+	LongList foo1(in LongList l1, inout LongList l2, out LongList l3);
+	StringList foo2(in StringList s1, inout StringList s2, out StringList s3);
+	Person  foo3(in Person p1, inout Person p2, out Person p3);
+	PersonMap foo4(in PersonMap p1, inout PersonMap p2, out PersonMap p3)
+	  raises (error);
+	Color foo5(in Color c1, inout Color c2, out Color c3);
+      };
+      
+      component Hello
+      {
+	provides Console console;
+      };
+      
+      home HelloHome manages Hello
+      {
+      };
+      
+    };
+  };
+};

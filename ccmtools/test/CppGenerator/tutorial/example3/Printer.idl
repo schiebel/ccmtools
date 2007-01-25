@@ -1,0 +1,20 @@
+
+#ifndef __PRINTER_IDL__
+#define __PRINTER_IDL__
+
+#include "OutputDeviceConnector.idl"
+
+module SimpleComputer
+{
+  component Printer
+  {
+    attribute string Type;
+    provides OutputDeviceConnector connector;
+  };
+  
+  home PrinterFactory manages Printer
+  {
+  };
+};
+  
+#endif

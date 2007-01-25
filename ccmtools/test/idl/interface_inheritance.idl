@@ -1,0 +1,16 @@
+
+interface __AA__ {
+  long set_value_a(in long value_a);
+};
+
+
+interface __BB__ {
+  long set_value_b(in long value_b);
+};
+
+
+interface __CC__ 
+  : __AA__
+{
+  long set_value_c(in long value_c);
+};

@@ -1,0 +1,146 @@
+CCM TOOLS README
+================
+
+The CCM Tools are a set of Java programs and libraries as well as Python 
+scripts that supports component development, based on the CORBA Component 
+Model (CCM) and our local component extensions.
+
+The CCM Tools are available from ccmtools.sourceforge.net and are organized 
+in the following packages:
+
+java-environment: 
+-----------------
+This module contains Java code and libraries that are used by the CCM Tools 
+but can also be used independently (e.g. a UML parser that is part of the 
+uml2idl generator, a dtd2java generator that can generate XML parsers with a 
+model library to handle XML files in memory, etc.).
+
+
+cpp-environment: 
+----------------
+This module contains C++ source code that builds a runtime environment for 
+C++ components (e.g. C++ smart pointer library, CCM header files, HomeFinder 
+implementations etc.).
+
+
+ccmtools:
+--------- 
+This module contains all the CCM Tools in form of Java source code and Python 
+scripts. Some CCM Tools need jar files from java-environment to run, while the 
+generated C++ components depend only on cpp-environment libraries. Remote 
+components are also based on Mico an open source Object Request Broker (ORB) 
+implementation.
+
+
+To get and install the CCM Tools see the INSTALL file in this directory.
+
+
+The current CCM Tools framework contains the following tools
+(see also http://ccmtools.sourceforge.net/tutorial.pdf):
+
+uml2idl Generator:
+------------------ 
+Using a UML profile forCCM we can model component definitions with UML tools. 
+From a given UML XMI file a uml2idl generator extracts a IDL3 and an OCL file. 
+While the IDL3 file is used to generate component logic, the OCL file is input 
+for a Design by Contract (DbC) generator (as described later).
+
+
+CCM Metamodel Library:
+---------------------- 
+The CCM specification defines an Interface Repository Metamodel corresponding 
+to the IDL3 syntax. We implemented a CCM Metamodel Library that allows 
+creation and manipulation of CCM models. Using this library we can clearly 
+separate the parser tools and code generators. The parser creates a model 
+object for every part of the source code matching an IDL grammar rule.
+
+
+idl3 Parser:
+------------
+The idl3 Parser reads IDL3 files, checks the syntax of these source code and 
+creates a CCM model using the CCM Metamodel Library in the memory. This CCM 
+model is the starting point for all code generator tools in the framework.
+
+
+idl3 Generator:
+---------------
+To test the functionality of the CCM Metamodel Library and the IDL3 Parser 
+we implemented an IDL3 Generator that writes out a CCM model into 
+corresponding IDL3 Files.
+
+
+idl3mirror Generator:
+---------------------
+We use a Test-Driven Development (TDD) strategy to develop and to specify 
+components (as described later in this tutorial). Our component unit test 
+uses a mirror component to connect all ports of an existing component. 
+The idl3mirror Generator creates the IDL3 syntax definition of this mirror 
+component.
+
+
+OCL Metamodel Library:
+----------------------
+We have implemented an OCL metamodel library that is used by the OCL parser 
+to create an OCL model in memory. This in memory OCL model can be used by 
+generator tools to retrieve information for code generation.
+
+
+OCL Parser:
+-----------
+From an OCL source file, an OCL parser performs some syntax checks and 
+establishes an OCL model in memory using the OCL metamodel library. This 
+model is the starting point for code generator tools based on OCL.
+
+
+c++local Generator:
+-------------------
+The component model is realized by the component logic that implements the 
+operations for providing, using and connecting components by their facets 
+and receptacles. We implemented a generator tool that creates the local 
+component logic starting from a given CCM model. After generating the 
+component logic, component developers can write business logic into the 
+generated component skeletons.
+
+
+c++dbc Generator:
+----------------- 
+From an OCL model and a CCM model this generator creates a set of Design 
+by Contract adapter for local C++ components. These adapters can be used 
+alternatively to the regular local component adapters to support DbC.
+
+
+c++local-test Generator:
+------------------------
+After building a local C++ component we can run a unit test procedure. 
+To provide a suitable test environment we generate a test client 
+implementation that instantiates a component as well as its mirror 
+component and manages this component unit test.
+
+
+idl2 Generator:
+--------------- 
+To implement CORBA components the IDL3 source code is mapped to IDL2 
+that can be processed by a usual IDL2 Compiler (currently we use Mico 
+ORB). The transformation from IDL3 to IDL2 extends the IDL2 source code 
+with some operations needed for navigation between components and their 
+ports (equivalent operations). We support this transformation with a 
+idl2 Generator that creates IDL2 files from a existing CCM model.
+
+
+c++remote Component Generator:
+------------------------------
+The local components only works in a common address space and must be 
+implemented in the same programming language. To overcome these 
+limitations we can generate remote component logic that interfaces the 
+local components with CORBA. The remote component logic is thus a superset 
+of the local component logic. Note that the external view of such a remote 
+component quite conforms to the CCM specification.
+
+
+c++remote-test Generator:
+-------------------------
+After generation of remote components we can also run a remote test procedure. 
+In parallel to the local test environment, we can use the mirror component 
+test concept in the remote case too. Thus, a generated remote test client 
+connects a remote component with its mirror component and manages this remote 
+unit test.

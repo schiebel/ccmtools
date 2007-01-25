@@ -1,0 +1,33 @@
+package GLOBAL
+
+context DbcBenchmarkInv1
+   inv i1: self.longAttr >= 0 and longAttr < 1000000
+
+context DbcBenchmarkInv2
+   inv i2: self.stringAttr.size >= 0 and stringAttr.size < 1000000
+
+context DbcBenchmarkInv3
+   inv i3: self.seqAttr->forAll(i| i >= 0 and i < 1000000)
+
+
+context DbcBenchmarkPre::f_in1(l1:Integer)
+   pre p1: l1 >= 0 and l1 < 1000000
+
+context DbcBenchmarkPre::f_in2(s1:String)
+   pre p2: s1.size() >= 0 and s1.size() < 1000000
+    		
+context DbcBenchmarkPre::f_in3(ll1:Sequence(Integer))
+   pre p3: ll1->forAll(i| i >=0 and i < 1000000)
+
+
+context DbcBenchmarkPost::f_ret1()
+   post p1: result >=0 and result < 1000000
+
+context DbcBenchmarkPost::f_ret2()
+   post p2: result.size() >= 0 and result.size() < 1000000
+    		
+context DbcBenchmarkPost::f_ret3()
+   post p3: result->forAll(i| i >=0 and i < 1000000)
+
+endpackage
+

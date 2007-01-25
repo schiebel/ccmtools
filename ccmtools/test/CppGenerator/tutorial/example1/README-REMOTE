@@ -1,0 +1,64 @@
+Tutorial example 1
+==================
+
+This is the example of the tutorial's "Remote Component" chapter.
+It is thought as an entry to the component based development using CCM Tools.
+
+
+How to build and run the remote component:
+------------------------------------------
+Note that a remote components assumes the existence of a corresponding
+local component. Thus, make sure that you already have done the following
+steps (as described in README but without a mirror component):
+
+# Generate idl3 and idl3 mirror files in the right structure
+$ ccmtools-generate idl3 -o CarRental/idl3 *.idl
+$ ccmtools-generate idl3mirror -o CarRental/idl3 *.idl
+
+# Generate component interfaces
+$ ccmtools-generate c++local -o CarRental/interface -ICarRental/idl3/interface CarRental/idl3/interface/BigBusiness/*.idl
+
+# Generate local CarRental component
+$ ccmtools-generate c++local -a -o CarRental/component/CarRental -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/component/BigBusiness/CarRental.idl CarRental/idl3/component/BigBusiness/CarRentalHome.idl
+
+# Copy business logic and test cases into the component directory
+$ cp impl/CarRental_impl.h CarRental/component/CarRental/impl/
+$ cp impl/CarRental_business_impl.cc CarRental/component/CarRental/impl/
+$ cp impl/CarRental_maintenance_impl.cc  CarRental/component/CarRental/impl/
+
+
+OK, now we have a local CarRental component and are ready to build the 
+corresponding remote component. 
+
+# First, start Mico's NameService and set the CCM_NAME_SERVICE and
+# CCM_INSTALL environment variables.
+$ cpp-environment/bin/runNameService
+$ export CCM_NAME_SERVICE=corbaloc:iiop:1.2@localhost:5050/NameService
+$ export CCM_INSTALL=</prefix/path/defined/in/.confix>
+
+# Optional, you can turn on the remote debug output by setting
+$ export WX_DEBUG_LEVELS="CCM_REMOTE"
+
+# Generate equivalent IDL2 files from IDL3
+$ ccmtools-generate idl2 -o CarRental/CORBA_Stubs -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/interface/BigBusiness/*.idl CarRental/idl3/component/BigBusiness/*.idl  
+
+
+# Generate remote component logic (with remote adapters)
+
+$ ccmtools-generate c++remote -o CarRental/component/CarRental -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/interface/BigBusiness/*.idl 
+
+$ ccmtools-generate c++remote -o CarRental/component/CarRental -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/component/BigBusiness/CarRental.idl CarRental/idl3/component/BigBusiness/CarRentalHome.idl
+
+# Generate a remote test case
+$ ccmtools-generate c++remote-test -o CarRental/component/CarRental -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/component/BigBusiness/CarRental.idl 
+$ cp test/_check_CCM_Remote_BigBusiness_CCM_Session_CarRental_remote.cc CarRental/component/CarRental/test
+
+# Build remote component's stubs and skeletons
+$ touch CarRental/component/CarRental/Makefile.py
+$ touch CarRental/component/Makefile.py
+$ touch CarRental/interface/Makefile.py
+
+$ confix.py --advanced --bootstrap --configure --packageroot=`pwd`/CarRental --make --targets=check
+
+
+

@@ -1,0 +1,3 @@
+/*** temporarily added to support hacked return of components ***/
+class %(ResultType)s;
+

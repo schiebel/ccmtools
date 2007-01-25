@@ -1,0 +1,21 @@
+PyObject *
+convert_%(Identifier)s_to_python ( %(Identifier)s arg )
+{ return convert_%(LanguageType)s_to_python ( arg ); }
+
+PyObject *
+convert_const_%(Identifier)s_to_python ( const %(Identifier)s arg )
+{ return convert_const_%(LanguageType)s_to_python ( arg ); }
+
+PyObject *
+convert_const_%(Identifier)s_ref_to_python ( const %(Identifier)s& arg )
+{ return convert_const_%(LanguageType)s_ref_to_python ( arg ); }
+
+%(Identifier)s
+convert_%(Identifier)s_from_python ( PyObject *arg )
+{ return convert_%(LanguageType)s_from_python ( arg ); }
+
+%(Identifier)s *
+convert_%(Identifier)s_ptr_from_python ( PyObject *arg )
+{ return convert_%(LanguageType)s_ptr_from_python ( arg ); }
+
+

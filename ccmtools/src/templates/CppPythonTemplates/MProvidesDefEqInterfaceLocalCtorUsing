@@ -1,0 +1,2 @@
+using %(LocalNamespace)s%(InterfaceType)s;
+

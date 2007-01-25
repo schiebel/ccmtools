@@ -1,0 +1,1 @@
+  { "%(Identifier)s", T_OBJECT_EX, offsetof ( %(StructIdentifier)s, %(Identifier)s ), 0, "%(Identifier)s field" },

@@ -1,0 +1,14 @@
+This directory has the following content:
+
+mdr01.jar   A subset of the Netbeans Metadata Repository (http://mdr.netbeans.org).
+            It generates Java code out of MOF metamodels using the Java Metadata
+            Interface (JMI). We use this tool for the OCL metamodel.
+
+oclmetamodel.jar   The OCL metamodel.
+                   It is used by the DbC (design by contract) generator.
+
+MOF/OCL.*   The MOF metamodel and the generated sources for OCL.
+
+
+You must add mdr01.jar and oclmetamodel.jar to the Java classpath!
+

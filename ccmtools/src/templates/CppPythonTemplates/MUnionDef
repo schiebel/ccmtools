@@ -1,0 +1,187 @@
+//==============================================================================
+// %(Identifier)s - python conversion prototypes <MUnionDef>
+//==============================================================================
+
+#ifndef __CCM_TEST__PYTHON__UNION__%(PreprocIdentifier)s__H__
+#define __CCM_TEST__PYTHON__UNION__%(PreprocIdentifier)s__H__
+
+#include "%(Identifier)s.h"
+
+#include <Python.h>
+#include "structmember.h"
+
+%(MUnionFieldDefInclude)s
+
+%(OpenNamespace)s
+
+PyObject *convert_%(Identifier)s_to_python           (       %(Identifier)s  arg );
+PyObject *convert_const_%(Identifier)s_to_python     ( const %(Identifier)s  arg );
+PyObject *convert_const_%(Identifier)s_ref_to_python ( const %(Identifier)s& arg );
+
+%(Identifier)s  convert_%(Identifier)s_from_python     ( PyObject *arg );
+%(Identifier)s *convert_%(Identifier)s_ptr_from_python ( PyObject *arg );
+
+%(CloseNamespace)s
+
+#endif
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s - python conversion implementation - <MUnionDef>
+//==============================================================================
+
+#include "%(Identifier)s_python.h"
+
+%(OpenNamespace)s
+
+// private Python type definition and functionality
+
+typedef struct {
+  PyObject_HEAD
+%(MUnionFieldDefVariable)s
+} Py%(Identifier)s_Object;
+
+static PyObject *
+Py%(Identifier)s_new ( PyTypeObject *type, PyObject *args, PyObject *kwds )
+{
+  Py%(Identifier)s_Object *self = NULL;
+  self = ( Py%(Identifier)s_Object * ) type->tp_alloc ( type, 0 );
+  if ( self == NULL ) return NULL;
+  return ( PyObject * ) self;
+}
+
+static int
+Py%(Identifier)s_init ( PyObject *self, PyObject *args, PyObject *kwds )
+{
+%(MUnionFieldDefInitVariable)s;
+
+  static char *kwlist[] = { %(MUnionFieldDefKeyword)sNULL };
+
+  if ( ! PyArg_ParseTupleAndKeywords
+       ( args, kwds, "%(FieldConvertString)s", kwlist, %(MUnionFieldDefKeywordVariable)s ) )
+    return -1;
+
+%(MUnionFieldDefInit)s
+
+  return 0;
+}
+
+static void
+Py%(Identifier)s_dealloc ( %(Identifier)s_Object *self )
+{
+%(MUnionFieldDefFree)s
+  self->ob_type->tp_free ( ( PyObject * ) self );
+}
+
+static PyGetSetDef Py%(Identifier)s_members[] = {
+%(MUnionFieldDefMember)s
+  {NULL, 0, 0, 0, NULL}  /* Sentinel */
+};
+
+static PyTypeObject Py%(Identifier)s_Type = {
+  PyObject_HEAD_INIT ( NULL )
+
+  0, /* ob_size */
+  "%(PythonNamespace)s.%(Identifier)s", /* tp_name */
+  sizeof ( Py%(Identifier)s_Object ), /* tp_basicsize */
+  0, /* tp_itemsize */
+
+  (destructor) Py%(Identifier)s_dealloc, /* tp_dealloc */
+
+  0, /* tp_print */
+  0, /* tp_getattr */
+  0, /* tp_setattr */
+  0, /* tp_compare */
+  0, /* tp_repr */
+  0, /* tp_as_number */
+  0, /* tp_as_sequence */
+  0, /* tp_as_mapping */
+  0, /* tp_hash */
+  0, /* tp_call */
+  0, /* tp_str */
+  0, /* tp_getattro */
+  0, /* tp_setattro */
+  0, /* tp_as_buffer */
+
+  Py_TPFLAGS_DEFAULT, /* tp_flags */
+
+  NULL, /* tp doc */
+
+  0, /* tp_traverse */
+  0, /* tp_clear */
+  0, /* tp_richcompare */
+  0, /* tp_weaklistoffset */
+  0, /* tp_iter */
+  0, /* tp_iternext */
+  0, /* tp_methods */
+
+  Py%(Identifier)s_members, /* tp_members */
+
+  0, /* tp_getset */
+  0, /* tp_base */
+  0, /* tp_dict */
+  0, /* tp_descr_get */
+  0, /* tp_descr_set */
+  0, /* tp_dictoffset */
+
+  Py%(Identifier)s_init, /* tp_init */
+
+  0, /* tp_alloc */
+
+  Py%(Identifier)s_new, /* tp_new */
+};
+
+// public conversion methods
+
+PyObject *
+convert_%(Identifier)s_to_python ( %(Identifier)s arg )
+{
+  Py%(Identifier)s_Object *self = Py%(Identifier)s_new (  );
+  if ( self == NULL ) return NULL;
+%(MUnionFieldDefTo)s
+  Py_INCREF ( self );
+  return ( PyObject * ) self;
+}
+
+PyObject *
+convert_const_%(Identifier)s_to_python ( const %(Identifier)s arg )
+{
+  Py%(Identifier)s_Object *self = Py%(Identifier)s_new (  );
+  if ( self == NULL ) return NULL;
+%(MUnionFieldDefTo)s
+  Py_INCREF ( self );
+  return ( PyObject * ) self;
+}
+
+PyObject *
+convert_const_%(Identifier)s_ref_to_python ( const %(Identifier)s& arg )
+{
+  Py%(Identifier)s_Object *self = Py%(Identifier)s_new (  );
+  if ( self == NULL ) return NULL;
+%(MUnionFieldDefTo)s
+  Py_INCREF ( self );
+  return ( PyObject * ) self;
+}
+
+%(Identifier)s
+convert_%(Identifier)s_from_python ( PyObject *arg )
+{
+  %(Identifier)s result;
+  if ( arg == NULL ) return result;
+%(MUnionFieldDefFrom)s
+  Py_DECREF ( arg );
+  return result;
+}
+
+%(Identifier)s *
+convert_%(Identifier)s_ptr_from_python ( PyObject *arg )
+{
+  %(Identifier)s *result = new %(Identifier)s;
+  if ( arg == NULL ) return NULL;
+%(MUnionFieldDefFromPointer)s
+  Py_DECREF ( arg );
+  return result;
+}
+
+%(CloseNamespace)s
+

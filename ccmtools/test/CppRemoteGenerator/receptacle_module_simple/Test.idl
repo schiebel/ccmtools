@@ -1,0 +1,22 @@
+module world {
+  module europe {
+    module austria {
+
+      interface I2
+      {
+	long op1(in string str);
+      };
+      
+      component Test
+      {
+	provides I2 in_port;
+	uses I2 out_port;
+      };
+      
+      home TestHome manages Test
+      {
+      };
+
+    }; // end of module austria
+  }; // end of module europe
+}; // end of module world

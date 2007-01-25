@@ -1,0 +1,17 @@
+// $Id: MyInteger.idl,v 1.1 2004/02/09 13:32:41 rlechner Exp $
+
+typedef sequence<long> LongSeq;
+typedef sequence<LongSeq> LongSeqSeq;
+typedef long LongArray[10];
+
+component MyInteger
+{
+  attribute LongSeq seq1;
+  attribute LongSeqSeq seq2;
+  attribute LongArray array1;
+  attribute long value1;
+};
+
+home MyIntegerHome manages MyInteger
+{
+};

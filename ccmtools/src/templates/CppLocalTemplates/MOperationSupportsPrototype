@@ -1,0 +1,4 @@
+    %(LanguageType)s %(Identifier)s(%(MParameterDefAll)s) 
+        %(MExceptionDefThrows)s;
+
+

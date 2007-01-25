@@ -1,0 +1,68 @@
+Automatic test cases for the CppLocalDbcGenerator
+=================================================
+
+This directory contains DbC test cases that can be run automatically using 
+the make check option of the ccmtools build process.
+
+Configuration:
+--------------
+To add new test cases, one needs to know the configuration steps.
+First, enable the test/CppDbcGenerator directory for automatic testing.
+Make sure that 'CppDbcGenerator' is defined in the SUBDIRS string of 
+ccmtools/test/Makefile.am 
+
+SUBDIRS = Metamodel IDL3Parser CodeGenerator IDLGenerator \
+          CppGenerator CppDbcGenerator
+
+You can run the CppDbcGenerator tests only by typing:
+
+SUBDIRS = CppDbcGenerator
+
+Second, the ccmtools/test/CppDbcGenerator/Makefile.am must define the
+shell scripts that run the test cases.
+
+TESTS = Example1.sh \
+        Example2.sh \
+        Example3.sh
+
+
+Adding a new test case:
+-----------------------
+
+a) Create a new subdirectory in ccmtools/test/CppDbcGenerator/ and implement
+   a test case. The following tree gives an idea of the test case stucture:
+
+     Example1
+     |-- Example1.idl
+     |-- Example1.ocl
+     |-- src
+     |   |-- Math_app.cc
+     |   `-- Math_app.h
+     `-- test
+         |-- _check_perf1_DbC.cc
+         |-- _check_perf1_local.cc
+         |-- perf1code.hxx
+         `-- performance1.hxx
+
+   The src and test directories can be used to define a component's implementation
+   and test cases.
+
+b) Write a new test script, e.g. Example1.sh:
+     #! /bin/sh
+     ${top_srcdir}/test/CppDbcGenerator/test-loader.sh \
+     "Example1" " " "${srcdir}/../Example1/Example1.idl"
+
+   This script uses the predefined test-loader script that handles most of the test
+   procedure. Thus, you simply fill in the names of the new test directory and
+   IDL files.	   
+
+c) Extend the TESTS list in Makefile.am 
+
+d) Make sure that 'CppDbcGenerator' is included in SUBDIRS of ccmtools/test/Makefile.am 
+
+e) Run test cases:
+   $ pwd
+   ccmtools/
+   $ make check
+
+

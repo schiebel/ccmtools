@@ -1,0 +1,2 @@
+  virtual %(Identifier)sConnections& get_connections_%(Identifier)s (  ) = 0;
+

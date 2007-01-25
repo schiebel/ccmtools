@@ -1,0 +1,39 @@
+/**
+ * Test case: remote facet exception 
+ *
+ */
+
+struct ErrorInfo
+{
+  long code;
+  string message;
+};
+
+typedef sequence<ErrorInfo> ErrorInfoList;
+
+exception ErrorException
+{
+  ErrorInfoList info;
+};
+
+exception SuperError{};
+
+exception FatalError
+{
+  string what;
+};
+
+
+interface IFace {
+  long foo(in string msg)
+    raises (ErrorException, SuperError, FatalError);
+};
+
+component Test
+{
+  provides IFace iface;
+};
+
+home TestHome manages Test
+{
+};

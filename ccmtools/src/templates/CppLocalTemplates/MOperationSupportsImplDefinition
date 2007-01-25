@@ -1,0 +1,13 @@
+%(LanguageType)s
+CCM_%(Object)s_impl::%(Identifier)s(%(MParameterDefAll)s)
+    %(MExceptionDefThrows)s
+{
+    DEBUGNL(" CCM_%(Object)s_impl->%(Identifier)s(%(MParameterDefName)s)");
+
+    %(CodaParameterConvertPre)s
+    %(WrapperForward)s
+    %(CodaParameterConvertPost)s
+
+}
+
+

@@ -1,0 +1,82 @@
+/**
+ * Test case: attribute basic types 
+ */
+
+typedef long time_t;
+
+struct Person {
+  long id;
+  string name;
+};
+
+struct Address {
+  string street;
+  long   number;
+  Person resident;
+};
+
+typedef sequence<long> LongList;
+
+typedef sequence<string> StringList;
+
+typedef sequence<Person> PersonList;
+
+//typedef double DoubleArray[10];
+
+enum Color {red, green, blue, black, orange};
+
+
+interface IFace
+{
+  attribute short short_value;
+  attribute long long_value;
+  attribute unsigned short ushort_value;
+  attribute unsigned long ulong_value;
+  attribute float float_value;
+  attribute double double_value;
+  attribute char char_value;
+  attribute string string_value;
+  attribute boolean boolean_value;
+  attribute octet octet_value;
+  
+  attribute time_t time_t_value;
+  attribute Person person_value;
+  attribute Address address_value;
+  attribute LongList longList_value;
+  attribute StringList stringList_value;
+  attribute PersonList personList_value;
+  //  attribute DoubleArray doubleArray_value;
+  attribute Color color_value;
+};
+
+
+component Test
+{
+  attribute short short_value;
+  attribute long long_value;
+  attribute unsigned short ushort_value;
+  attribute unsigned long ulong_value;
+  attribute float float_value;
+  attribute double double_value;
+  attribute char char_value;
+  attribute string string_value;
+  attribute boolean boolean_value;
+  attribute octet octet_value;
+
+  attribute time_t time_t_value;
+  attribute Person person_value;
+  attribute Address address_value;
+  attribute LongList longList_value;
+  attribute StringList stringList_value;
+  attribute PersonList personList_value;
+  //  attribute DoubleArray doubleArray_value;
+  attribute Color color_value;
+
+
+  provides IFace iface;
+};
+
+home TestHome manages Test
+{
+};
+

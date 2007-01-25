@@ -1,0 +1,10 @@
+SmartPtr<%(ProvidesType)s>
+%(ComponentType)s::provide_%(Identifier)s()
+{
+    DEBUGNL(" %(ComponentType)s->provide_%(Identifier)s()");
+    if(!ValidConnection) 
+        throw LocalComponents::InvalidConnection();
+    return %(Identifier)s_facet;
+}
+
+

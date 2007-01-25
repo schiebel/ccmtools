@@ -1,0 +1,1481 @@
+% $Id: FirstComponent.tex,v 1.14 2004/10/21 07:31:32 teiniker Exp $
+%==============================================================================
+\chapter{Component Development}
+%==============================================================================
+
+
+%------------------------------------------------------------------------------
+\section{Component development process overview}
+%------------------------------------------------------------------------------
+
+This section shows how to implement a simple component using the CCM
+Tools framework. 
+Before you start with component development, make sure that the CCM Tools are
+installed in a proper way.
+
+\vspace{3mm}
+As shown in Fig.~\ref{fig:development-process}, the component development 
+process defines different roles that reflect different abstraction levels of 
+components:
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=10cm,angle=0] {DevelopmentProcess}
+        \caption{Component development process}
+        \label{fig:development-process}
+    \end{center}
+\end{figure}
+\begin{description}
+\item [Component Designer]
+specifies the structure of the component by defining {\it Interface
+Description Language} (IDL) files. The interfaces defined in the IDL source
+file(s) are only syntax definitions and do not describe the behavior of the
+component. These IDL declarations merely specify the methods that a component is
+required to implement. In this way, an IDL file is a sort of protocol
+definition for a component.
+
+\item [Component Developer]
+implements the component's behavior with respect to the defined interfaces.
+\end{description}
+
+Using IDL to specify the outside view of components ensures that we can connect
+these black boxes that may be implemented in different programming languages.
+
+\newpage
+The CCM Tools framework support this development process by providing an IDL 
+parser and different code generators. 
+Each component has two logical parts 
+(Fig.~\ref{fig:componentlogic-businesslogic}), and generated code is used in 
+both parts:
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=5cm,angle=0] {ComponentLogicBusinessLogic}
+        \caption{Component logic with embedded business logic}
+        \label{fig:componentlogic-businesslogic}
+    \end{center}
+\end{figure}
+
+\begin{description}
+\item [Component Logic]
+is the implementation of the component's structure. It contains mechanisms to
+create and destroy component instances as well as access and navigation methods
+for finding and manipulating ports and attributes. This code can be completely
+generated from IDL descriptions.
+
+\item [Business Logic]
+is the implementation of the component's behavior.
+Generator tools can create skeleton code, but the component
+developer has to implement the business code manually.
+
+Happily, the component developer need not be a CORBA guru to implement these
+functions: Generated remote (out--of--process) component logic can handle the
+interface with a CORBA server.
+
+Also, because of the nature of a component based application, the component
+developer should not implement a given component's business logic with an entire
+application in mind. Components are, on the contrary, meant to encapsulate well
+defined logical processes without caring about the overall structure of the
+application environment.
+\end{description}
+
+Finally, the CCM Tools make use of the {\it Confix} build tool to create  
+libraries from generated (component logic) and hand-crafted (business logic) 
+source code. 
+The component libraries are installed in a component repository on the server
+side and can be used to assemble modular, component based applications.
+
+\newpage
+
+
+%------------------------------------------------------------------------------
+\section{The designer's job}
+%------------------------------------------------------------------------------
+
+Let's start to design the first component. 
+In the role of a component designer,
+we have to create a bunch of IDL files that describes a component's structure
+(Fig~\ref{fig:component-design}). 
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=4cm,angle=0] {DesignerTask}
+        \caption{Component design}
+        \label{fig:component-design}
+    \end{center}
+\end{figure}
+
+As a simple example, we model a car rental component that can handle customers
+and miles. For each customer we can evaluate driven miles and costs incurred. 
+Of course, this is not a real world application, but this example is
+well suited to demonstrate CCM Tools in action.
+
+We will store all created IDL files in a {\tt example1} directory
+\footnote{You can find this example source code in the 
+{\tt ccmtools/test/CppGenerator/tutorial/} directory.}:
+\begin{small}
+\begin{verbatim}
+        example1/
+        |-- Exceptions.idl
+        |-- Customer.idl
+        |-- CustomerMaintenance.idl
+        |-- CustomerBusiness.idl
+        `-- CarRental.idl
+\end{verbatim}
+\end{small}
+
+Keep in mind that IDL files contain no specification of what exact action will 
+be performed.
+The component developer bears the responsibility of filling in the functionality
+after the component logic has been generated.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+#ifndef __EXCEPTIONS_IDL__
+#define __EXCEPTIONS_IDL__
+
+module BigBusiness {
+  exception CreateCustomerException{};
+  exception RemoveCustomerException{};
+  exception NoCustomerException{};
+}; // End of module BigBusiness
+
+#endif
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Exceptions.idl}
+\label{example:Exceptions}
+\end{Example}
+The first code snippet (example \ref{example:Exceptions}) shows the definition 
+of three IDL exceptions.
+In order to get a namespace, we envelop these definitions using a module called 
+{\tt BigBusiness}. 
+To prevent IDL files from multiple including, we define {\it include guards} 
+within each source file.
+
+
+\newpage
+ 
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+#ifndef __CUSTOMER_IDL__
+#define __CUSTOMER_IDL__
+
+module BigBusiness {
+  struct Customer {
+    long id;
+    string first_name;
+    string last_name;
+    double mileage;
+  };
+  typedef sequence<Customer> CustomerList;
+}; // End of module BigBusiness
+
+#endif
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Customer.idl}
+\label{example:Customer}
+\end{Example}
+
+In {\tt Customer.idl}, we define a structure of basic data types and a sequence 
+of this structure type.
+Again, there is a {\tt BigBusiness} module and an include guard.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+#ifndef __CUSTOMER_MAINTENANCE_IDL__
+#define __CUSTOMER_MAINTENANCE_IDL__
+
+#include"Exceptions.idl"
+#include"Customer.idl"
+
+module BigBusiness {
+  interface CustomerMaintenance
+  {
+    void createCustomer(in Customer person) 
+      raises (CreateCustomerException);
+    Customer retrieveCustomer(in long id)  
+      raises (NoCustomerException);
+    CustomerList retrieveAllCustomers()  
+      raises (NoCustomerException);
+    void updateCustomer(in Customer person)  
+      raises (NoCustomerException);
+    void deleteCustomer(in long id)  
+      raises (RemoveCustomerException);
+  };
+}; // End of module BigBusiness
+#endif
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{CustomerMaintenance.idl}
+\label{example:}
+\end{Example}
+Customers must be handled in a database like way. 
+Thus, {\tt CustomerMaintenance.idl} contains a 
+{\it Create, Retrieve, Update and Delete} (CRUD) interface. 
+To pick a particular {\tt Customer}, we use a customer id that is realized by 
+an IDL long type.
+Methods can throw exceptions in the case of illegal customer ids, create or 
+remove problems. 
+
+\newpage
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+#ifndef __CUSTOMER_BUSINESS_IDL__
+#define __CUSTOMER_BUSINESS_IDL__
+
+#include "Exceptions.idl"
+
+module BigBusiness {
+  interface CustomerBusiness
+  {
+    attribute double dollars_per_mile;
+    void addCustomerMiles(in long id, in double miles) 
+      raises(NoCustomerException);
+    void resetCustomerMiles(in long id) 
+      raises(NoCustomerException);
+    double getCustomerMiles(in long id) 
+      raises(NoCustomerException);
+    double getCustomerDollars(in long id) 
+      raises(NoCustomerException);
+  };
+}; // End of module BigBusiness
+#endif
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{CustomerBusiness.idl}
+\label{example:}
+\end{Example}
+
+Beside the pure data manipulation, we also need an interface that defines a
+business functionality.
+{\tt CustomerBusiness.idl} defines an attribute and some methods that operate
+on the given customer data. 
+If a parameter represents a wrong customer id, the {\tt NoCustomerException}
+will be thrown.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+#ifndef __CAR_RENTAL_IDL__
+#define __CAR_RENTAL_IDL__
+
+#include "CustomerMaintenance.idl"
+#include "CustomerBusiness.idl"
+
+module BigBusiness {
+
+  component CarRental 
+  { 
+    provides CustomerMaintenance maintenance;
+    provides CustomerBusiness business;
+  };
+  
+  home CarRentalHome manages CarRental 
+  { };
+
+}; // End of module BigBusiness
+#endif
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{CarRental.idl}
+\label{example:component}
+\end{Example}
+
+Finally, we collect the included interfaces to a {\tt CarRental} component and 
+define a {\tt CarRentalHome} that will be used to create component instances at
+runtime.
+
+Well done! We have defined our first component in terms of IDL.
+
+
+\newpage
+
+%------------------------------------------------------------------------------
+\section{The developer's job}
+%------------------------------------------------------------------------------
+
+Remember, the component developer implements the behavior of the component with
+respect to the defined IDL interfaces (Fig.~\ref{fig:component-development}). 
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=8cm,angle=0] {DeveloperTask}
+        \caption{Component development}
+        \label{fig:component-development}
+    \end{center}
+\end{figure}
+
+This section shows how the CCM Tools make this job easier.
+
+%------------------------------------------------------------------------------
+\subsection{Create component logic from IDL}
+%------------------------------------------------------------------------------
+
+In the first step, we bring the IDL3 files in a proper structure that implies 
+the separation between interface and component definitions. 
+\begin{small}
+\begin{verbatim}
+~/example1> ccmtools-generate idl3 -o CarRental/idl3 *.idl
+\end{verbatim}
+\end{small}
+As result of this CCM Tools call is the following file structure.
+The separation between interface and component related files reflects the
+fact that interfaces are used to defined components but are not owned by
+these components.
+\begin{small}
+\begin{verbatim}
+CarRental
+`-- idl3
+    |-- component
+    |   `-- BigBusiness
+    |       |-- CarRental.idl
+    |       `-- CarRentalHome.idl
+    `-- interface
+        `-- BigBusiness
+            |-- CreateCustomerException.idl
+            |-- Customer.idl
+            |-- CustomerBusiness.idl
+            |-- CustomerList.idl
+            |-- CustomerMaintenance.idl
+            |-- NoCustomerException.idl
+            `-- RemoveCustomerException.idl
+\end{verbatim}
+\end{small}
+
+\newpage
+To generate C++ source code from IDL3 we have to call the CCM Tools generator
+twice, once for the interfaces and once for the component:
+\begin{small}
+\begin{verbatim}
+~/example1> ccmtools-generate c++local \
+                -o CarRental/interface \
+                -ICarRental/idl3/interface \
+                CarRental/idl3/interface/BigBusiness/*.idl
+~/example1> ccmtools-generate c++local -a \
+                -o CarRental/component/CarRental \
+                -ICarRental/idl3/component -ICarRental/idl3/interface \
+                CarRental/idl3/component/BigBusiness/CarRental.idl \
+                CarRental/idl3/component/BigBusiness/CarRentalHome.idl
+\end{verbatim}
+\end{small}
+
+Now, the {\tt CarRental} subdirectory contains the component's source code. 
+(To get a description of all {\tt ccmtools-generate} options consult the 
+CCM Tools commands section in the tutorial's appendix).
+\begin{small}
+\begin{verbatim}
+CarRental
+|-- idl3
+|-- component
+|   `-- CarRental
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_share
+|       `-- impl
+|           |-- CarRentalHome_entry.h
+|           |-- CarRentalHome_impl.cc
+|           |-- CarRentalHome_impl.h
+|           |-- CarRental_business_impl.cc
+|           |-- CarRental_business_impl.h
+|           |-- CarRental_impl.cc
+|           |-- CarRental_impl.h
+|           |-- CarRental_maintenance_impl.cc
+|           |-- CarRental_maintenance_impl.h
+|           `-- Makefile.py
+`-- interface
+    `-- CCM_Local_BigBusiness
+\end{verbatim}
+\end{small}
+
+The component developer really ought not to care about the generated 
+{\tt CCM\_Local\_*} subdirectories (if you don't believe us, though, feel free 
+to read through it; just don't edit anything). 
+The interesting files are listed in the {\tt impl} directory. 
+These files contain skeleton code (that are empty methods) of the component's 
+business logic.
+
+\begin{itemize}
+\item {\tt CarRentalHome\_entry.h} \\
+This file is the business logic's entry point and declares an extern ``C'' 
+function that returns a component home instance.
+The generated implementation of this function is hosted in the 
+{\tt CarRentalHome\_impl.cc} file.
+
+\item {\tt CarRentalHome\_impl.[h,cc]} \\
+These files contain the factory methods for component instantiation. 
+While user defined factory methods must be implemented manually, the default 
+{\tt create} method is already generated.
+
+\item {\tt CarRental\_impl.[h,cc]} \\
+These files contain the implementation of supported interfaces as well as the
+implementation of component attributes.
+
+\item {\tt CarRental\_business\_impl.[h,cc]} \\
+{\tt CarRental\_maintenance\_impl.[h,cc]} \\
+These files contain the implementation of defined facets and builds
+the component's business logic
+(grep for {\tt // TODO : IMPLEMENT ME HERE !}).
+
+\item {\tt Makefile.py} \\
+This file is a Confix marker that denotes a directory as 'to compile'.
+\end{itemize}
+
+Files in the {\tt impl} directory are protected from overwriting.
+Running the generator again results in a bunch of warnings. 
+Instead of overwriting, the generator stores the new files with an extension 
+({\tt *.new}) into the same directory.
+You can make a {\tt diff} to figure out changes. 
+
+\vspace{3mm}
+The generated business logic skeletons contains enough code to be compilable.
+To build the generated source code, type:
+\begin{small}
+\begin{verbatim}
+# Compile and install component interfaces
+$ confix.py --advanced --bootstrap --configure \
+            --packageroot=`pwd`/CarRental/interface \
+            --make --targets=install
+
+# Compile the components and run the unit test
+$ touch CarRental/component/CarRental/Makefile.py
+$ confix.py --advanced --bootstrap --configure \
+            --packageroot=`pwd`/CarRental/component \
+            --make 
+\end{verbatim}
+\end{small}
+
+
+%------------------------------------------------------------------------------
+\subsection{Test driven development}
+%------------------------------------------------------------------------------
+
+Software development is an iterative process. Kent Beck
+has proposed a {\it Test Driven Development} (TDD) methodology 
+\cite{Beck2003TDD} that starts by
+implementing the test~-- before implementing the business logic!
+
+\begin{figure}[!htb]
+    \begin{center}
+        \includegraphics [width=7cm,angle=0] {TestDrivenDevelopment}
+        \caption{Test driven development process}
+        \label{fig:test-driven-development}
+    \end{center}
+\end{figure}
+
+As shown in Fig.~\ref{fig:test-driven-development}, the CCM Tools make use of
+the TDD idea in the context of components. For every component $C$, we
+generate a mirror component $\overline{C}$. Each input port (receptacle)
+of $C$ corresponds to an output port (facet) of $\overline{C}$, and vice versa.
+
+\newpage
+To create a mirror component $\overline{C}$ definition from manually written 
+IDL3 files, type:
+\begin{small}
+\begin{verbatim}
+~/example1> ccmtools-generate idl3mirror -o CarRental/idl3 *.idl
+\end{verbatim}
+\end{small}
+
+From the generated IDL3 files you can see that both $\overline{C}$ and $C$ 
+uses the same interfaces.
+\begin{small}
+\begin{verbatim}
+CarRental
+`-- idl3
+    |-- component
+    |   `-- BigBusiness
+    |       |-- CarRental.idl
+    |       |-- CarRentalHome.idl
+    |       |-- CarRentalHome_mirror.idl    // new
+    |       `-- CarRental_mirror.idl        // new
+    `-- interface
+        `-- BigBusiness
+            |-- CreateCustomerException.idl
+            |-- Customer.idl
+            |-- CustomerBusiness.idl
+            |-- CustomerList.idl
+            |-- CustomerMaintenance.idl
+            |-- NoCustomerException.idl
+            `-- RemoveCustomerException.idl
+\end{verbatim}
+\end{small}
+
+Now we can use the {\tt c++local} generator again to create C++ component logic 
+from the IDL3 mirror files.
+\begin{small}
+\begin{verbatim}
+~/example1> ccmtools-generate c++local -a \
+                -o CarRental/component/CarRental_mirror \
+                -ICarRental/idl3/component -ICarRental/idl3/interface \
+                CarRental/idl3/component/BigBusiness/CarRental_mirror.idl \
+                CarRental/idl3/component/BigBusiness/CarRentalHome_mirror.idl
+\end{verbatim}
+\end{small}
+This results in the following file structure:
+\begin{small}
+\begin{verbatim}
+CarRental 
+|-- component
+|   |-- CarRental
+|   `-- CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror_share
+|       `-- impl
+|           |-- CarRentalHome_mirror_entry.h
+|           |-- CarRentalHome_mirror_impl.cc
+|           |-- CarRentalHome_mirror_impl.h
+|           |-- CarRental_mirror_impl.cc
+|           |-- CarRental_mirror_impl.h
+|           `-- Makefile.py
+\end{verbatim}
+\end{small}
+
+The {\tt impl} directory contains generated files of the mirror
+component's business logic that can host component test cases.
+In the next sections of this tutorial, we will implement test cases as well
+as business logic. 
+
+\newpage
+Finally, a test client coordinates creating and connecting of component $C$ and 
+mirror component $\overline{C}$.
+To generate a test client, we type:
+\begin{small}
+\begin{verbatim}
+~/example1> ccmtools-generate c++local-test \
+                -o CarRental/component/CarRental_mirror \
+                -ICarRental/idl3/component -ICarRental/idl3/interface \
+                CarRental/idl3/component/BigBusiness/CarRental.idl
+\end{verbatim}
+\end{small}
+
+The generated files are stored in the following way:
+\begin{small}
+\begin{verbatim}
+CarRental
+|-- component
+|   |-- CarRental
+|   `-- CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror_share
+|       |-- impl
+|       `-- test
+|           |-- Makefile.py
+|           `-- _check_CCM_Local_BigBusiness_CCM_Session_CarRental.cc
+\end{verbatim}
+\end{small}
+
+The {\tt test} directory contains a generated {\tt \_check\_*} file that 
+implements the test client and is also protected from overwriting.
+
+
+
+\newpage
+%------------------------------------------------------------------------------
+\subsection{Write the test first}
+%------------------------------------------------------------------------------
+
+Now is a good time to start the development of business code. First, we have to
+define the behavior of the business code in an executable semantic. 
+In other words, we write a test case in the mirror component 
+({\tt CarRental\_mirror\_impl.cc}), as
+shown in Example~\ref{example:one-component-mirror-impl}.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+void CCM_CarRental_mirror_impl::ccm_activate()
+  throw ( LocalComponents::CCMException )
+{
+  try {
+    {
+      CCM_Local::BigBusiness::Customer person;
+      person.id = 1;
+      person.first_name = "Franz";
+      person.last_name = "Kafka";
+      ctx->get_connection_maintenance_mirror()->
+           createCustomer(person);
+    }
+    {
+      CCM_Local::BigBusiness::Customer person;
+      long id = 1;
+      person = ctx->get_connection_maintenance_mirror()->
+               retrieveCustomer(id);
+      assert(person.id == 1);
+      assert(person.first_name == "Franz");
+      assert(person.last_name == "Kafka");
+    }
+  }
+  catch(CCM_Local::BigBusiness::CreateCustomerException) {
+    cerr << "MAINTENANCE ERROR: Can't create customer!" << endl;
+  }
+  catch(CCM_Local::BigBusiness::NoCustomerException) {
+    cerr << "MAINTENANCE ERROR: no customer found!" << endl;
+  }
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Test case implementation in the mirror component.}
+\label{example:one-component-mirror-impl}
+\end{Example}
+The test case is implemented in the {\tt ccm\_activate} callback method of the
+mirror component because this method is called after creating and connecting $C$
+and $\overline{C}$ from the component logic. 
+
+First, we creating a valid {\tt Customer} record and  
+use the context object ({\tt ctx}) to get a smart pointer
+to $\overline{C}$'s receptacle (which is connected with $C$'s facet) 
+before we call the {\tt createCustomer} operation. 
+After that, we retrieve the record from the receptacle and compare the stored 
+items.
+
+To compile and run the test, we type:
+\begin{small}
+\begin{verbatim}
+~/example1> touch CarRental/component/CarRental_mirror/Makefile.py
+~/example1> confix.py --advanced --bootstrap --configure \
+                      --packageroot=`pwd`/CarRental/component \
+                      --make --targets=check
+\end{verbatim}
+\end{small}
+The test failed! 
+That's fine because there is no business code to work with...
+%Remember, there is no business code implemented in {\tt createCustomer} and 
+%{\tt retrieveCustomer}; they are empty function skeletons. 
+
+
+
+
+
+
+%------------------------------------------------------------------------------
+\subsection{Write the business logic}
+%------------------------------------------------------------------------------
+
+Now we are ready to implement the business logic that satisfies the written 
+test case. 
+First, we have to implement the customer database - no panic - we 
+simple put a C++ {\tt std::vector<>} into the {\tt CarRental\_impl.h} file,
+to hold {\tt Customer} entities.
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+class CCM_CarRental_impl : virtual public CCM_CarRental
+{
+  public:
+    std::vector<CCM_Local::BigBusiness::Customer> CustomerDB;
+    //...
+};
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Business logic header file.}
+\label{example:one-component-impl}
+\end{Example}
+
+Next, we open {\tt CarRental\_maintenance\_impl.cc} and add some lines, as 
+shown in Example~\ref{example:one-component-impl}.
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+void
+maintenance_impl::createCustomer ( const Customer& person )
+  throw (LocalComponents::CCMException, CreateCustomerException)
+{
+  component->CustomerDB.push_back(person);
+}
+
+Customer
+maintenance_impl::retrieveCustomer ( const long id )
+  throw (LocalComponents::CCMException, NoCustomerException)
+{
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    if(pos->id == id) {
+      return *pos;
+    }
+  }
+  throw NoCustomerException();
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Business logic implementation.}
+\label{example:one-component-impl}
+\end{Example}
+
+Instead of a database, we simply use a {\tt std::vector<>} to implement
+the {\tt createCustomer} and {\tt retrieveCustomer} methods~-- that's it! 
+
+We'll run the test again to see if it's working:
+\begin{small}
+\begin{verbatim}
+~/example1> confix.py --advanced \
+                      --packageroot=`pwd`/CarRental/component \
+                      --make --targets=check
+\end{verbatim}
+\end{small}
+
+Yay, the test passed!
+
+
+
+%------------------------------------------------------------------------------
+\subsection{Write the test, write the business logic, run the test ...}
+%------------------------------------------------------------------------------
+The idea of test driven development is to run short cycles of test and
+implementation until all required functionality is implemented.
+For the {\tt CarRental} component, this section goes through all these 
+development steps. 
+To keep the tutorial clean, we implement only simple tests that show the
+functionality of {\tt CarRental}'s business logic.
+In practice, these white box tests must be much more substantial.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    {
+      CCM_Local::BigBusiness::Customer person;
+      person.id = 2;
+      person.first_name = "Thomas";
+      person.last_name = "Bernhard";
+      ctx->get_connection_maintenance_mirror()->
+           createCustomer(person);
+
+      person.id = 3;
+      person.first_name = "Karl";
+      person.last_name = "Kraus";
+      ctx->get_connection_maintenance_mirror()->
+           createCustomer(person);
+    }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt retrieveAllCustomers} test case}
+\label{example:retrieveAllCustomersTest}
+\end{Example}
+
+To test the {\tt retrieveAllCustomers} method, we add two other customers before
+we call the method. All retrieved records are compared with their initial values
+to validate the query results. 
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    {
+      CCM_Local::BigBusiness::CustomerList person_list;
+      person_list = ctx->get_connection_maintenance_mirror()->
+                         retrieveAllCustomers();
+      assert(person_list.at(2).id == 3);
+      assert(person_list.at(2).first_name == "Karl");
+      assert(person_list.at(2).last_name == "Kraus");
+      assert(person_list.at(1).id == 2);
+      assert(person_list.at(1).first_name == "Thomas");
+      assert(person_list.at(1).last_name == "Bernhard");
+      assert(person_list.at(0).id == 1);
+      assert(person_list.at(0).first_name == "Franz");
+      assert(person_list.at(0).last_name == "Kafka");
+    }      
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt retrieveAllCustomers} test case}
+\label{example:retrieveAllCustomersTest}
+\end{Example}
+
+Note that the whole example is also available in the 
+{\tt test/CppGenerator/tutorial} directory of the {\tt ccmtools} package. 
+
+
+\newpage
+The method's implementation creates a new {\tt CustomerList} which
+is returned by value.
+In the case of an empty list the {\tt NoCustomerException} is thrown.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+CustomerList maintenance_impl::retrieveAllCustomers (  )
+  throw (LocalComponents::CCMException, NoCustomerException )
+{
+  if(component->CustomerDB.size() == 0)
+      throw NoCustomerException();
+  CCM_Local::BigBusiness::CustomerList customer_list;
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    customer_list.push_back(*pos);
+  }
+  return customer_list;
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt retrieveAllCustomers} implementation }
+\label{example:retrieveAllCustomersImpl}
+\end{Example}
+
+
+Next, we implement a test case for {\tt updateCustomer}.
+A new {\tt Customer} record is created and used as parameter.
+To check the update procedure, we use {\tt retrieveCustomer} 
+and compare the result record with the new values.
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    {
+      CCM_Local::BigBusiness::Customer person;
+      person.id = 1;
+      person.first_name = "Werner";
+      person.last_name = "Schwab";
+      double mileage = 0.0;
+      ctx->get_connection_maintenance_mirror()->
+           updateCustomer(person);      
+
+      CCM_Local::BigBusiness::Customer another_person;
+      another_person = 
+        ctx->get_connection_maintenance_mirror()->
+             retrieveCustomer(person.id);
+      assert(another_person.id == 1);
+      assert(another_person.first_name == "Werner");
+      assert(another_person.last_name == "Schwab");
+    }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt updateCustomer} test case}
+\label{example:}
+\end{Example}
+
+
+\newpage
+To implement {\tt updateCustomers} we simply iterate through the {\tt Customer}
+vector and compare each item with the given person.
+If person matches, we overwrite the vector item and return.
+If person does not match, {\tt NoCustomerException} is thrown.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+void maintenance_impl::updateCustomer ( const Customer& person )
+  throw (LocalComponents::CCMException, NoCustomerException )
+{
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    if(pos->id == person.id) {
+      *pos = person;
+      return;
+    }
+  }
+  throw NoCustomerException();  
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt updateCustomer} implementation}
+\label{example:}
+\end{Example}
+
+
+
+
+In the following test case, we delete a {\tt Customer} and try to retrieve the 
+deleted record.
+If this works, we break the test ({\tt assert(false)}) because this would be an
+incorrect behavior. 
+Instead, the {\tt RemoveCustomerException} must be thrown.
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    {
+      long id = 1;
+      ctx->get_connection_maintenance_mirror()->
+           deleteCustomer(id);
+      CCM_Local::BigBusiness::Customer person;
+      person = ctx->get_connection_maintenance_mirror()->
+                    retrieveCustomer(id);
+      assert(false); // Customer found => error
+    }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt updateCustomer} test case}
+\label{example:}
+\end{Example}
+
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+void maintenance_impl::deleteCustomer ( const long id )
+  throw (LocalComponents::CCMException, RemoveCustomerException)
+{
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    if(pos->id == id) {
+      component->CustomerDB.erase(pos);
+      return;
+    }
+  }
+  throw RemoveCustomerException();  
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt updateCustomer} implementation}
+\label{example:updateCustomer}
+\end{Example}
+
+In example \ref{example:updateCustomer}, we iterate through 
+the {\tt Customer} vector and compare 
+each item with the given id.
+If the given record is found, we will remove it from the {\tt Customer} vector.
+If the given id can't be found in the{\tt Customer} vector, 
+{\tt RemoveCustomerException} is thrown.
+In conclusion, we have implemented the whole {\tt maintenance} facet hand in 
+hand with its test cases. 
+
+\vspace{3mm}
+A great benefit of test driven development is that testing is not longer a 
+separated part at the end of a software development process.
+In practice, most projects are running out of time before testing can start. 
+Thus, lots of functionality is implemented but test cases are skipped 
+frequently.
+With a test driven approach, one can scale the functionality of a project when 
+time is running out, but ensure software quality by having automatic tests.
+
+Another benefit of automatic tests appear in context of code refactoring. 
+After making some changes in a component's implementation, we can run all test 
+cases to ensure that its functionality is still available.
+
+
+\vspace{1cm}
+In order to implement the second facet, we start with a new test case in 
+$\overline{C}$.
+For {\tt business} facet tests, we create a new try/catch block that catches
+only {\tt NoCustomerException}s.
+ 
+The test adds some miles to an existing customer, retrieves the current miles 
+value from the same customer and verifies their equality. 
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+  try {
+    {
+      long id = 2;
+      double miles = 197.7;
+      ctx->get_connection_business_mirror()->
+           addCustomerMiles(id, miles); 
+
+      double other_miles;
+      other_miles = 
+        ctx->get_connection_business_mirror()->
+             getCustomerMiles(id); 
+      assert( abs(other_miles - miles) < 0.001);
+    }
+  }
+  catch(CCM_Local::BigBusiness::NoCustomerException) {
+    cerr << "MAINTENANCE ERROR: no customer found!" << endl;
+    assert(false);
+  }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt addCustomerMiles} and {\tt getCustomerMiles} test case}
+\label{example:}
+\end{Example}
+
+
+\newpage
+To make the test run, we have to implement two facet methods.
+{\tt addCustomerMiles} iterates through the {\tt Customer} vector
+and compares the id values.
+If the given {\tt Customer} id is found, the miles value is added to
+its current status.
+If the given id does not match, a {\tt NoCustomerException} is thrown.
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+void business_impl::addCustomerMiles(const long id, 
+                                     const double miles)
+  throw (LocalComponents::CCMException, NoCustomerException )
+{
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    if(pos->id == id) {
+      pos->mileage += miles;
+      return;
+    }
+  }
+  throw NoCustomerException();    
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt addCustomerMiles} implementation}
+\label{example:}
+\end{Example}
+
+
+After adding miles to an existing {\tt Customer} we have to implement a method
+that get the current value of a {\tt Customer}'s mileage member.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+double business_impl::getCustomerMiles ( const long id )
+  throw (LocalComponents::CCMException, NoCustomerException )
+{
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    if(pos->id == id) {
+      return pos->mileage;
+    }
+  }
+  throw NoCustomerException(); 
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt getCustomerMiles} implementation}
+\label{example:}
+\end{Example}
+
+Again, we iterate through the {\tt Customer} vector and compare the id values.
+If we find a {\tt Customer} with the right id, we read its mileage value and
+return it to the caller.
+In the other case, as usual, the {\tt NoCustomerException} is thrown.
+
+
+
+\newpage
+The following test case sets the facet's {\tt dollars\_per\_mile} attribute
+and retrieves the current mileage and Dollar status of a particular 
+{\tt Customer} determined by its id.
+Thus, the component's calculation can be verified.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    {
+      long id = 2;
+      double dollars, miles;
+      double factor = 5.3;
+      ctx->get_connection_business_mirror()->
+           dollars_per_mile(factor);
+      miles = ctx->get_connection_business_mirror()->
+                   getCustomerMiles(id);
+      dollars = ctx->get_connection_business_mirror()->
+                     getCustomerDollars(id); 
+      assert( abs(dollars - miles*factor) < 0.001);
+    }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt dollars\_per\_mile} and {\tt getCustomerDollars} test case}
+\label{example:}
+\end{Example}
+
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+double business_impl::dollars_per_mile()
+  throw ( LocalComponents::CCMException)
+{
+  return _dollars_per_mile;
+}
+
+void business_impl::dollars_per_mile(const double value )
+  throw ( LocalComponents::CCMException)
+{
+  _dollars_per_mile = value;
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt dollars\_per\_mile} attribute implementation}
+\label{example:get-set}
+\end{Example}
+
+Example \ref{example:get-set} shows the implementation of IDL attributes within 
+a facet.
+Note that in the corresponding header file the {\tt business\_impl} class 
+declaration must be extended to provide a private member called 
+{\tt \_dollars\_per\_mile}. 
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+double business_impl::getCustomerDollars ( const long id )
+  throw (LocalComponents::CCMException, NoCustomerException )
+{
+  return getCustomerMiles(id) * _dollars_per_mile;
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt getCustomerDollars()} implementation}
+\label{example:getCustomerDollars}
+\end{Example}
+
+Life would be pretty ease if all business logic would be as simple to implement 
+as \\ 
+{\tt getCustomerDollars} shown in example \ref{example:getCustomerDollars} 
+;-)
+
+
+\newpage
+Finally, the last test case resets a {\tt Customer}'s mileage value and 
+retrieves its Dollar status. Of course, it has to be null.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    {
+      long id = 2;
+      double dollars;
+      ctx->get_connection_business_mirror()->
+           resetCustomerMiles(id);
+      dollars = 
+        ctx->get_connection_business_mirror()->
+             getCustomerDollars(id); 
+      assert( abs(dollars) < 0.001);
+    }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt resetCustomerMiles} test case}
+\label{example:}
+\end{Example}
+
+
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+void business_impl::resetCustomerMiles ( const long id )
+  throw (LocalComponents::CCMException, NoCustomerException )
+{
+  std::vector<CCM_Local::BigBusiness::Customer>::iterator pos;
+  for(pos = component->CustomerDB.begin(); 
+      pos != component->CustomerDB.end(); ++pos) {
+    if(pos->id == id) {
+      pos->mileage = 0.0;
+      return;
+    }
+  }
+  throw NoCustomerException(); 
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{{\tt resetCustomerMiles} implementation}
+\label{example:resetCustomer}
+\end{Example}
+As shown in example \ref{example:resetCustomer}, {\tt resetCustomerMiles} 
+searches in the {\tt Customer}
+vector for the given id and set the mileage value to null.
+If no {\tt Customer} id matches, the {\tt NoCustomerException} is thrown.
+
+Well done! You have implemented the first component using the CCM Tools.
+
+
+\newpage
+%------------------------------------------------------------------------------
+\subsection{Deploy the component}
+%------------------------------------------------------------------------------
+
+Deploying a component means that the component's libraries and header files 
+will be stored in a component repository, which is simply a directory on your 
+computer (specified by {\tt PREFIX} in {\tt ~/.confix}).
+
+Component deployment is performed by Confix:
+\begin{small}
+\begin{verbatim}
+~/example1> confix.py --packageroot=`pwd`/CarRental/component \
+                      --make --targets=install
+\end{verbatim}
+\end{small}
+
+After installing a component, the component repository contains the following
+file structures:
+\begin{small}
+\begin{verbatim}
+include/
+|-- CCM_Local
+|   |-- BigBusiness
+|   |   |-- CCM_Session_CarRental/
+|   |   |-- CCM_Session_CarRental_mirror/
+|   |   |-- CreateCustomerException.h
+|   |   |-- Customer.h
+|   |   |-- CustomerBusiness.h
+|   |   |-- CustomerList.h
+|   |   |-- CustomerMaintenance.h
+|   |   |-- NoCustomerException.h
+|   |   `-- RemoveCustomerException.h
+\end{verbatim}
+\end{small}
+
+\begin{small}
+\begin{verbatim}
+lib/
+|-- libCarRental_CCM_Local_BigBusiness.a
+|-- libCarRental_CCM_Local_BigBusiness_CCM_Session_CarRental.a
+|-- libCarRental_CCM_Local_BigBusiness_CCM_Session_CarRental_mirror.a
+|-- libCarRental_CCM_Local_BigBusiness_CCM_Session_CarRental_mirror_share.a
+|-- libCarRental_CCM_Local_BigBusiness_CCM_Session_CarRental_share.a
+`-- libCarRental_src.a
+\end{verbatim}
+\end{small}
+
+
+
+
+%------------------------------------------------------------------------------
+\subsection{Undeploy the component}
+%------------------------------------------------------------------------------
+
+To remove the component from the component repository, type:
+
+\begin{small}
+\begin{verbatim}
+~/example1>  confix.py --packageroot=`pwd`/CarRental/component \
+                       --make --targets="uninstall" 
+\end{verbatim}
+\end{small}
+
+Installing is not necessary during component development. 
+For implementing test cases and business logic we only need the source and
+build directory (specified by {\tt BUILDROOT} in {\tt ~/.confix}).
+ 
+Note that we have to deploy our component again to use it from a client,
+as described in the following section. 
+
+%\newpage
+%------------------------------------------------------------------------------
+%\subsection{Component packaging}
+%------------------------------------------------------------------------------
+%\dots
+
+
+\newpage
+%------------------------------------------------------------------------------
+\subsection{Write a component client}
+%------------------------------------------------------------------------------
+
+A component based application builds up component assemblies using deployed 
+components. In this section we will show this using a simple client that
+instantiates the {\tt CarRental} component and calls the component's operations.
+
+First, we will add a {\tt CatRentalClient} directory to our project and implement
+the client code in the subdirectory {\tt src}:
+\begin{small}
+\begin{verbatim}
+example1/
+|-- CarRental/
+`-- CarRentalClient
+    `-- src
+        |-- Makefile.py
+        `-- client.cc
+\end{verbatim}
+\end{small}
+
+The client needs a bunch of included header files that are generated by the CCM Tools.
+There are different namespaces defined in the header files that we are using in the 
+client code.
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+#include <LocalComponents/CCM.h>
+#include <CCM_Local/HomeFinder.h>
+#include <WX/Utils/debug.h>
+#include <WX/Utils/smartptr.h>
+
+#include <CCM_Local/BigBusiness/CCM_Session_CarRental/ \
+          CarRentalHome_gen.h>
+#include <CCM_Local/BigBusiness/CCM_Session_CarRental/ \
+          CarRental_gen.h>
+
+using namespace std;
+using namespace WX::Utils;
+using namespace CCM_Local;
+using namespace BigBusiness;
+using namespace CCM_Session_CarRental;
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Client's include and namespace section.}
+\label{example:}
+\end{Example}
+
+In this simple client, the main function contains all the necessary code to use
+a local component. 
+\begin{itemize}
+\item Client's bootstrap and tear--down code (Example \ref{example:ClientBootsrap}).\\
+Before a component can be used, a component home must be instantiated and registered
+by the {\tt HomeFinder}.
+After using a component, the component home instance must be removed from memory and
+from the {\tt HomeFinder}'s list.
+\item Component's instantiation code (Example \ref{example:ClientComponentInstance}). \\
+A client gets a home reference from the {\tt HomeFinder}, creates a component 
+instance and asks for the component's facets.
+To denote the end of this instantiation phase, the client calls {\tt configuration\_complete()}.
+After all business calls, the client has to remove its component instance.
+
+\item Client's application code (Example \ref{example:ClientApplication}). \\
+Here the client calls some component operations to make its business work.
+We have implemented a simple use case known from our mirror component test cases.
+\end{itemize}
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+int main(int argc, char *argv[])
+{
+  int error = 0;
+  LocalComponents::HomeFinder* homeFinder;
+  homeFinder = HomeFinder::Instance (  );
+
+  error = local_deploy_CarRentalHome("CarRentalHome");
+  if(error) {
+    cerr << "BOOTSTRAP ERROR: Can't deploy component homes!" 
+         << endl;
+    return(error);
+  }
+
+  // Component instantiation code
+
+  error += local_undeploy_CarRentalHome("CarRentalHome");
+  if(error) {
+    cerr << "TEARDOWN ERROR: Can't undeploy component homes!" 
+         << endl;
+    return error;
+  }
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Client's bootstrap and tear--down code.}
+\label{example:ClientBootsrap}
+\end{Example}
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+  try {
+    SmartPtr<CarRentalHome> 
+      myCarRentalHome(dynamic_cast<CarRentalHome*>
+      (homeFinder->find_home_by_name("CarRentalHome").ptr()));
+
+    SmartPtr<CarRental> myCarRental = myCarRentalHome->create();
+
+    SmartPtr<CCM_Local::BigBusiness::CustomerMaintenance> 
+      maintenance = myCarRental->provide_maintenance();    
+    SmartPtr<CCM_Local::BigBusiness::CustomerBusiness> 
+      business = myCarRental->provide_business();
+
+    myCarRental->configuration_complete();
+
+    // Client's application code.
+
+    myCarRental->remove();
+  } 
+  catch ( ... )  {
+    cout << "Client: there is something wrong!" << endl;
+    error = -1;
+  }
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Component's instantiation code.}
+\label{example:ClientComponentInstance}
+\end{Example}
+
+
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+    business->dollars_per_mile(5.5);
+    
+    CCM_Local::BigBusiness::Customer person;
+    person.id = 1;
+    person.first_name = "Franz";
+    person.last_name = "Kafka";
+    maintenance->createCustomer(person);
+
+    business->addCustomerMiles(1, 120.0); 
+    person = maintenance->retrieveCustomer(1);
+    double dollars = business->getCustomerDollars(1); 
+
+    cout << " Customer: " << person.first_name 
+         << " " << person.last_name << endl;
+    cout << " Miles: " <<  person.mileage << endl;
+    cout << " to pay: " << dollars << " Dollars" << endl;
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Client's application code.}
+\label{example:ClientApplication}
+\end{Example}
+
+To build and run the client application, we use the following statements:
+\begin{small}
+\begin{verbatim}
+~/example1> confix.py --advanced --bootstrap --configure \
+                      --packageroot=`pwd`/CarRentalClient \
+                      --make --targets="install"
+
+~/example1> <.confix/'PREFIX'>/bin/CarRentalClient_src_client
+\end{verbatim}
+\end{small}
+
+
+The advantage here is that development of local components is separated from
+client development. 
+While components can be implemented in independently by different developers, an
+application (or client) can use deployed components from a repository.
+

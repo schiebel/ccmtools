@@ -1,0 +1,27 @@
+--  $Id: BankAccount.ocl,v 1.1 2004/03/06 09:14:43 rlechner Exp $
+
+package GLOBAL
+
+
+--context BankAccount
+    -- endless loop
+--    inv: balance() >= -overdraftLimit()
+
+
+context BankAccount::deposit(amount:Integer)
+    pre: amount>0
+    post: balance() = balance@pre() + amount
+
+
+context BankAccount::withdraw(amount:Integer)
+    pre: amount>0
+    pre: amount <= balance()+overdraftLimit()
+    post: balance() = balance@pre() - amount
+
+
+context BankAccount::setOverdraftLimit(newLimit:Integer)
+    pre: balance() >= -newLimit
+    post: overdraftLimit() = newLimit
+
+
+endpackage

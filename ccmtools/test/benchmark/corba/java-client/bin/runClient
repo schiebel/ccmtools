@@ -1,0 +1,6 @@
+#!/bin/sh
+
+CLASSPATH=./build:$CLASSPATH
+
+java -cp $CLASSPATH Client -ORBInitialPort 5050 -ORBInitialHost localhost
+

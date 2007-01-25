@@ -1,0 +1,13 @@
+   user: Robert Lechner (rlechner@sbox.tugraz.at)
+machine: AMD K6 500MHz, 256MB RAM
+ system: Linux 2.4.20-4GB i586 GNU/Linux
+
+
+test: euromicro/PrePostInv
+
+                          |  a1  |  a2  |  a3  | f1_2 | f1_10 | f2_2 | f2_10 | f3_2 | f3_10
+--------------------------+------+------+------+------+-------+------+-------+------+-------
+DbC-component             | 3410 | 3480 | 5630 | 3440 |  3550 | 3770 |  4710 | 8000 | 39940
+local component           |  200 |  210 | 1660 |  110 |   160 |  130 |   240 | 2120 | 17970
+DbC-comp. w/o constraints |  270 |  280 | 2210 |  180 |   250 |  230 |   360 | 2160 | 18090
+

@@ -1,0 +1,101 @@
+
+%==============================================================================
+\chapter{Introduction}
+%==============================================================================
+
+\begin{flushright}
+{\it }
+\end{flushright}
+
+The CCM Tools are a set of Java programs, libraries, and Python scripts that
+support the development of components, based on the {\it CORBA Component Model}
+(CCM) \cite{CCMSpecification}. As shown in Fig.~\ref{ccmtools}, the CCM Tools
+form a component development framework that is flexible and extensible.
+
+Using a well defined CCM model, we can separate the component description from
+the code generator tools. Therefore, we can add new description methods (e.g.
+UML) or code generator tools (e.g. Java Component Generator) without changing
+the other tools.
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=12cm,angle=0] {ComponentGeneratorTools}
+        \caption{CCM Tools overview}
+        \label{ccmtools}
+    \end{center}
+\end{figure}
+
+Note that the dashed tools are still under construction.
+
+\newpage
+\noindent
+The CCM Tools framework contains the following tools:
+
+\begin{description}
+\item [CCM Metamodel Library]
+The CCM specification defines an {\it Interface Repository Metamodel} for the
+IDL3 syntax. We implemented a CCM Metamodel Library that allows creation and
+iteration of CCM models. Using this library we can clearly separate the parser
+and the code generators. The parser creates a model object for every part of the
+source code matching an IDL grammar rule.
+
+\item [IDL3 Parser]
+The IDL3 Parser reads the IDL3 file, checks the syntax of the IDL source code
+and creates a CCM model using the CCM Metamodel Library in the memory. This CCM
+model is the starting point for all code generator tools in the framework.
+
+\item [IDL3 Generator]
+To test the functionality of the CCM Metamodel Library and the IDL3 Parser we implemented
+an IDL3 Generator that writes out the CCM model in a corresponding IDL3 File.
+
+\item [IDL3 Mirror Generator]
+We use a {\it Test-Driven Development} (TDD) strategy to develop and to specify
+components (as described later in this tutorial). Our component unit test uses a
+mirror component to connect all ports of an existing component. The IDL3 Mirror
+Generator creates the IDL3 syntax definition of this mirror component.
+
+\item [Local C++ Component Generator]
+The component model is realized by the component logic that implements the
+operations for providing, using and connecting components by their facets and
+receptacles. We implemented a generator tool that creates the local component
+logic from a given CCM model. After generating the component logic, the
+component developer only has to write the business logic within the generated
+component skeleton.
+
+\item [Local C++ Mirror Generator]
+After building a local C++ component we have to run a functional test on it. To
+provide a suitable test environment we create a mirror component as well as a
+test client that manages the component unit test.
+
+\item [Local Python Component Wrapper Generator (under construction)]
+For rapid prototyping and the development of glue components we use
+heterogeneous local C++/Python components. The component logic, including the
+component's interfaces, are implemented in C++ while the business code can be
+hacked in Python - without need to compile and redeploy after changes.
+
+\item [IDL2 Generator]
+To implement CORBA components the IDL3 source code is mapped to IDL2 that can be
+processed by a classic {\bf IDL2 Compiler} (currently we use the Mico ORB). The
+transformation from IDL3 to IDL2 also adds some operations needed for navigation
+between components and their ports (equivalent operations). We support this
+transformation by a IDL2 Generator tool that creates IDL2 from an existing CCM
+model.
+
+\item [Remote C++ Component Generator (under construction)]
+The local components can only be used in a common address space and must be
+implemented in the same programming language. To overcome these limitations we
+generate remote component logic that interfaces the local components with CORBA.
+The remote component logic is thus a superset of the local component logic. Note
+that the external view of such a remote component quite conforms to the CCM
+specification.
+
+\item [Component Descriptor Generator (under construction)]
+To describe the component for the deployment and the assembling process the OMG
+defined a {\it CORBA Component Descriptor} (CCD) file. This is an XML file
+containing a short description of a component and its ports. We use the CCM
+model and information from a user interface to generate the specified descriptor
+file.
+
+\end{description}
+
+

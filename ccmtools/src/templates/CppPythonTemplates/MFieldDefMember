@@ -1,0 +1,2 @@
+  { "%(Identifier)s", T_OBJECT_EX, offsetof ( Py%(StructIdentifier)s_object, %(Identifier)s ), 0, "%(Identifier)s field" },
+

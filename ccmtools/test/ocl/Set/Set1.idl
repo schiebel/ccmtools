@@ -1,0 +1,14 @@
+// $Id: Set1.idl,v 1.1 2004/02/09 13:32:42 rlechner Exp $
+
+typedef sequence<long> LongSeq;
+typedef double DoubleArray[10];
+
+component Set1
+{
+  attribute LongSeq mySequence;
+  attribute DoubleArray myArray;
+};
+
+home Set1Home manages Set1
+{
+};

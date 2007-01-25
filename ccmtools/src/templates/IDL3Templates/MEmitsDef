@@ -1,0 +1,2 @@
+  emits %(ConsumesType)s %(Identifier)s;
+

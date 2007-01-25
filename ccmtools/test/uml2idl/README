@@ -1,0 +1,5 @@
+MagicDraw ... CORBA interfaces, components, etc. with MagicDraw (version 5.5 and 7.8)
+Poseidon  ... the same with Poseidon CE 2.4
+
+run.sh    ... calls UML2IDL
+

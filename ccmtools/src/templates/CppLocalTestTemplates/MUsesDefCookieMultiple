@@ -1,0 +1,3 @@
+    LocalComponents::Cookie %(ComponentType)s_ck_%(Identifier)s_01;
+    LocalComponents::Cookie %(ComponentType)s_ck_%(Identifier)s_02;
+    LocalComponents::Cookie %(ComponentType)s_ck_%(Identifier)s_03;

@@ -1,0 +1,72 @@
+/**
+ * CCM Tools test case: facet_types 
+ *
+ * This test case checks some kinds of parameter passing with
+ * different parameter types and directions.
+ **/
+
+enum Color {red, green, blue, black, orange};
+
+struct Person {
+  long id;
+  string name;
+};
+
+struct Address {
+  string street;
+  long   number;
+  Person resident;
+};
+
+typedef long time_t;
+
+typedef sequence<long> LongList;
+
+typedef sequence<string> StringList;
+
+typedef sequence<Person> PersonList;
+
+
+interface BasicTypeInterface {
+  short          f1(in short p1, inout short p2, out short p3);
+  long           f2(in long p1, inout long p2, out long p3);
+  unsigned short f3(in unsigned short p1, inout unsigned short p2, out unsigned short p3);
+  unsigned long  f4(in unsigned long p1, inout unsigned long p2, out unsigned long p3);
+  float          f5(in float p1, inout float p2, out float p3);
+  double         f6(in double p1, inout double p2, out double p3);
+  char           f7(in char p1, inout char p2, out char p3);
+  string         f8(in string p1, inout string p2, out string p3);
+  boolean        f9(in boolean p1, inout boolean p2, out boolean p3);
+  octet          f10(in octet p1, inout octet p2, out octet p3);
+};
+
+
+interface UserTypeInterface {
+  Color      f1(in Color p1, inout Color p2, out Color p3);
+  Person     f2(in Person p1, inout Person p2, out Person p3);
+  Address    f3(in Address p1, inout Address p2, out Address p3);
+  LongList   f4(in LongList p1, inout LongList p2, out LongList p3);
+  StringList f5(in StringList p1, inout StringList p2, out StringList p3);
+  PersonList f6(in PersonList p1, inout PersonList p2, out PersonList p3);
+  time_t     f7(in time_t t1, inout time_t t2, out time_t t3);
+};
+
+
+interface VoidTypeInterface {
+  void f1(in long p1);
+  long f2();
+};
+
+
+component Test
+{
+  provides BasicTypeInterface basicType;
+  provides UserTypeInterface  userType;
+  provides VoidTypeInterface  voidType;
+};
+
+home TestHome manages Test
+{
+};
+
+

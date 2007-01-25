@@ -1,0 +1,266 @@
+<!--
+	$Id: build.xml,v 1.32 2005/03/08 19:33:50 teiniker Exp $
+-->
+
+<project name="ccmtools" default="jar-ccmtools">
+
+  <description>
+
+  </description>
+
+  	<!-- Define properties that are used in the following tasks.
+         Note that a property can be set from command-line:
+         $ ant -Dprefix=/usr/local
+  	-->
+  	<property name="src" location="src" />
+  	<property name="bin" location="bin" />
+  	<property name="lib" location="lib" />
+  	<property name="doc" location="doc" />
+  	<property name="build" location="build" />
+  	<property name="prefix" location="dist" />
+  	<property name="test" location="test" />
+	<property name="dbxml_path" location="/usr/lib" />
+  	<property name="sandbox" location="test/CppGenerator/sandbox" />
+
+  	<!-- Define project related constants in Java -->
+  	<property name="PACKAGE" value="ccmtools" />
+  	<property name="VERSION" value="0.5.5" />
+  	<property name="TEMPLATE_ROOT" location="${prefix}/templates" />
+  	<property name="CPP_PATH" value="gcc -x c -E" />
+
+
+  	<!-- Define different paths that are used in the following tasks -->
+  	<path id="compile.classpath">
+  		<pathelement path="${lib}/antlr.jar" />
+  		<pathelement path="${lib}/dtd2java.jar" />
+  		<pathelement path="${lib}/mdr01.jar" />
+  		<pathelement path="${lib}/oclmetamodel.jar" />		
+  		<pathelement path="${build}/classes" />
+		<pathelement path="${dbxml_path}/db.jar" />
+		<pathelement path="${dbxml_path}/dbxml.jar" />
+  	</path>
+
+  	<path id="test.classpath">
+  		<pathelement path="${lib}/antlr.jar" />
+  		<pathelement path="${lib}/dtd2java.jar" />
+  		<pathelement path="${lib}/mdr01.jar" />
+  		<pathelement path="${lib}/oclmetamodel.jar" />
+		<pathelement path="${dbxml_path}/db.jar" />
+		<pathelement path="${dbxml_path}/dbxml.jar" />
+      	<pathelement path="${build}/test" />
+      	<pathelement path="${build}/classes" />
+  	</path>
+
+
+  	<!-- Set up directories for the build process and create a Constants.java
+       	 file that is used to set version number and template paths.
+   	-->
+  	<target name="init"
+      	description="Creates the build directory and deletes the old jar files." >
+      	<mkdir dir="${build}" />
+      	<mkdir dir="${build}/classes" />
+      	<mkdir dir="${sandbox}" /> 
+      	<filter token="PACKAGE" value="${PACKAGE}"/>
+      	<filter token="VERSION" value="${VERSION}"/>
+      	<filter token="TEMPLATE_ROOT" value="${TEMPLATE_ROOT}"/>
+      	<filter token="CPP_PATH" value="${CPP_PATH}" />
+      	<copy file="${src}/${PACKAGE}/Constants.java.in"
+            tofile="${src}/${PACKAGE}/Constants.java"
+            overwrite="true"
+            filtering="true" />
+  	</target>  
+
+
+	<!-- Run dtd2java to generate a UML parser -->
+	<target name="generate-uml_parser" depends="init"
+		description="Run the dtd2java tool to create the uml_parser package.">
+	 	<java classname="dtd2java.Main">
+	    	<classpath refid="compile.classpath" />
+		  	<arg value="${src}/uml2idl/UML.dtd" />
+		  	<arg value="uml_parser" />
+		  	<arg value="src" />
+	    </java>
+	</target>
+	
+  	<!-- Generate IDL3 parser source code using ANTLR -->
+  	<target name="generate-IDL3Parser" depends="init"
+    	description="Generate the idl3_parser using antlr." >
+      	<mkdir dir="${src}/ccmtools/IDL3Parser" />
+      	<antlr target="${src}/ccmtools/IDL3Parser/idl3.g" dir="${src}/ccmtools/IDL3Parser" >
+           	<classpath refid="compile.classpath" />
+      	</antlr>
+  	</target>
+
+  	<!-- Generate OCL parser source code using ANTLR -->
+  	<target name="generate-OCLParser" depends="init"
+     	description="Generate the OclParser using antlr." >
+      	<antlr target="${src}/ccmtools/OCL/parser/OCL.g" dir="${src}/ccmtools/OCL/parser" >
+           	<classpath refid="compile.classpath" />
+      	</antlr>
+  	</target>
+
+
+	<!-- Compile the generated uml_parser package. -->
+	<target name="compile-uml_parser" depends="generate-uml_parser"
+		description="Compile the uml_parser package.">
+	 	<javac srcdir="${src}/uml_parser" destdir="${build}/classes" debug="on" >
+			<classpath refid="compile.classpath" />
+	    </javac>
+	</target>
+	
+	<!-- Compile the uml2idl package. -->	
+	<target name="compile-uml2idl" depends="compile-uml_parser"
+		description="Compile the uml2idl package.">
+	    <javac srcdir="${src}/uml2idl" destdir="${build}/classes" debug="on" >
+			<classpath refid="compile.classpath" />
+	    </javac>
+	</target>
+	  
+  	<!-- Compile ccmtools source code -->
+  	<target name="compile-ccmtools" depends="generate-OCLParser, generate-IDL3Parser"
+     	description="Compile the ccmtools package." >
+      	<javac srcdir="${src}/ccmtools" destdir="${build}/classes" debug="on" >
+          	<classpath refid="compile.classpath" />  
+      	</javac>
+  	</target>
+
+
+  	<!-- Create Java archive file from ccmtools package. -->				
+  	<target name="jar-ccmtools" depends="compile-ccmtools, compile-uml2idl"
+     	description="Create Java archive file from ccmtools package." >
+      	<jar jarfile="${lib}/ccmtools.jar" basedir="${build}/classes" >
+         	<manifest>
+            	<attribute name="Main-Class" value="ccmtools.UI.ConsoleCodeGenerator" />
+         	</manifest>
+      	</jar>
+  	</target>
+
+
+  	<!-- Install ccmtools -->
+  	<target name="install"  depends="jar-ccmtools" 
+      	description="Install ccmtools to prefix/.">
+      	<mkdir dir="${prefix}" />
+  		
+    	<copy file="${lib}/antlr.jar"        todir="${prefix}/share/java/ccmtools"  overwrite="true" />  
+     	<copy file="${lib}/ccmtools.jar"     todir="${prefix}/share/java/ccmtools"  overwrite="true" />    		
+      	<copy file="${lib}/mdr01.jar"        todir="${prefix}/share/java/ccmtools"  overwrite="true" />   		  		
+      	<copy file="${lib}/oclmetamodel.jar" todir="${prefix}/share/java/ccmtools"  overwrite="true" />       
+  		
+      	<copy file="${src}/ccmtools/MDR/MOF/OCL.xml"  
+            todir="${TEMPLATE_ROOT}/MDR"  overwrite="true" />	
+
+      	<copy todir="${prefix}/templates" overwrite="true">
+          	<fileset dir="${src}/templates"/>
+      	</copy>
+
+      	<mkdir dir="${prefix}/bin" />
+      	<copy file="${bin}/ccmtools-generate" 
+        	todir="${prefix}/bin"  overwrite="true" />  
+  		<copy file="${bin}/ccmtools" 
+  		        	todir="${prefix}/bin"  overwrite="true" />  
+      	<copy file="${bin}/ccmtools-idl" 
+            todir="${prefix}/bin"  overwrite="true" />  
+      	<copy file="${bin}/uml2idl" 
+            todir="${prefix}/bin"  overwrite="true" />  
+      	<exec executable="chmod">
+          	<arg value="+x" />
+          	<arg value="${prefix}/bin/ccmtools-generate" />
+      	</exec>
+  		<exec executable="chmod">
+  		          	<arg value="+x" />
+  		          	<arg value="${prefix}/bin/ccmtools" />
+  		      	</exec>
+      	<exec executable="chmod">
+          	<arg value="+x" />
+          	<arg value="${prefix}/bin/ccmtools-idl" />
+      	</exec>
+      	<exec executable="chmod">
+          	<arg value="+x" />
+          	<arg value="${prefix}/bin/uml2idl" />
+      	</exec>
+  	</target>
+	
+
+  	<!-- Generate JavaDoc for the ccmtools package. -->
+  	<target name="doc-ccmtools" 
+      	description="Generate javadoc for the ccmtools package.">
+      	<javadoc packagenames="ccmtools.*"
+            sourcepath="${src}"
+	    	destDir="${build}/javadoc">
+      	</javadoc>
+  	</target>
+	
+	<!-- Generate JavaDoc for the uml_parser and uml2idl package. -->
+	<target name="doc-uml2idl" 
+		description="Generate javadoc for the uml_parser and uml2idl package.">
+	    <javadoc packagenames="uml_parser, uml2idl"
+	    	sourcepath="${src}"
+		    destDir="${build}/javadoc">
+	    </javadoc>
+	</target>
+	
+		
+	
+  	<!-- Run test cases -->
+  	<target name="test" 
+     	description="Compile JUnit test cases." >
+      	<mkdir dir="${build}/test" />
+      	<javac srcdir="${test}" destdir="${build}/test" debug="on" >
+          	<classpath refid="compile.classpath" />  
+      	</javac>
+  	</target>
+
+  	<target name="check-local" depends="test"
+     	description="Run JUnit test cases." >
+     	<junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+          	<classpath refid="test.classpath" />
+	  		<formatter type="brief" />
+	  		<test name="ccmtools.CppGeneratorTest.CppGeneratorTest" />
+     	</junit>
+  	</target>
+
+  	<target name="check-remote-simple" depends="test"
+     	description="Run JUnit remote test cases." >
+     	<junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+          	<classpath refid="test.classpath" />
+	  		<formatter type="brief" />
+	  		<test name="ccmtools.CppGeneratorTest.CppRemoteGeneratorSimpleTest" />
+     	</junit>
+  	</target>
+  
+  	<target name="check-remote-basic" depends="test"
+     	description="Run JUnit remote test cases." >
+     	<junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+          	<classpath refid="test.classpath" />
+	  		<formatter type="brief" />
+	  		<test name="ccmtools.CppGeneratorTest.CppRemoteGeneratorBasicTest" />
+     	</junit>
+  	</target>
+
+
+
+	<!-- Clean up -->
+  	<target name="clean"
+      	description="Clean up the build and lib directory." >
+
+      	<delete file="${src}/${PACKAGE}/Constants.java" />
+
+      	<delete file="${src}/ccmtools/IDL3Parser/IDL3Lexer.java" />
+      	<delete file="${src}/ccmtools/IDL3Parser/IDL3Parser.java" />
+      	<delete file="${src}/ccmtools/IDL3Parser/IDL3TokenTypes.java" />
+      	<delete file="${src}/ccmtools/IDL3Parser/IDL3TokenTypes.txt" />
+
+      	<delete file="${src}/ccmtools/OCL/parser/OclLexer.java" />
+      	<delete file="${src}/ccmtools/OCL/parser/OclParser.java" />
+      	<delete file="${src}/ccmtools/OCL/parser/OCLTokenTypes.java" />
+      	<delete file="${src}/ccmtools/OCL/parser/OCLTokenTypes.txt" />
+
+  		<delete dir="${src}/uml_parser" />
+      		
+      	<delete dir="${build}" /> 
+      	<delete dir="${sandbox}" /> 
+      	<delete dir="${test}/CppRemoteGenerator/sandbox" /> 
+      	<delete file="${lib}/ccmtools.jar" /> 
+  	</target>
+
+</project>

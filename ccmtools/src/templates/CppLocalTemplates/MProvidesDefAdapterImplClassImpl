@@ -1,0 +1,15 @@
+%(Identifier)s_impl::%(Identifier)s_impl ( CCM_%(ComponentType)s_impl* component_impl )
+  : component ( component_impl )
+{
+  DEBUGNL ( "+%(Identifier)s_impl->%(Identifier)s_impl (  )" );
+}
+
+%(Identifier)s_impl::~%(Identifier)s_impl (  )
+{
+  DEBUGNL ( "-%(Identifier)s_impl->~%(Identifier)s_impl (  )" );
+}
+
+%(MAttributeProvidesAdapterImplDefinition)s
+%(MOperationProvidesAdapterImplDefinition)s
+
+

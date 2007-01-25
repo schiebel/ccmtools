@@ -1,0 +1,38 @@
+//==============================================================================
+// %(Identifier)sFacetAdapter implementation
+//==============================================================================
+
+%(Identifier)sFacetAdapter::%(Identifier)sFacetAdapter()
+{
+    component = NULL;
+    local_component = NULL;
+    ValidConnection = false;
+    facet = NULL;
+}
+
+%(Identifier)sFacetAdapter::%(Identifier)sFacetAdapter(%(ComponentType)s* c, CCM_%(ComponentType)s* lc)
+    : component(c), local_component(lc)
+{
+    DEBUGNL ( "+%(Identifier)sFacetAdapter->%(Identifier)sFacetAdapter()" );
+    ValidConnection = true;
+    facet = local_component->get_%(Identifier)s();
+}
+
+%(Identifier)sFacetAdapter::~%(Identifier)sFacetAdapter()
+{
+    DEBUGNL ( "-%(Identifier)sFacetAdapter->~%(Identifier)sFacetAdapter()" );
+    delete facet;
+}
+
+%(MAttributeProvidesAdapterDefinition)s
+%(MOperationProvidesAdapterDefinition)s
+
+WX::Utils::SmartPtr<LocalComponents::Object>
+%(Identifier)sFacetAdapter::get_component()
+{
+    DEBUGNL(" %(Identifier)sFacetAdapter->get_component()");
+    return WX::Utils::SmartPtr<LocalComponents::Object>
+    (dynamic_cast<LocalComponents::Object*> (component));
+};
+
+

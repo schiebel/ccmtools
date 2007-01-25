@@ -1,0 +1,118 @@
+CORBA Object with C++ Client:
+-----------------------------
+
+time ~/tmp/benchmark_build/corba_object/corba_client/corba_object_corba_client_CorbaClient 
+>>>> Start Test Client: corba_client/CorbaClient.cc
+--- Start Test Case -----------------------------------
+Remote CORBA Test: void f0() loops(10000) size(1) real(90)us
+
+CORBA Object Test: void f_in1(in long l1) loops(10000) size(1) real(94)us
+
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(0)    real(96)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(100)  real(97)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(200)  real(98)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(300)  real(99)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(400)  real(99)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(500)  real(102)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(600)  real(104)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(700)  real(103)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(800)  real(103)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(900)  real(103)us
+CORBA Object Test: void f_in2(in string s1) loops(10000) size(1000) real(103)us
+
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(0)    real(95)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(100)  real(98)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(200)  real(103)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(300)  real(104)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(400)  real(105)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(500)  real(106)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(600)  real(107)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(700)  real(107)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(800)  real(110)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(900)  real(111)us
+CORBA Object Test: void f_in3(in LongList ll1) loops(10000) size(1000) real(111)us
+
+CORBA Object Test: void f_inout1(inout long l1) loops(10000) size(1) real(94)us
+
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(0)    real(96)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(100)  real(101)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(200)  real(103)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(300)  real(104)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(400)  real(106)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(500)  real(109)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(600)  real(110)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(700)  real(111)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(800)  real(112)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(900)  real(114)us
+CORBA Object Test: void f_inout2(inout string s1) loops(10000) size(1000) real(115)us
+
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(0)    real(95)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(100)  real(102)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(200)  real(107)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(300)  real(109)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(400)  real(112)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(500)  real(114)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(600)  real(114)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(700)  real(116)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(800)  real(117)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(900)  real(119)us
+CORBA Object Test: void f_inout3(inout LongList ll1) loops(10000) size(1000) real(122)us
+
+CORBA Object Test: void f_out1(out long l1) loops(10000) size(1) real(93)us
+
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(0)    real(95)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(100)  real(98)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(200)  real(98)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(300)  real(100)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(400)  real(100)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(500)  real(103)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(600)  real(103)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(700)  real(104)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(800)  real(105)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(900)  real(106)us
+CORBA Object Test: void f_out2(out string s1) loops(10000) size(1000) real(105)us
+
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(0)    real(94)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(100)  real(100)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(200)  real(103)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(300)  real(106)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(400)  real(106)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(500)  real(107)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(600)  real(109)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(700)  real(110)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(800)  real(112)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(900)  real(112)us
+CORBA Object Test: void f_out3(out LongList ll1) loops(10000) size(1000) real(114)us
+
+CORBA Object Test: long f_ret1() loops(10000) size(1) real(95)us
+
+CORBA Object Test: string f_ret2() loops(10000) size(0)    real(96)us
+CORBA Object Test: string f_ret2() loops(10000) size(100)  real(100)us
+CORBA Object Test: string f_ret2() loops(10000) size(200)  real(102)us
+CORBA Object Test: string f_ret2() loops(10000) size(300)  real(102)us
+CORBA Object Test: string f_ret2() loops(10000) size(400)  real(104)us
+CORBA Object Test: string f_ret2() loops(10000) size(500)  real(107)us
+CORBA Object Test: string f_ret2() loops(10000) size(600)  real(107)us
+CORBA Object Test: string f_ret2() loops(10000) size(700)  real(109)us
+CORBA Object Test: string f_ret2() loops(10000) size(800)  real(109)us
+CORBA Object Test: string f_ret2() loops(10000) size(900)  real(110)us
+CORBA Object Test: string f_ret2() loops(10000) size(1000) real(111)us
+
+CORBA Object Test: LongList f_ret3() loops(10000) size(0)    real(94)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(100)  real(103)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(200)  real(106)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(300)  real(108)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(400)  real(110)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(500)  real(111)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(600)  real(113)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(700)  real(114)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(800)  real(117)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(900)  real(118)us
+CORBA Object Test: LongList f_ret3() loops(10000) size(1000) real(120)us
+--- Stop Test Case ------------------------------------
+>>>> Stop Test Client: corba_client/CorbaClient.cc
+loops(1) size(1) real(9.803e+07)us
+
+real	1m38.062s
+user	0m25.556s
+sys	0m15.688s

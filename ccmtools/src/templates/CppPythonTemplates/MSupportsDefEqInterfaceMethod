@@ -1,0 +1,4 @@
+    { "%(Identifier)s", (PyCFunction) %(Identifier)s, METH_NOARGS,
+      "%(Identifier)s function"
+    },                                                            /* <MSupportsDefEqInterfaceMethod> */
+

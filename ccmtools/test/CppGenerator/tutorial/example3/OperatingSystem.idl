@@ -1,0 +1,13 @@
+#ifndef __OPERATING_SYSTEM_IDL__
+#define __OPERATING_SYSTEM_IDL__
+
+module SimpleComputer
+{
+  interface OperatingSystem
+  {
+    void boot();
+    void shutdown(); 
+  };
+};
+
+#endif

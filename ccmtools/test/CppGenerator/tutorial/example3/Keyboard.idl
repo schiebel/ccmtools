@@ -1,0 +1,19 @@
+
+#ifndef __KEYBOARD_IDL__
+#define __KEYBOARD_IDL__
+
+#include "InputDeviceConnector.idl"
+
+module SimpleComputer
+{
+  component Keyboard
+  {
+    provides InputDeviceConnector connector;
+  };
+  
+  home KeyboardFactory manages Keyboard
+  {
+  };
+};
+
+#endif

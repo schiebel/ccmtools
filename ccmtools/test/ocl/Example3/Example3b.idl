@@ -1,0 +1,30 @@
+/*  $Id: Example3b.idl,v 1.1 2004/02/27 11:29:33 rlechner Exp $
+*/
+
+
+interface Point
+{
+    attribute double x;
+    attribute double y;
+    void move( in double dx, in double dy );
+    Point clone();
+};
+
+
+interface Line
+{
+    attribute Point startPt;
+    attribute Point endPt;
+    void move( in double dx, in double dy );
+};
+
+
+component Grfx
+{
+    provides Point point;
+    provides Line line;
+};
+
+home GrfxHome manages Grfx
+{
+};

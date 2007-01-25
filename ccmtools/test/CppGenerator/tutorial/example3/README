@@ -1,0 +1,11 @@
+
+
+
+$ ccmtools-generate c++local -a -o xxx *.idl
+
+$ cp src/* xxx/src/
+$ cp -r assembly/ xxx/
+$ cp -r client/ xxx/
+
+$ confix.py --packageroot=`pwd`/xxx --bootstrap --configure --make
+$ ~/tmp/xxx/client/xxx_client_client

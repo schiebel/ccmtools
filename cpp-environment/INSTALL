@@ -1,0 +1,42 @@
+This package uses Confix for all tasks related to building and installation.
+
+For the uninformed, please read the Confix documentation at
+http://confix.sf.net/. Then you will be informed ;-)
+
+Here is an example of a possible Confix profile (stored in ~/.confix):
+
+# The Confix profile for CCM Tools
+ccmtools_profile = {
+    'PREFIX': '/home/eteinik/install/ccmtools_install',
+    'BUILDROOT': '/home/eteinik/tmp/ccmtools_build',
+    'ADVANCED': 'true',
+    'USE_LIBTOOL': 'true',
+    'CONFIX': {
+    },
+    'CONFIGURE': {
+       'ENV': {
+          'CC': 'gcc',
+          'CXX': 'g++',      
+          'CFLAGS': "-g -O0 -Wall -DWXDEBUG",
+          'CXXFLAGS': "-g -O0 -Wall -DWXDEBUG",
+       },
+       'ARGS': [
+        '--with-mico=/opt/gcc-3.3.4/mico-2.3.11-debug/lib/mico-setup.sh'
+        ]
+    },
+}
+
+Note that you have to set your own paths for PREFIX, BUILDROOT and --with-mico.
+
+	
+For the informed, use the following :
+
+   # Install the WX library (some utility stuff like smart pointer, etc.)	
+   $ confix.py --packageroot=`pwd`/wx --bootstrap --configure --make --targets=install
+
+
+   # Install the CCM Tolls runtime libraries
+   # (be sure that you have already installed Mico - http://mico.org)
+   $ confix.py --packageroot=`pwd`/ccm --bootstrap --configure --make --targets=install
+
+

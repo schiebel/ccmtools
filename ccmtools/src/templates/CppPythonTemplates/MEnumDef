@@ -1,0 +1,177 @@
+//==============================================================================
+// %(Identifier)s - python conversion prototypes <MEnumDef>
+//==============================================================================
+
+#ifndef __Enum__%(PreprocIdentifier)s__PYTHON__H__
+#define __Enum__%(PreprocIdentifier)s__PYTHON__H__
+
+#include <Python.h>
+%(IncludeLocalHeader)s
+
+%(OpenNamespace)s
+
+PyObject *%(Identifier)s_init( );
+int is_%(Identifier)s( PyObject * );
+int convert_%(Identifier)s_from_python( PyObject*, void* );
+PyObject *convert_%(Identifier)s_to_python( const ::%(LocalNamespace)s%(Identifier)s & );
+
+%(CloseNamespace)s
+
+#endif
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s - python conversion implementation - <MEnumDef>
+//==============================================================================
+
+#include "Python_Converter/%(Identifier)s_python.h"
+#include <CCM_Python/BasicTypes.h>
+#include "Python_Converter/%(Module)s_python.h"
+
+using %(LocalNamespace)s%(Identifier)s;
+
+%(OpenNamespace)s
+
+static PyObject *Py%(Identifier)s_exception = 0;
+
+typedef struct {
+    PyObject_HEAD
+    int constant;
+    %(Identifier)s value;
+} Py%(Identifier)s_object;
+
+%(MEnumDefDecl)s
+
+static PyObject *
+Py%(Identifier)s_new ( PyTypeObject *type, PyObject *args, PyObject *keywds ) {
+
+    Py%(Identifier)s_object *self = (Py%(Identifier)s_object*) type->tp_alloc(type,0);
+    return (PyObject*) self;
+}
+
+static void
+Py%(Identifier)s_dealloc ( Py%(Identifier)s_object *self ) {
+
+    self->ob_type->tp_free ( ( PyObject * ) self );
+}
+
+static int
+Py%(Identifier)s_init( Py%(Identifier)s_object *self, PyObject *args, PyObject *keywds ) {
+
+    self->value = %(DefaultEnum)s->value;
+    self->constant = 0;
+
+    static char *kwlist[] = { "value", NULL };
+
+    if ( ! PyArg_ParseTupleAndKeywords( args, keywds, "|O&", kwlist,
+					convert_%(Identifier)s_from_python, &self->value ) )
+	return -1;
+
+    return 0;
+}
+
+%(MEnumDefImpl)s
+
+static PyGetSetDef Py%(Identifier)s_getset[] = {
+%(MEnumDefGetSet)s
+  {NULL}								/* Sentinel */
+};
+
+static PyTypeObject Py%(Identifier)s_type = {
+    PyObject_HEAD_INIT ( NULL )
+    0,									/* ob_size */
+    "%(Module)s.%(Identifier)s",					/* tp_name */
+    sizeof ( Py%(Identifier)s_object ),					/* tp_basicsize */
+    0,									/* tp_itemsize */
+
+    /* methods */
+    (destructor) Py%(Identifier)s_dealloc,				/* tp_dealloc */
+
+    0,		 							/* tp_print */
+    0,									/* tp_getattr */
+    0,									/* tp_setattr */
+    0,									/* tp_compare */
+    0,									/* tp_repr */
+    0,									/* tp_as_number */
+    0,									/* tp_as_sequence */
+    0,									/* tp_as_mapping */
+    0,									/* tp_hash */
+    0,									/* tp_call */
+    0,									/* tp_str */
+    0,									/* tp_getattro */
+    0,									/* tp_setattro */
+    0,									/* tp_as_buffer */
+
+    Py_TPFLAGS_DEFAULT,							/* tp_flags */
+
+    "%(Identifier)s enumeration",					/* tp doc */
+
+    0,		    							/* tp_traverse */
+    0,									/* tp_clear */
+    0,									/* tp_richcompare */
+    0,									/* tp_weaklistoffset */
+    0,									/* tp_iter */
+    0,									/* tp_iternext */
+
+    0,									/* tp_methods */
+    0,									/* tp_members */
+
+    Py%(Identifier)s_getset,						/* tp_getset */
+    0,									/* tp_base */
+    0,									/* tp_dict */
+    0,									/* tp_descr_get */
+    0,									/* tp_descr_set */
+    0,									/* tp_dictoffset */
+    (initproc) Py%(Identifier)s_init,					/* tp_init */
+    0,									/* tp_alloc */
+    Py%(Identifier)s_new,						/* tp_new */
+};
+
+PyObject *%(Identifier)s_init( ) {
+
+    if ( PyType_Ready( &Py%(Identifier)s_type ) < 0 ) {
+        return NULL;
+    }
+
+    if ( ! Py%(Identifier)s_exception )
+	Py%(Identifier)s_exception = PyErr_NewException("%(Identifier)s.error", NULL, NULL);
+
+    unsigned fails = 0;
+%(MEnumDefInit)s
+
+    if ( fails > 0 ) return NULL;
+
+    Py%(Identifier)s_object *result = (Py%(Identifier)s_object*) Py%(Identifier)s_type.tp_new( &Py%(Identifier)s_type, NULL, NULL );
+    if ( ! result ) return NULL;
+    result->value = %(DefaultEnum)s->value;
+    return (PyObject*) result;
+}
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+int is_%(Identifier)s( PyObject *o ) {
+    return PyObject_TypeCheck( o, &Py%(Identifier)s_type ) ? 1 : 0;
+}
+
+int convert_%(Identifier)s_from_python( PyObject *obj, void *s ) {
+
+    if ( ! s ) {
+        PyErr_SetString( Py%(Identifier)s_exception, "bad conversion target" );
+	return 0;
+    }
+
+    if ( ! is_%(Identifier)s(obj) ) {
+        PyErr_SetString( Py%(Identifier)s_exception, "cannot convert to %(Identifier)s" );
+	return 0;
+    }
+
+    %(Identifier)s *to = (%(Identifier)s*) s;
+    Py%(Identifier)s_object *from = (Py%(Identifier)s_object*)obj;
+
+    *to = from->value;
+
+    return 1;
+}
+
+%(CloseNamespace)s
+
+

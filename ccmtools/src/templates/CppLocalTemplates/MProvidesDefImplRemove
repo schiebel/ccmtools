@@ -1,0 +1,2 @@
+    (dynamic_cast<%(Identifier)sFacetAdapter*>(%(Identifier)s_facet.ptr()))->ValidConnection = false;
+

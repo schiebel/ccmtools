@@ -1,0 +1,40 @@
+   user: Robert Lechner (rlechner@sbox.tugraz.at)
+machine: AMD K6 500MHz, 256MB RAM
+ system: Linux 2.4.20-4GB i586 GNU/Linux
+
+---------+----------+-----------+--------+-------------+-------------+------------------------------
+         | compiler |           |        | no          | all         |
+test     | flags    | subtest   | no DbC | constraints | constraints | result
+---------+----------+-----------+--------+-------------+-------------+------------------------------
+Example1 | -g -O0   | 1000x1000 |  670ms |             |    451980ms |
+Example1 | -O2      | 1000x1000 |  220ms |             |    129900ms | speedup: >3
+---------+----------+-----------+--------+-------------+-------------+------------------------------
+Example1 | -O2      | 1000x1000 |  240ms |       350ms |    130150ms | overhead=46%, DbC-factor=542
+Example1 | -O2      | 10000x100 |  230ms |       360ms |     47570ms | overhead=57%, DbC-factor=207
+---------+----------+-----------+--------+-------------+-------------+------------------------------
+Example3 | -O2      |           | 3970ms |      4480ms |     30350ms | overhead=13%, DbC-factor=7.6
+---------+----------+-----------+--------+-------------+-------------+------------------------------
+
+"no DbC" = local component
+"no constraints" = DbC-component without constraints (see README)
+"all constraints" = normal DbC-component
+
+overhead = ("no constraints")/("no DbC")*100%
+DbC-factor = ("all constraints")/("no DbC")
+
+
+conclusion:
+===========
+
+1)  We should always run performance tests with compiler option "-O2".
+
+2)  The total overhead of all DbC-checks depends heavily on the kind of the OCL-expressions.
+    The range goes from factor 7.6 for simple arithmetic expressions to factor 542
+    for (simple) sequence operations.
+
+3)  The overhead for collection operations depends not only on the number of times you call
+    a function. It depends also on the size of the collection. In Example 3, the push and pop
+    operations are called 1 million times; in subtest "1000x1000" the maximum sequence size
+    is 1000, in subtest "10000x100" it is 100. The second subtest runs 2.7 times
+    faster than the first one.
+

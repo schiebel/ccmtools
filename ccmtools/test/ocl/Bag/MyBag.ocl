@@ -1,0 +1,31 @@
+package GLOBAL
+
+context MyBag
+	inv lit_01a: Bag{1,2,2,3}=Bag{3,2,1,2}
+	inv lit_01b: Bag{1,2,2,3}<>Bag{1,2,2,2,3}
+	inv lit_02: Bag{1,2,3}->size()=3
+	inv lit_03: Bag{1,2,3}->includes(2)
+	inv lit_04: Bag{1,2,3}->excludes(4)
+	inv lit_05: Bag{1,2,3,4,5}->includesAll(Set{1,2,3})
+	inv lit_06: Bag{1,2}->excludesAll(Set{3,4})
+	inv lit_07: Bag{1,2}->isEmpty()=false
+	inv lit_08: Bag{1,2}->notEmpty()
+
+	inv lit_09a: Bag{1,2,2,3}->asSet()=Set{1,2,3}
+	inv lit_09b: Bag{1,2,2,3}->asSequence()=Sequence{1,2,2,3}
+	inv lit_10a: Bag{2,1,2}->count(2)=2
+	inv lit_10b: Bag{1,2}->count(3)=0
+	inv lit_11a: Bag{1,2,3}->union(Bag{3,4,5})=Bag{1,2,3,3,4,5}
+	inv lit_11b: Bag{1,2,3}->union(Set{3,4,5})=Bag{1,2,3,3,4,5}
+	inv lit_12a: Bag{1,2,3,3}->intersection(Bag{3,2,4,3})=Bag{2,3,3}
+	inv lit_12b: Bag{1,2,3,3}->intersection(Set{2,4,3})=Set{2,3}
+	inv lit_13: Bag{1,2,3}->including(4)=Bag{1,2,3,4}
+	inv lit_14: Bag{1,2,3}->excluding(1)=Bag{2,3}
+	inv lit_15a: Bag{1,2,3}->sum()=6
+	inv lit_15b: Bag{1.2, 3.4, 5.6}->sum()=1.2+3.4+5.6
+	
+	inv sequence1: seq1->asBag()->isEmpty()
+	inv array: array1->asBag()->isEmpty()
+	inv sequence2: seq2->asBag()->isEmpty()
+
+endpackage

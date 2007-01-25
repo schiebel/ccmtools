@@ -1,0 +1,21 @@
+/**
+ * Test case: facet_attribute 
+ *
+ */
+
+interface Console 
+{
+  attribute long max_size;
+
+  long print(in string msg);
+};
+
+component Test
+{
+  provides Console console;
+};
+
+home TestHome manages Test
+{
+};
+

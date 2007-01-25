@@ -1,0 +1,120 @@
+CCM Remote Collocated Test:
+---------------------------
+
+time ~/tmp/benchmark_build/client/ccm_collocated_client/client_ccm_collocated_client_Client  
+>>>> Start Test Client: client/ccm_collocated_client/Client.cc
+TestHome server is running...
+--- Start Test Case -----------------------------------
+
+Collocated CCM Test: void f0() loops(1000000) size(1) real(0.76)us
+
+Collocated CCM Test: void f_in1(in long l1) loops(1000000) size(1) real(0.78)us
+
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(0)    real(1)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(100)  real(1.1)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(200)  real(1.5)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(300)  real(1.5)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(400)  real(1.8)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(500)  real(1.8)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(600)  real(2)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(700)  real(2.1)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(800)  real(2.2)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(900)  real(2.3)us
+Collocated CCM Test: void f_in2(in string s1) loops(100000) size(1000) real(2.5)us
+
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(0)    real(0.9)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(100)  real(1.8)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(200)  real(2.3)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(300)  real(2.9)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(400)  real(3.4)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(500)  real(3.9)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(600)  real(4.6)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(700)  real(5)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(800)  real(5.6)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(900)  real(6.1)us
+Collocated CCM Test: void f_in3(in LongList ll1) loops(100000) size(1000) real(6.6)us
+
+Collocated CCM Test: void f_inout1(inout long l1) loops(1000000) size(1)  real(0.78)us
+
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(0)    real(1.1)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(100)  real(1.9)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(200)  real(2.4)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(300)  real(2.9)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(400)  real(3.4)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(500)  real(3.9)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(600)  real(4.4)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(700)  real(4.8)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(800)  real(5.4)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(900)  real(5.9)us
+Collocated CCM Test: void f_inout2(inout string s1) loops(100000) size(1000) real(6.4)us
+
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(0)    real(1.1)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(100)  real(2.7)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(200)  real(3.9)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(300)  real(5.1)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(400)  real(6.3)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(500)  real(7.5)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(600)  real(8.8)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(700)  real(9.9)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(800)  real(11.2)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(900)  real(12.3)us
+Collocated CCM Test: void f_inout3(inout LongList ll1) loops(100000) size(1000) real(13.6)us
+
+Collocated CCM Test: void f_out1(out long l1) loops(1000000) size(1) real(0.78)us
+
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(0)    real(1)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(100)  real(1.4)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(200)  real(1.7)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(300)  real(1.8)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(400)  real(2)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(500)  real(2.2)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(600)  real(2.5)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(700)  real(2.6)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(800)  real(2.8)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(900)  real(3.1)us
+Collocated CCM Test: void f_out2(out string s1) loops(100000) size(1000) real(3.3)us
+
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(0)    real(1)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(100)  real(2.6)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(200)  real(3.7)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(300)  real(4.6)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(400)  real(5.4)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(500)  real(6.3)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(600)  real(7)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(700)  real(7.8)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(800)  real(8.6)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(900)  real(9.3)us
+Collocated CCM Test: void f_out3(out LongList ll1) loops(100000) size(1000) real(10.2)us
+
+Collocated CCM Test: long f_ret1() loops(1000000) size(1) real(0.76)us
+
+Collocated CCM Test: string f_ret2() loops(100000) size(0)    real(1.1)us
+Collocated CCM Test: string f_ret2() loops(100000) size(100)  real(1.5)us
+Collocated CCM Test: string f_ret2() loops(100000) size(200)  real(1.7)us
+Collocated CCM Test: string f_ret2() loops(100000) size(300)  real(1.8)us
+Collocated CCM Test: string f_ret2() loops(100000) size(400)  real(2.1)us
+Collocated CCM Test: string f_ret2() loops(100000) size(500)  real(2.3)us
+Collocated CCM Test: string f_ret2() loops(100000) size(600)  real(2.5)us
+Collocated CCM Test: string f_ret2() loops(100000) size(700)  real(2.8)us
+Collocated CCM Test: string f_ret2() loops(100000) size(800)  real(2.9)us
+Collocated CCM Test: string f_ret2() loops(100000) size(900)  real(3.1)us
+Collocated CCM Test: string f_ret2() loops(100000) size(1000) real(3.3)us
+
+Collocated CCM Test: LongList f_ret3() loops(100000) size(0)    real(1.1)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(100)  real(3.4)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(200)  real(4.5)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(300)  real(5.7)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(400)  real(6.6)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(500)  real(7.6)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(600)  real(8.6)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(700)  real(9.6)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(800)  real(10.6)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(900)  real(11.5)us
+Collocated CCM Test: LongList f_ret3() loops(100000) size(1000) real(12.6)us
+--- Stop Test Case ------------------------------------
+>>>> Stop Test Client: client/ccm_collocated_client/Client.cc
+loops(1) size(1) real(4.244e+07)us
+
+real	0m42.514s
+user	0m41.427s
+sys	0m0.855s

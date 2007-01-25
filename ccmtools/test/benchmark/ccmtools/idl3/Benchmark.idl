@@ -1,0 +1,31 @@
+
+#ifndef __BENCHMARK__H__
+#define __BENCHMARK__H__
+
+typedef sequence<long> LongList;
+
+interface Benchmark {
+  attribute long long_attr;
+  attribute string string_attr;
+  attribute LongList LongList_attr;
+
+  void f0();
+
+  void f_in1(in long l1);
+  void f_in2(in string s1);
+  void f_in3(in LongList ll1);
+
+  void f_inout1(inout long l1);
+  void f_inout2(inout string s1);
+  void f_inout3(inout LongList ll1);
+
+  void f_out1(out long l1);
+  void f_out2(out string s1);
+  void f_out3(out LongList ll1);
+
+  long     f_ret1();
+  string   f_ret2();
+  LongList f_ret3();
+};
+
+#endif /* __BENCHMARK__H__ */

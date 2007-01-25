@@ -1,0 +1,64 @@
+/***
+ * facet_types test case
+ *
+ * This test case shows the usage of IDL basic and user types as parameters
+ * in facet operations. 
+ ***/
+
+typedef long time_t;
+
+enum Color {red, green, blue, black, orange};
+
+struct Pair {
+  string key;
+  double value;
+};
+
+typedef sequence<Pair> Map;
+
+typedef double doubleArray[10];
+
+interface Console 
+{ 
+  attribute string prompt;
+  long println(in string msg); 
+};
+
+interface TypeTest 
+{
+  // basic types 
+  short          op_b1 (in short p1, inout short p2, out short p3);
+  long           op_b2 (in long p1, inout long p2, out long p3);
+  unsigned short op_b3 (in unsigned short p1, inout unsigned short p2, out unsigned short p3);
+  unsigned long  op_b4 (in unsigned long p1, inout unsigned long p2, out unsigned long p3);
+  float          op_b5 (in float p1, inout float p2, out float p3);
+  double         op_b6 (in double p1, inout double p2, out double p3);
+  char           op_b7 (in char p1, inout char p2, out char p3);
+  string         op_b8 (in string p1, inout string p2, out string p3);
+  boolean        op_b9 (in boolean p1, inout boolean p2, out boolean p3);
+  octet          op_b10(in octet p1, inout octet p2, out octet p3);
+
+  wchar          op_b11 (in wchar p1, inout wchar p2, out wchar p3);
+  wstring        op_b12 (in wstring p1, inout wstring p2, out wstring p3);
+  any            op_b13 (in any p1, inout any p2, out any p3);
+
+  // user defined types 
+  time_t      op_u1(in time_t p1, inout time_t p2, out time_t p3);
+  Color       op_u2(in Color p1, inout Color p2, out Color p3);
+  Pair        op_u3(in Pair p1, inout Pair p2, out Pair p3);
+  Map         op_u4(in Map p1, inout Map p2, out Map p3);
+  doubleArray op_u5(in doubleArray p1, inout doubleArray p2, out doubleArray p3);
+
+  // interface types 
+  Console op_i1(in Console p1, inout Console p2, out Console p3);
+};
+
+component Test
+{ 
+  provides TypeTest type_test; 
+};
+
+home TestHome manages Test 
+{ 
+};
+

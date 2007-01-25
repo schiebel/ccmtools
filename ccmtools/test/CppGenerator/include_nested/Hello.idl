@@ -1,0 +1,23 @@
+/**
+ * include test
+ *
+ *
+ * ccmtools-c++-generate -p Hello *.idl
+ * ccmtools-c++-make -p Hello
+ */
+
+#include "Console.idl"
+#include "Lcd.idl"
+
+component Hello
+{
+  attribute string prompt;
+
+  provides Console console;
+  uses Lcd lcd;
+};
+
+home HelloHome manages Hello
+{
+};
+

@@ -1,0 +1,164 @@
+Tutorial example 1
+==================
+
+This is the example of the tutorial's "Fist Component" chapter.
+It is thought as an entry to the component based development using CCM Tools.
+
+
+How to build and run the local component:
+-----------------------------------------
+
+a) Bring IDL3 files in the right structure:
+
+# Generate idl3 and idl3 mirror files in the right structure
+$ ccmtools-generate idl3 -o CarRental/idl3 *.idl
+$ ccmtools-generate idl3mirror -o CarRental/idl3 *.idl
+
+CarRental
+`-- idl3
+    |-- component
+    |   `-- BigBusiness
+    |       |-- CarRental.idl
+    |       |-- CarRentalHome.idl
+    |       |-- CarRentalHome_mirror.idl
+    |       `-- CarRental_mirror.idl
+    `-- interface
+        `-- BigBusiness
+            |-- CreateCustomerException.idl
+            |-- Customer.idl
+            |-- CustomerBusiness.idl
+            |-- CustomerList.idl
+            |-- CustomerMaintenance.idl
+            |-- NoCustomerException.idl
+            `-- RemoveCustomerException.idl
+
+b) Generate a local CarRental component:
+
+# Generate component interfaces
+$ ccmtools-generate c++local -o CarRental/interface -ICarRental/idl3/interface CarRental/idl3/interface/BigBusiness/*.idl
+
+CarRental
+|-- idl3
+`-- interface
+    `-- CCM_Local_BigBusiness
+        |-- CreateCustomerException.h
+        |-- Customer.h
+        |-- CustomerBusiness.h
+        |-- CustomerList.h
+        |-- CustomerMaintenance.h
+        |-- Makefile.py
+        |-- NoCustomerException.h
+        `-- RemoveCustomerException.h
+
+# Generate local component
+$ ccmtools-generate c++local -a -o CarRental/component/CarRental -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/component/BigBusiness/CarRental.idl CarRental/idl3/component/BigBusiness/CarRentalHome.idl
+
+CarRental
+|-- component
+|   `-- CarRental
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental
+|       |   |-- CarRentalHome_gen.cc
+|       |   |-- CarRentalHome_gen.h
+|       |   |-- CarRental_gen.cc
+|       |   |-- CarRental_gen.h
+|       |   `-- Makefile.py
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_share
+|       |   |-- CarRentalHome_share.h
+|       |   |-- CarRental_share.h
+|       |   `-- Makefile.py
+|       `-- impl
+|           |-- CarRentalHome_entry.h
+|           |-- CarRentalHome_impl.cc
+|           |-- CarRentalHome_impl.h
+|           |-- CarRental_business_impl.cc
+|           |-- CarRental_business_impl.h
+|           |-- CarRental_impl.cc
+|           |-- CarRental_impl.h
+|           |-- CarRental_maintenance_impl.cc
+|           |-- CarRental_maintenance_impl.h
+|           `-- Makefile.py
+
+
+# Generate mirror component
+$ ccmtools-generate c++local -a -o CarRental/component/CarRental_mirror -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/component/BigBusiness/CarRental_mirror.idl CarRental/idl3/component/BigBusiness/CarRentalHome_mirror.idl
+
+CarRental 
+|-- component
+|   |-- CarRental
+|   `-- CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror
+|       |   |-- CarRentalHome_mirror_gen.cc
+|       |   |-- CarRentalHome_mirror_gen.h
+|       |   |-- CarRental_mirror_gen.cc
+|       |   |-- CarRental_mirror_gen.h
+|       |   `-- Makefile.py
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror_share
+|       |   |-- CarRentalHome_mirror_share.h
+|       |   |-- CarRental_mirror_share.h
+|       |   `-- Makefile.py
+|       `-- impl
+|           |-- CarRentalHome_mirror_entry.h
+|           |-- CarRentalHome_mirror_impl.cc
+|           |-- CarRentalHome_mirror_impl.h
+|           |-- CarRental_mirror_impl.cc
+|           |-- CarRental_mirror_impl.h
+|           `-- Makefile.py
+
+
+# Generate test client
+$ ccmtools-generate c++local-test -o CarRental/component/CarRental_mirror -ICarRental/idl3/component -ICarRental/idl3/interface CarRental/idl3/component/BigBusiness/CarRental.idl
+
+CarRental
+|-- component
+|   |-- CarRental
+|   `-- CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror
+|       |-- CCM_Local_BigBusiness_CCM_Session_CarRental_mirror_share
+|       |-- impl
+|       `-- test
+|           |-- Makefile.py
+|           `-- _check_CCM_Local_BigBusiness_CCM_Session_CarRental.cc
+
+
+c) Copy business logic implementation and test cases
+
+# Copy business logic and test cases into the component directory
+$ cp impl/CarRental_impl.h CarRental/component/CarRental/impl/
+$ cp impl/CarRental_business_impl.cc CarRental/component/CarRental/impl/
+$ cp impl/CarRental_maintenance_impl.cc  CarRental/component/CarRental/impl/
+$ cp impl/CarRental_mirror_impl.cc CarRental/component/CarRental_mirror/impl/
+
+
+d) Compile and run the test case
+
+# Compile and install component interfaces
+$ confix.py --advanced --bootstrap --configure --packageroot=`pwd`/CarRental/interface --make --targets=install
+
+# Compile the components and run the unit test
+$ touch CarRental/component/CarRental/Makefile.py
+$ touch CarRental/component/CarRental_mirror/Makefile.py
+
+$ confix.py --advanced --bootstrap --configure --packageroot=`pwd`/CarRental/component --make --targets=check
+
+
+e) Compile and run a client application
+
+CarRentalClient/
+`-- src
+    |-- Makefile.py
+    `-- client.cc
+
+# Install the components
+$ confix.py --packageroot=`pwd`/CarRental/component --make --targets=install
+
+# Compile and run the client
+$ confix.py --advanced --bootstrap --configure --packageroot=`pwd`/CarRentalClient --make --targets=install
+$ $CCM_INSTALL/bin/CarRentalClient_src_client
+
+# Uninstall client and components
+$ confix.py --packageroot=`pwd`/CarRentalClient --make --targets=uninstall
+$ confix.py --packageroot=`pwd`/CarRental/component --make --targets=uninstall
+$ confix.py --packageroot=`pwd`/CarRental/interface --make --targets=uninstall
+
+
+

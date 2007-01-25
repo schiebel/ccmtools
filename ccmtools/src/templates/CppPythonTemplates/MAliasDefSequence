@@ -1,0 +1,62 @@
+PyObject *
+convert_%(Identifier)s_to_python ( %(Identifier)s arg )
+{
+  PyObject *result = PyList_New (  );
+  std::vector<%(CppLanguageType)s> wrapper ( arg.begin (  ), arg.end (  ) );
+  for ( int i = 0; i < wrapper.size (  ); i++ )
+    PyList_SetItem ( result, i, convert_%(LanguageType)s_to_python ( wrapper[i] ) );
+  return result;
+}
+
+PyObject *
+convert_const_%(Identifier)s_to_python ( const %(Identifier)s arg )
+{
+  PyObject *result = PyList_New (  );
+  std::vector<%(CppLanguageType)s> wrapper ( arg.begin (  ), arg.end (  ) );
+  wrapper->length ( arg.size (  ) );
+  for ( int i = 0; i < wrapper.size (  ); i++ )
+    PyList_SetItem ( result, i, convert_%(LanguageType)s_to_python ( wrapper[i] ) );
+  return result;
+}
+
+PyObject *
+convert_const_%(Identifier)s_ref_to_python ( const %(Identifier)s& arg )
+{
+  PyObject *result = PyList_New (  );
+  std::vector<%(CppLanguageType)s> wrapper ( arg.begin (  ), arg.end (  ) );
+  wrapper->length ( arg.size (  ) );
+  for ( int i = 0; i < wrapper.size (  ); i++ )
+    PyList_SetItem ( result, i, convert_%(LanguageType)s_to_python ( wrapper[i] ) );
+  return result;
+}
+
+%(Identifier)s
+convert_%(Identifier)s_from_python ( PyObject *arg )
+{
+  PyObject *elem;
+  %(Identifier)s result;
+  unsigned long size = PyList_GetSize ( arg );
+  for ( unsigned long i = 0; i < size; i++ ) {
+    elem = convert_%(LanguageType)s_from_python ( PyList_GetItem ( arg, i ) );
+    if ( ! elem ) continue;
+    result.insert ( i, elem );
+  }
+  return result;
+}
+
+%(Identifier)s *
+convert_%(Identifier)s_ptr_from_python ( PyObject *arg )
+{
+  PyObject *elem;
+  unsigned long size = PyList_GetSize ( arg );
+  std::vector<%(CppLanguageType)s> wrapper;
+  wrapper->reserve ( size );
+  for ( unsigned long i = 0; i < size; i++ )
+    elem = convert_%(LanguageType)s_from_python ( PyList_GetItem ( arg, i ) );
+    if ( ! elem ) continue;
+    wrapper.insert ( i, elem );
+  }
+  return new %(Identifier)s ( wrapper.begin (  ), wrapper.end (  ) );
+}
+
+

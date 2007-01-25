@@ -1,0 +1,36 @@
+/*  $Id: Math.idl,v 1.1 2004/03/08 15:21:10 teiniker Exp $
+*/
+
+#include<mico/CCM.idl>
+
+typedef sequence<long> IntegerVector;
+
+
+/**
+ * A stack for integers.
+ */
+interface IntegerStack
+{
+    attribute IntegerVector field;
+    attribute long maxSize;
+    boolean isEmpty();
+    boolean isFull();
+    void push( in long value );
+    long pop();
+    long top();
+};
+
+
+component Math
+{
+    provides IntegerStack stack;
+};
+
+home MathHome manages Math
+{
+};
+
+local interface CCM_Math_Session : CCM_Math,
+   Components::SessionComponent
+{
+};

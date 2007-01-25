@@ -1,0 +1,16 @@
+// $Id: MyBag.idl,v 1.1 2004/02/09 13:32:41 rlechner Exp $
+
+typedef sequence<long> LongSeq;
+typedef sequence<LongSeq> LongSeqSeq;
+typedef double DoubleArray[10];
+
+component MyBag
+{
+  attribute LongSeq seq1;
+  attribute DoubleArray array1;
+  attribute LongSeqSeq seq2;
+};
+
+home MyBagHome manages MyBag
+{
+};

@@ -1,0 +1,27 @@
+/**
+ * Test case: facet basic types 
+ *
+ */
+
+interface IFace {
+  short   op1(in short p1, inout short p2, out short p3);
+  long    op2(in long p1, inout long p2, out long p3);
+  unsigned short op3(in unsigned short p1, inout unsigned short p2, out unsigned short p3);
+  unsigned long  op4(in unsigned long p1, inout unsigned long p2, out unsigned long p3);
+  float   op5(in float p1, inout float p2, out float p3);
+  double  op6(in double p1, inout double p2, out double p3);
+  char    op7(in char p1, inout char p2, out char p3);
+  string  op8(in string p1, inout string p2, out string p3);
+  boolean op9(in boolean p1, inout boolean p2, out boolean p3);
+  octet   op10(in octet p1, inout octet p2, out octet p3);
+};
+
+component Test
+{
+  provides IFace iface;
+};
+
+home TestHome manages Test
+{
+};
+

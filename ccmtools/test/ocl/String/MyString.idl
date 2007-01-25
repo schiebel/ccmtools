@@ -1,0 +1,17 @@
+// $Id: MyString.idl,v 1.1 2004/02/09 13:32:42 rlechner Exp $
+
+typedef sequence<string> StringSeq;
+typedef sequence<StringSeq> StringSeqSeq;
+typedef string StringArray[10];
+
+component MyString
+{
+  attribute StringSeq seq1;
+  attribute StringSeqSeq seq2;
+  attribute StringArray array1;
+  attribute string value1;
+};
+
+home MyStringHome manages MyString
+{
+};

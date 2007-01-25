@@ -1,0 +1,23 @@
+
+%(LanguageType)s 
+%(InterfaceType)sAdapterToCorba::%(Identifier)s(%(LocalParameters)s)
+    throw(LocalComponents::CCMException %(LocalExceptions)s
+{
+    LDEBUGNL(CCM_REMOTE, " %(Object)sAdapterToCorba::%(Identifier)s()"); 
+%(ConvertReceptacleParameterToCorba)s
+%(DeclareReceptacleCorbaResult)s
+    try {
+%(ConvertReceptacleMethodToCorba)s
+    }
+%(ConvertReceptacleExceptionsToCpp)s  
+    catch(const Components::NoConnection&) { 
+        throw LocalComponents::NoConnection();   
+    }                                       
+    catch(...) {
+        throw LocalComponents::CCMException();
+    }
+%(ConvertReceptacleParameterToCpp)s
+%(ConvertReceptacleResultToCpp)s
+}
+
+

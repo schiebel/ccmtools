@@ -1,0 +1,16 @@
+
+
+module world {
+  module europe {
+    module austria {
+      component Test
+      {
+	attribute string id;
+      };
+      
+      home TestHome manages Test
+      {
+      };
+    }; // end of module austria
+  }; // end of module europe
+}; // end of module world

@@ -1,0 +1,3 @@
+  { "%(Identifier)s", (getter) Py%(Identifier)s_getter, (setter) Py%(Identifier)s_setter,
+    "%(InterfaceType)s.%(Identifier)s" },
+

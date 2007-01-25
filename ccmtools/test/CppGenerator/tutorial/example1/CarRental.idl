@@ -1,0 +1,20 @@
+#ifndef __CAR_RENTAL_IDL__
+#define __CAR_RENTAL_IDL__
+
+#include "CustomerMaintenance.idl"
+#include "CustomerBusiness.idl"
+
+module BigBusiness {
+
+  component CarRental 
+  { 
+    provides CustomerMaintenance maintenance;
+    provides CustomerBusiness business;
+  };
+  
+  home CarRentalHome manages CarRental 
+  { };
+  
+}; // End of module BigBusiness
+
+#endif

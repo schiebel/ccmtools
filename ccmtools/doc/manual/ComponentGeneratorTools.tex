@@ -1,0 +1,1103 @@
+%******************************************************************************
+\chapter{Component Generator Tools}
+\label{chapter:component-generator-tools}
+%******************************************************************************
+
+%==============================================================================
+\section{Introduction}
+%==============================================================================
+
+This chapter describes the code generators in the CCM Tools. A library like the
+CCM metamodel greatly facilitates tasks like code generation. However, such
+libraries usually provide an API that is too low--level to be of concern for
+direct users, so the CCM Tools include some base classes that support code
+generators at a higher level. This chapter focuses on development topics related
+to subclasses of the abstract {\tt CodeGenerator} class.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=\textwidth]{ComponentGeneratorTools}
+\caption{Component generation tools.}
+\label{fig:component-generator-tools}
+\end{figure}
+
+The chapter is laid out in three major parts. First comes a design overview,
+which describes the class and interface design, and outlines template
+interactions in the component generator tools. The second part is a tutorial
+that describes how to create a new code generator, and the third part presents
+an example of how to maintain an existing code generator. Generally, the three
+parts in this chapter proceed from a more theoretical, developer--oriented point
+of view to a more practical, maintainer--oriented point of view.
+
+Before you begin, note that the rest of this chapter uses the term ``graph'' to
+refer to a CCM metamodel graph instance in memory. Usually such graphs are
+created by the IDL3 Parser by parsing an input IDL3 file, as described in
+Chapter~\ref{chapter:idl3-parser}.
+
+%==============================================================================
+\section{Design overview}
+%==============================================================================
+
+The code generator library consists of three main objects: a graph traverser
+class, a node handler interface, and a driver interface.
+Figure~\ref{fig:component-generator-design} shows the major components involved.
+
+\begin{description}
+\item [Graph traverser] The graph traverser class is responsible for visiting
+      the nodes in a given graph. The traverser visits graph nodes in a
+      depth-first manner; that is, all child nodes of a given graph node are
+      visited before proceeding to a sibling node. While visiting the graph, the
+      traverser sends out events about the objects it sees.
+\item [Node handler] The node handler interface receives graph traversal events
+      from the traverser object, and performs some useful action with them. The
+      node handler also sends user interface events to the driver as needed.
+\item [Driver] The driver interface receives events from the node handler and
+      translates these events into user interface information.
+\end{description}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=\textwidth]{ComponentGeneratorDesign}
+\caption{Components of the code generator design pattern.}
+\label{fig:component-generator-design}
+\end{figure}
+
+A fourth very important object is an abstract implementation of the node handler
+interface: the code generator base class. This abstract base class performs most
+bookkeeping tasks involved in code generation, such as maintaining a record of
+visited nodes, providing some standard information about the current node in the
+graph, interfacing with a template set, and determining when to write generated
+code to disk.
+
+Finally, the entire code generator class hierarchy uses template sets for
+generating code from a given input graph. By deriving a Java class from the
+abstract {\tt CodeGenerator} base class, and by creating or modifying a set of
+templates, it is relatively easy to create or modify a component code generator.
+
+%------------------------------------------------------------------------------
+\subsection{Two--layer visitor design pattern}
+%------------------------------------------------------------------------------
+
+The code generator library follows a general design pattern known as the {\it
+visitor pattern\/}. The visitor pattern means that a ``visitor'' object
+``travels through'' an abstract space, like the nodes of an XML document or the
+elements of a linked list. As the visitor object travels, it communicates its
+observations to some other object. The other object then does something useful
+with the received observations.
+
+For the code generation task, the ``space'' is a CCM metamodel graph, which is
+normally the result of parsing an input IDL3 source file. The visitor object
+travels to each node in the graph and sends events about these nodes to a node
+handler object. In turn, the node handler object transforms these events into
+some sort of generated code.
+
+Just for comparison, note that the visitor pattern shows up in other software
+packages. For example, this visitor pattern is also used in Python and Java's
+SAX XML parser classes: An XML tree traverser object crawls through the XML
+elements in an input file, sending traversal events to a node handler. In fact,
+the similarity between the two tasks is what inspired the current code generator
+design.
+
+The CCM Tools extend the visitor pattern by adding a second layer, that of the
+driver object: The node handler sends user interface events to the driver
+object, and the driver object translates these events into user interface
+activity. This permits the node handler objects to be agnostic about displaying
+status information to the user.
+
+This separation of traversal, node handling, and user interface information
+allows for a smaller code base and more abstract graph handling. In addition,
+separating graph traversal from node handling allows for reuse of the traverser
+object. For example, to generate code for different component types with a
+single pass through a graph, one need only instantiate multiple node handler
+objects. Each node handler object can independently receive and interpret the
+traversal events from the graph traverser.
+
+Similarly, separating the user interface from the node handling allows for reuse
+of the node handler objects: Any node handler object can use any front end,
+which results in easier adaptation to different user interface environments.
+
+%------------------------------------------------------------------------------
+\subsection{Code generator templates}
+%------------------------------------------------------------------------------
+
+None of the code generator objects could generate any code without templates. In
+the absence of a template set, the graph traverser would send graph traversal
+information to a code generator, but the generator would not have any way of
+converting that information into output code.\footnote{Well, that is not
+entirely correct; the code generators could indeed function, but the generated
+code would have to be hard-coded in the generator's Java class. That's Just Bad,
+especially for maintenance.} So to allow for more flexible template maintenance
+and increased code reuse, the code generators in the CCM Tools package use
+template sets.
+
+A template set is a collection of text files. These files are mostly written in
+the target code generation language. For example, templates could be written in
+C++, Java, or Python for generating code in these languages. In general, there
+is a template for each node type in the CCM metamodel. However, there is
+normally more than one instance of a given node type in a graph; for example,
+there is often more than one component defined in a source IDL3 file. The
+templates thus contain {\it keys} as placeholders for dynamically--generated
+information. The code generators load appropriate templates from disk when they
+receive certain graph traversal events, and periodically the generators replace
+template keys with information from the graph traversal process.
+
+Template keys form a large part of the template system's functionality, so a
+large part of the following tutorials are devoted to explaining how they work.
+For now, consider a short example. The local C++ component generator uses a
+template set that is written in C++. The C++ templates have keys as placeholders
+for things like component and operation identifiers (\verb+%(Identifier)s+);
+operation parameter information (\verb+%(MParameterDef)s+); exception names
+(\verb+%(MExceptionDefName)s+); C++ data types for parameters, operations, and
+{\tt struct}s (\verb+%(LanguageType)s+); and so forth. In fact, these four types
+of keys each have different meanings to the code generator (see
+section~\ref{subsubsection:component-key-types}).
+
+The different meanings of the four key types, and the template substitution
+processes, are all explained in greater detail in the next two tutorials. The
+first tutorial concentrates on writing a new code generator (along with its
+associated template set). The second tutorial is a little less in depth; it
+simply gives some guidelines for maintaining an existing generator.
+
+%==============================================================================
+\section{Writing a new code generator}
+%==============================================================================
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.6\textwidth]{ComponentGeneratorParts}
+\caption{Component generation class hierarchy.}
+\label{fig:component-generator-parts}
+\end{figure}
+
+Creating a new code generator tool depends on the code generation task you want
+to accomplish. Nevertheless, the process generally needs to cover three broad
+tasks before you can get a working code generator:
+
+\begin{description}
+\item [Creating a basic class] This category covers the basics of creating a new
+      code generator. You will need to create the basic Java skeleton class,
+      determine the nodes for which generated code should be written to disk,
+      identify files that need to be output only once per generation task, and
+      create a set of language data type mappings.
+\item [Writing a template set] Most of the work of a code generator goes into
+      the templates that store a majority of the code to generate.
+\item [Implementing basic functionality] Each code generator requires at least
+      three function implementations. These three basic functions are:
+      \begin{description}
+      \item [{\tt writeOutput}] This function will write generated code to the
+            hard disk.
+      \item [{\tt finalize}] This function can generate global package files
+            based on the set of input IDL3 source files.
+      \item [{\tt getLanguageType}] This function provides the generator with a
+            mapping between IDL3 data types and the data types in the target
+            language. The language mapping you create in the first stage usually
+            comes in handy here.
+      \end{description}
+\end{description}
+
+In addition, depending on the complexity of the code generator you want to
+write, you might need to perform some additional coding tasks. This could
+include any of the following concepts, and likely others not listed.
+
+\begin{itemize}
+\item Sometimes templates require special pre-- or postprocessing. For example,
+      the parameters to an operation are normally separated by commas (,).
+      However, since there is normally only one template for a parameter type
+      node in a graph, generators need process the entire parameter list at once
+      to remove the last comma.
+\item Sometimes nodes in a graph will need to know information about distant
+      neighbors in the graph, not just nodes immediately adjacent.
+\item Sometimes nodes need to have specifically formatted information about the
+      entire graph traversal to date. For example, there are several different
+      ways to format the current namespace in a C++ generator (e.g. {\tt using
+      namespace A}, {\tt namespace A \{ ... \}}, etc.).
+\end{itemize}
+
+The remainder of this section addresses these areas. Background on how the code
+generator base classes work is also included when it will help explain how to do
+things.
+
+%------------------------------------------------------------------------------
+\subsection{Creating a basic class}
+%------------------------------------------------------------------------------
+
+To start writing a new code generator, you will need to create a new Java class
+to hold your generator's specific information, and fill it in with some basic
+information about the language you want to generate. Most of this process is
+more or less boilerplate code; in fact, you might want to create the skeletal
+Java code by copying an existing generator and stripping out the functions. See
+the IDL2 generator class for an example of a minimal generator.\footnote{Note,
+though, that the IDL2 generator is a subclass of the {\tt IDLGenerator} abstract
+base class. This base class is derived from {\tt CodeGenerator} and holds the
+common code for all IDL code generators.}
+
+The remainder of this process involves creating several arrays of information
+relating to your specific generation task. You will need to create arrays
+containing top level node types, environment files and templates, language
+mappings, and keywords for your target langauge. Each of these is explained
+below.
+
+%---------------------------------------
+\subsubsection{Top level node types}
+%---------------------------------------
+
+After you have a basic Java class skeleton, you need to determine the nodes for
+which generated code should be written to disk. These will be referred to as
+``top level node types''. Store these node types as strings in a {\tt private
+final static String[]} array in your new class. Note that ``MContainer'' will be
+added to these types, since the top node of all CCM Tools metamodel graphs is an
+{\tt MContainer} class instance.
+
+%---------------------------------------
+\subsubsection{Environment files and templates}
+%---------------------------------------
+
+Next, you need to identify files that need to be output only once per generation
+task; these files are referred to as ``environment files.'' Most generated
+files, like the code for a component, are written one or more times during code
+generation---once for each component (or operation, or whatever) in a graph.
+Environment files, on the other hand, are things like global header files,
+global utility functions, and so on. These files cannot be filled with any
+information from a graph traversal; they are more or less static.
+
+To get started, figure out the relative paths of each of the code generator's
+environment files (relative to the root directory of the generated code; do not
+use absolute file paths!). Specify these files in your class in a {\tt private
+final static File[]} array. Next, you need to provide your generator with a list
+of the templates to use for writing each of these environment files. Define an
+array of strings that contains the names of templates to use for each
+environment file. These two arrays must be the same length.
+
+Normally, templates for environment files do not contain any keys; the templates
+are simply written to disk as is, since environment files are globally valid.
+Example~\ref{example:component-environment-files} shows the environment file
+arrays in the C++ Python wrapper generator.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+private final static File[] local_environment_files =
+{
+    new File("CCM_Test_Python", "call_python.h"),
+    new File("CCM_Test_Python", "call_python.cc"),
+    new File("CCM_Test_Python", "convert_python.cc"),
+    new File("CCM_Test_Python", "Makefile.py"),
+    new File("External_Python", "Makefile.py"),
+    new File("External_Boost_Python", "Makefile.py"),
+};
+
+private final static String[] local_environment_templates =
+{
+    "CallPythonHeader", "CallPythonImpl", "ConvertPythonImpl",
+    "Blank", "PythonMakefile", "BoostPythonMakefile",
+};
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Environment files and templates from the C++ Python wrapper generator.}
+\label{example:component-environment-files}
+\end{Example}
+
+%---------------------------------------
+\subsubsection{Language type mappings}
+%---------------------------------------
+
+Create a set of language mappings in a {\tt private final static String[]}
+array. This language map array must be the same length as the MPrimitiveKind
+enumeration (located in {\tt Metamodel/ BaseIDL/ MPrimitiveKind.java} in the
+source tree). The language map array provides the strings that will be used to
+translate IDL3 language types into the data types for the target language. Thus
+the entries in this language mapping array must be in the same order as the
+entries in the MPrimitiveKind enumeration.
+Example~\ref{example:component-language-mapping} shows the language type mapping
+for the C++ generators.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+private final static String[] local_language_map =
+{
+    "", "localComponents::Any",
+    "bool", "char", "double",
+    "(fixed data type not implemented",
+    "float", "long", "double", "long", "NULL",
+    "localComponents::Object*", "int",
+    "(principal data type not implemented",
+    "short", "std::string",
+    "localComponents::TypeCode",
+    "unsigned long", "unsigned long", "unsigned short",
+    "localComponents::Object*", "void", "char",
+    "std::string"
+};
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Language type mapping for the C++ generators.}
+\label{example:component-language-mapping}
+\end{Example}
+
+%---------------------------------------
+\subsubsection{Keywords}
+%---------------------------------------
+
+The last piece of information your generator needs is a list of the keywords in
+your generator's target langauge. Components, interfaces, operations, and
+exceptions cannot normally have the same name as a keyword, so if the generator
+finds a graph node with a keyword identifier, it will map the identifier to a
+new, safe identifier by prefixing the name with an underscore (\_). Like the
+other arrays, the keyword array should be a {\tt private final static String[]}
+data element in your class.
+
+%---------------------------------------
+\subsubsection{Writing your class constructor}
+%---------------------------------------
+
+Finally, you need to provide all of these arrays to the constructor of the
+abstract code generator base class in each constructor you write for your
+generator class. The constructor for the C++ abstract base generator class in
+Example~\ref{example:component-cpp-constructor} shows how to call the
+superclass' constructor, providing the language mappings, keywords, and
+environment files to build the generator.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+public CppGenerator(String sublang, Driver d, File out_dir,
+                    String[] output_types,
+                    File[] env_files, String[] env_templates)
+    throws IOException
+{
+    super(sublang, d, out_dir,
+          output_types, local_reserved_words,
+          env_files, env_templates, local_language_map);
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{The constructor in the C++ generator base class.}
+\label{example:component-cpp-constructor}
+\end{Example}
+
+%------------------------------------------------------------------------------
+\subsection{Writing a template set}
+%------------------------------------------------------------------------------
+
+Writing a template set can be divided into two types of writing tasks. First,
+you need to create templates for your code generator's environment files. Next,
+you need to create the normal templates for your generator. Now you might think
+that this second step is easy, but it actually represents about 75~\% of the
+work involved in creating a code generator.
+
+%---------------------------------------
+\subsubsection{Creating environment templates}
+%---------------------------------------
+
+Create templates for your environment files. Since environment files are usually
+static from project to project, these templates are often just straight code
+written in the target language.
+
+If you absolutely need to include dynamic data in an environment file, you will
+need to perform a somewhat different operation. Instead of adding your
+semi--dynamic environment file to the normal environment files list, you can
+make use of the {\tt finalize} function. This process is not entirely the same
+as generating normal environment files, however. See
+section~\ref{subsection:component-basic-functionality} for details.
+
+Now take a deep breath; you are about to start writing a template set. The
+tutorial takes a small style detour at this point to explain in detail how the
+template mechanism works. This is important for writing templates and
+accompanying them with custom code in your generator class.
+
+%---------------------------------------
+\subsubsection{Template writing process}
+%---------------------------------------
+
+Writing a template set usually starts by writing templates for more globally
+scoped CCM metamodel elements (e.g. MContainer and MModuleDef).\footnote{You
+must, at a minimum, create a template for MContainer, because that node is
+always defined as an output node for code generation.} Then, whenever a
+potential subelement is encountered (for example, an MInterfaceDef instance
+could be contained in an MModuleDef instance in an IDL3 source file), the
+template can reflect this possibility by including a `key' for the element type.
+
+Template writing can theoretically proceed in this way from general elements
+through the entire CCM metamodel to more specific elements (e.g. MParameterDef
+and MField) by following this process. Just by following this template process,
+you can often write a near--complete template set.
+
+%---------------------------------------
+\subsubsection{Example template writing task}
+%---------------------------------------
+
+For purposes of illustration, the remainder of this section will use the IDL3
+file shown in Example~\ref{example:component-idl3-code} as an example for
+template writing. The parse tree produced by parsing such an IDL3 file, with
+just the node types and identifiers indicated, is shown in
+Example~\ref{example:component-parse-tree}. The target language for the example
+will be Java. For comparison, Example~\ref{example:component-generated-java}
+shows the generated Java code that should result from the example IDL3 file.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+interface MyInterface {
+  double MyOperation ( in int MyParameter );
+  int    AnotherOperation ( inout char Letter,
+                            inout int Number );
+};
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Example IDL3 source file.}
+\label{example:component-idl3-code}
+\end{Example}
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+MInterfaceDef (MyInterface)
++-- MOperationDef (MyOperation)
+|   +-- MParameterDef (MyParameter)
++-- MOperationDef (AnotherOperation)
+    +-- MParameterDef (Letter)
+    +-- MParameterDef (Number)
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{A tree view of the example CCM metamodel graph.}
+\label{example:component-parse-tree}
+\end{Example}
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+interface MyInterface
+{
+    float
+    MyOperation
+        ( int MyParameter );
+    int
+    AnotherOperation
+        ( char Letter, int Number );
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Target Java code that should be generated from the example IDL3 file.}
+\label{example:component-generated-java}
+\end{Example}
+
+%------------------------------------------------------------------------------
+\subsection{The template substitution process}
+%------------------------------------------------------------------------------
+
+As stated earlier, template writing can generally proceed from more global
+library elements to more specific elements. Given the example IDL3 file as a
+guide, you'll need to write a template for MInterfaceDef (since it is the
+highest level element in our IDL3 code example). For the time being, the
+MContainer template is empty.
+
+The first step is to create a directory to hold the templates. The directory
+needs to be named {\tt <language>Templates} and needs to be installed under {\tt
+PREFIX/share/ccmtools-A.B}, where the code generators can find it.
+Example~\ref{example:component-template-makefile} shows a snippet of the {\tt
+Makefile.am} for the local C++ generator.
+
+In general, the template for a node type needs to have the same name as the node
+type, so to create a template for MInterfaceDef nodes, you need to make a new
+file, {\tt JavaTemplates/MInterfaceDef}. Peek a little ahead to
+Example~\ref{example:component-interface-template} and take a look at one
+potential way to define a template for MInterfaceDef.
+
+As mentioned earlier, a template is a piece of code written in the target
+language (for this example, Java). But because one node type can have many
+different instances---that is, there could be multiple MInterfaceDef class
+instances in a graph---each template contains keys that the code generator will
+fill in when the code is generated. There are four different types of keys
+available, as described below.
+
+%---------------------------------------
+\subsubsection{Template key types}
+\label{subsubsection:component-key-types}
+%---------------------------------------
+
+A key is just a text string of the form {\tt \%(name)s}.\footnote{This is not as
+arbitrary as it may seem at first. Historically, the CCM Tools started out as a
+Python tool, and this is the form that Python uses to retrieve values from a
+hash table when printing a string.} Keys come in four flavors:
+
+\begin{description}
+\item [Simple data elements] These keys are placeholders for simple graph node
+      information (i.e. data types that do not require an iterator to
+      investigate). The key is the name of the data element from the CCM
+      metamodel class, with the initial letter capitalized. Information like
+      component and operation identifiers (\verb+%(Identifier)s+), or sequence
+      bounds (\verb+%(Bound)s+) are valid candidates for keys in this category.
+
+\item [Child node template information] The core of the template system, as
+      explained in more detail below, is the notion of recursive template
+      substitution. When a graph node needs to add information about all of its
+      child elements in the graph, the template can simply include a key with
+      the name of the child node type. All child node template information will
+      be substituted in place of this key. See
+      section~\ref{subsubsection:component-recursive-substitution} for details.
+
+\item [Parallel child node information] Sometimes a node of a given type needs
+      to know information about its child nodes in more than one format. You can
+      define a key (and create an associated template) that starts with a node
+      type name and has some sort of specifier on the end, for example
+      MParameterDefAll. See
+      section~\ref{subsubsection:component-multiple-templates} for details.
+
+\item [Common graph information] Finally, there are some common data elements
+      that a template needs, but which are not immediate data members of the
+      graph node. For example, a component template often needs to know the
+      identifier of the component's home, which requires traversing the CCM
+      metamodel graph from the component node to its home node.
+
+      Since this is a relatively common and simple operation, the home
+      identifier can be included in a template using the \verb+%(HomeType)s+
+      key. As another example, many node types (especially operations,
+      parameters, and attributes) need to include their target language data
+      type in the template. The \verb+%(LanguageType)s+ key provides access to
+      this information. Other special keys are available;
+      Table~\ref{table:component-template-keys} describes these special keys.
+\end{description}
+
+\begin{table}[!htb]
+\begin{minifbox}
+\centering
+\begin{tabular}{llp{0.4\textwidth}}
+Key & Valid Node Types & Description \\ \hline \\
+Identifier    & MContained               & The identifier of the current node. \\
+LanguageType  & MTyped                   & The type of the current node, mapped to a type for the target language.$^\dagger$ \\
+ComponentType & MHomeDef$^\ddagger$      & The identifier of the corresponding component. \\
+HomeType      & MComponentDef$^\ddagger$ & The identifier of the associated component's home. \\
+SupportsType  & MSupportsDef             & The identifier of the supported interface. \\
+UsesType      & MUsesDef                 & The identifier of the used interface.$^\star$ \\
+ProvidesType  & MProvidesDef             & The identifier of the provided interface.$^{\star\star}$ \\
+BaseTypes     & MInterfaceDef            & Gives a comma separated list of identifiers of parent classes. \\ \\ \hline
+\end{tabular}
+\begin{tabular}{rp{0.85\textwidth}}
+\\
+$^\dagger$ & For example, an MParameterDef object has an idlType variable
+associated with it. If the associated IdlType object is an MPrimitiveKind object
+of type {\tt PK\_LONG}, and the target language is Java, the resulting
+LanguageType will normally be `int'. Language mappings can be found in the local
+language type list in each language's abstract base class. \\
+
+$^\ddagger$ & Actually this key is valid for MFactoryDef, MFinderDef, MUsesDef,
+MProvidesDef, MEmitsDef, MPublishesDef, MConsumesDef, and MHomeDef objects. \\
+
+$^\star$ & In this sense, a uses definition in IDL3 can be expressed as:
+\verb+uses [multiple] %(UsesType)s %(Identifier)s;+ \\
+
+$^{\star\star}$ & A provides definition thus looks like:
+\verb+provides %(ProvidesType)s %(Identifier)s;+
+\end{tabular}
+\end{minifbox}
+\caption{Standard keys available for template writing.}
+\label{table:component-template-keys}
+\end{table}
+
+Next comes an explanation of how this recursive template loading concept works.
+After grokking it you should be able to handle 90~\% of template writing tasks.
+
+%---------------------------------------
+\subsubsection{Recursive template loading and substitution}
+\label{subsubsection:component-recursive-substitution}
+%---------------------------------------
+
+The template substitution process goes even further than basic translation
+directly from graph nodes, as implied by the first key type. Consider, for
+example, a code template for an IDL3 operation. This template will need keys for
+things like the operation's identifier and the data type that the operation
+returns. The values for these keys come directly from each operation node in a
+given graph traversal.
+
+But an operation also has parameters and can throw exceptions. The number of
+parameters and exceptions is not fixed for all operations. That is, a given
+operation might take three parameters and throw four types of exceptions, while
+another operation might only take one parameter and throw no exceptions. The
+template for an operation cannot hold the code for all possibilities in this
+respect.
+
+In fact, the specific code to implement these types of variables needs to be
+created after all appropriate nodes in the graph are visited. More specifically,
+for an operation, the operation template needs to know information contained in
+the child parameter and exception nodes in the graph. Luckily, though, all the
+the relevant nodes (parameters and exceptions) are all immediate children of the
+operation node, so the operation needs just the information from its child
+nodes.
+
+To support this type of template interaction, the code generator implementation
+supports recursive template substitution. Keys in a template just need to have
+the name of child node types, and the code generator will automatically
+substitute template information from the filled--in templates of child nodes in
+the graph. The specifics of this substitution process are described below during
+the tutorial on template creation.
+
+Because an {\tt MInterfaceDef} object has a variable called {\tt identifier}
+(and a corresponding access function named {\tt getIdentifier}), it is easy for
+the code generator to simply substitute the value of the current node's
+identifier for the {\tt Identifier} key in a template.
+
+The difficulty with a top down template like the one shown for our example
+MInterfaceDef is that it is not clear how to generically generate code for a
+more complex key like {\tt MOperationDef}: {\tt MInterfaceDef} class instances
+do not have variables and access functions for direct data members called
+``mOperationDef''. To support such keys, the code generator uses a recursive
+template loading and substitution process. This scheme simplifies template
+development in many cases and allows for more general template keys. However, it
+also requires some extra coding in some cases.
+
+Consider the parse tree for the example code generation task, shown in
+Example~\ref{example:component-parse-tree}. Keep in mind that the graph
+traverser is depth--first, so all child nodes will be visited before visiting a
+sibling node in the graph. When the graph traverser starts reading the
+MyInterface node, then, it will proceed to the MyOperation node and on to the
+MyParameter node before returning back up the tree. The traverser will leave the
+MyParameter node, then leave the MyOperation node. Next it will visit the
+OtherOperation node (and also that node's child elements), and finally it will
+go all the way back up and leave the MyInterface node at the top.
+
+At each point during this process, the code generator stores information about
+the nodes it has visited so far. In this way, when the code generator returns to
+the MyInterface node after visiting its child nodes, it has all the necessary
+information to fill in an MOperationDef key in the interface template.
+
+The exact process that the code generator uses to gather this information is
+described next. Following the description is an explanation of how to use this
+information in template creation.
+
+%---------------------------------------
+\subsubsection{Template loading and substitution in the example}
+%---------------------------------------
+
+When the code generator receives notification that the traverser is leaving a
+node, the generator attempts to load a template for the given node type. Because
+the MyParameter node in the example is a MParameterDef instance, the code
+generator in our example will try to load a template from disk located at {\tt
+JavaTemplates/MParameterDef}. So if the template for MParameterDef looks like
+\begin{small}
+\begin{alltt}
+\%(LanguageType)s\textvisiblespace\%(Identifier)s,\textvisiblespace
+\end{alltt}
+\end{small}
+then after doing key substitution we would get
+\begin{small}
+\begin{alltt}
+int{\textvisiblespace}MyParameter,\textvisiblespace
+\end{alltt}
+\end{small}
+and the code generator would store that information in its internal variable
+hash. (The `\textvisiblespace' symbols are used to emphasize the fact that there
+are space characters in the template and substituted code.)
+
+The important thing to note now is that the substituted template value will be
+{\it added to the information in the parent node\/}. This information will be
+indexed using the node type as a key in the code generator's variable hash
+table. So the above string will be added to the code generator's variable hash,
+indexed under the MParameterDef variable of the MyOperation node.
+
+After descending to read the first parameter node, the graph traverser will exit
+the MyOperation node, at which point it will load the template from {\tt
+JavaTemplates/MOperationDef} (because MyOperation is an instance of the
+MOperationDef class) and substitute the variables for this node. The template
+for MOperationDef nodes should look like the target Java code, with specific
+identifiers replaced by keys. So if the MOperationDef template looks like this:
+\begin{small}
+\begin{alltt}
+  %(LanguageType)s
+  %(Identifier)s
+    ( %(MParameterDef)s );
+\end{alltt}
+\end{small}
+Then substituting the variables in this template will yield:
+\begin{small}
+\begin{alltt}
+  float
+  MyOperation
+    ( int MyParameter, );
+\end{alltt}
+\end{small}
+Again, the important thing to keep in mind is that this information will be
+added to the parent node's {\tt MOperationDef} variable, so the node information
+for {\tt MyInterface} will contain an {\tt MOperationDef} variable that contains
+this string.
+
+The graph traverser will then continue on and start the {\tt AnotherOperation}
+node. When it has ended the second {\tt MParameterDef} child node, the {\tt
+MParameterDef} variable for the {\tt AnotherOperation} node will look like:
+\begin{small}
+\begin{alltt}
+char{\textvisiblespace}Letter,{\textvisiblespace}int{\textvisiblespace}Number,\textvisiblespace
+\end{alltt}
+\end{small}
+Then when the graph traverser has visited all children of the MyOperation node
+and finally ascends up one layer and signals the end of the MyOperation node
+itself, the code generator will load the template from {\tt
+JavaTemplates/MOperationDef} from disk. After substituting the values for the
+second operation, the code generator adds the resulting value to the
+MOperationDef variable in the parent element. This yields an MOperationDef value
+for the MyInterface node:
+\begin{small}
+\begin{alltt}
+  float
+  MyOperation
+    ( int MyParameter, );
+  int
+  AnotherOperation
+    ( char Letter, int Number, );
+\end{alltt}
+\end{small}
+and, as before, this value will in turn be added to the parent node's
+information. So, in this example, this string will get added to the
+MOperationDef variable of the MyInterface node. When the traverser then exits
+the MyInterface node, the code generator again loads a template, this time from
+{\tt JavaTemplates/MInterfaceDef}. The template and resulting code after key
+substitution are shown in Example~\ref{example:component-interface-template} and
+Example~\ref{example:component-substituted-interface-code}, respectively.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+interface %(Identifier)s
+{
+%(MOperationDef)s
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Example MInterfaceDef template.}
+\label{example:component-interface-template}
+\end{Example}
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+interface MyInterface
+{
+  float
+  MyOperation
+    ( int MyParameter, );
+  int
+  AnotherOperation
+    ( char Letter, int Number, );
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{Resulting Java code after substituting in the interface template.}
+\label{example:component-substituted-interface-code}
+\end{Example}
+
+This recursive substitution process is what enables short, top down style
+templates that can handle a variety of input trees.
+
+%---------------------------------------
+\subsubsection{A couple more things about templates}
+\label{subsubsection:component-multiple-templates}
+%---------------------------------------
+
+You might have encountered a few questions while reading through this business
+about template substitution. Answers to two of these questions are mentioned
+here, but now is a good time to mention other sources of support as well: If you
+decide to hack on the CCM Tools, it is probably a good idea to subscribe to the
+ccmtools-devel mailing list\footnote{See the CCM Tools web site at
+http://ccmtools.sf.net/lists.php for more information.}; the folks on the list
+can help address any development questions you might have.
+
+Back to the questions. First, you might be wondering how just one template for
+each node type can be enough to satisfy the wide variety of code generation
+tasks that you might be faced with. For example, in C++ the syntax for a
+function prototype is different from the syntax for a function call---the
+parameter data types are not provided in the second case. In this case, an
+MOperationDef node in the CCM metamodel graph needs to have two types of
+template information about its child MParameterDef nodes.
+
+Luckily, the CCM Tools include a solution for this problem, as mentioned in the
+list of four different key types. You can simply define two templates for
+MParameterDef nodes, each with a different name, and each containing a different
+template. For example, templates called MParameterDefName and MParameterDefAll
+might contain the template information shown in
+Example~\ref{example:component-two-param-templates}. The MOperationDef
+template(s) can include either or both of these keys, and the appropriate
+information will be substituted into the template. In brief, when a code
+generator receives a node start event from the graph traverser, the code
+generator will load {\it all} the templates in the template set that start with
+the node type. This makes the generators potentially a bit slower, but it allows
+for unlimited numbers of templates for a given node type. For a rather complex
+example of this, take a look at all the MUsesDef templates in the local C++
+template set.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{alltt}
+MParameterDefName
+\%(Identifier)s,\textvisiblespace
+
+MParameterDefAll:
+\%(LanguageType)s\textvisiblespace\%(Identifier)s,\textvisiblespace
+\end{alltt}
+\end{small}
+\end{minifbox}
+\caption{Two possible templates for MParameterDef nodes.}
+\label{example:component-two-param-templates}
+\end{Example}
+
+A second question you might be asking, specifically about the example code shown
+earlier, is what to do with that extra comma after the final operation
+parameters. This hints at a larger problem, that of template post processing.
+The solution is addressed in
+section~\ref{subsection:component-customizing-generator}. But first, you should
+get your mind off templates for a bit, have a burrito, and read the following
+section to get your code generator up to speed.
+
+%------------------------------------------------------------------------------
+\subsection{Implementing basic generator functions}
+\label{subsection:component-basic-functionality}
+%------------------------------------------------------------------------------
+
+If you've tried compiling your new code generator class, you should have noticed
+that it will not compile. The class has not implemented a few functions that are
+defined as abstract in the parent class. To implement your generator, you must
+at the very least provide implementations for these functions.
+
+First you must write a {\tt getLanguageType} function. This function provides
+the generator with a mapping between IDL3 data types and the data types in the
+target language. Sometimes this can be a basic function that simply provides the
+mapped value from the language map you created earlier.\footnote{See the IDL3
+generator base class for an example of a relatively simple language type
+function implementation.} More often, however, the complex data types will
+require more special treatment.
+Example~\ref{example:component-c++-type-function} shows the rather complex
+implementation in the local C++ generator.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+protected String getLanguageType(MTyped object)
+{
+    MIDLType idl_type = object.getIdlType();
+
+    String base_type = getBaseIdlType(object);
+    if (language_mappings.containsKey(base_type))
+        base_type =
+            (String) language_mappings.get(base_type);
+
+    if (object instanceof MParameterDef) {
+        MParameterDef param = (MParameterDef) object;
+        MParameterMode direction = param.getDirection();
+
+        String prefix = "";
+        String suffix = "";
+
+        if (direction == MParameterMode.PARAM_IN)
+            prefix = "const ";
+        if ((idl_type instanceof MTypedefDef)
+            || (idl_type instanceof MStringDef)
+            || (idl_type instanceof MFixedDef))
+            suffix = "&";
+
+        return prefix + base_type + suffix;
+    } else if ((object instanceof MAliasDef) &&
+               (idl_type instanceof MTyped)) {
+        return getLanguageType((MTyped) idl_type);
+    } else if (object instanceof MSequenceDef) {
+        return "std::"+sequence_type+"<"+base_type+"> ";
+    } else if (object instanceof MArrayDef) {
+        Iterator i =
+            ((MArrayDef) object).getBounds().iterator();
+        Long bound = (Long) i.next();
+        String result = base_type + "[" + bound;
+        while (i.hasNext())
+            result += "][" + (Long) i.next();
+        return result + "]";
+    }
+
+    return base_type;
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{The {\tt getLanguageType} function for the local C++ generator.}
+\label{example:component-c++-type-function}
+\end{Example}
+
+Next you need to provide your generator with a {\tt writeOutput} function
+implementation. This function is called for each top level node type encountered
+in the graph. This function will produce all generated code; no other function
+is generally implemented so that it writes things to disk. The {\tt writeOutput}
+function should accept a {\tt Template} object and have a void return type. This
+function can be as simple or as complex as you wish; it is the generator's
+primary source of control over the generation process. The implementation in the
+C++ mirror test generator is shown in
+Example~\ref{example:component-c++-mirror-write-function} as an illustration.
+
+An important utility defined in the code generator base class is the {\tt
+writeFinalizedFile} funciton. This function accepts three strings as input: the
+relative directory of the file to write, the name of the file to write, and the
+string to write to the file. This function spares most of the energy required to
+write a file using Java.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+public void writeOutput(Template template)
+    throws IOException
+{
+    String generated_code =
+        template.substituteVariables(output_variables);
+
+    if (generated_code.trim().equals("")) return;
+
+    String node_name =
+        ((MContained) current_node).getIdentifier();
+    String file_dir = "CCM_Test";
+    String file_name = "_check_" +
+        handleNamespace("FileNamespace", node_name) + ".cc";
+
+    writeFinalizedFile(file_dir, file_name, generated_code);
+
+    File makefile = new File(file_dir, "Makefile.py");
+    if (! makefile.isFile())
+        writeFinalizedFile(file_dir, "Makefile.py", "");
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{The {\tt getLanguageType} function for the local C++ generator.}
+\label{example:component-c++-mirror-write-function}
+\end{Example}
+
+Last, you need to write a {\tt finalize} function implementation. This function
+is called when a set of graphs has been completely traversed. A set of graphs
+would come from processing a set of IDL3 source files together, with one run of
+the code generators. This function provides a code generator with an opportunity
+to generate files based on the entire set of input IDL3 source
+files.\footnote{From the user perspective, the {\tt finalize} function is thus
+called once per run of the {\tt ccmtools-generate} command.}
+
+Normally this function is used to create a set of global (i.e., per-package)
+header files that include other files that might have been created during each
+separate graph traversal. In addition to having the set of input IDL3 files
+available in this function, you can use the ``define'' mechanism available in
+the {\tt ccmtools-generate} tool, and provide {\tt -D} flags on the command
+line.
+
+Note that many code generators will not need to use the {\tt finalize} function.
+For most generators, an empty implementation (\verb+{ return; }+) will suffice.
+
+%------------------------------------------------------------------------------
+\subsection{Customizing the code generator class}
+\label{subsection:component-customizing-generator}
+%------------------------------------------------------------------------------
+
+Now that you've finished implementing the basics in your code generator, we'll
+get back to the problem of too many commas in the output code.
+
+Take a look back at Example~\ref{example:component-substituted-interface-code},
+and recall that the template set is complete, except for the cursed extra commas
+hanging around at the end of the parameter list. This hints at a larger problem,
+that of post processing the template information. In this case, the code
+generator class itself must supervise the template substitution process,
+removing the last comma from a paremeter list before it gets passed to an
+operation's template.
+
+To implement this kind of post processing functionality, you will need to
+provide a function definition for the {\tt getLocalValue} function in your code
+generator class. This function is actually called whenever the code generator
+receives notice that the traverser has left a graph node. Let's back up a
+little, even: when the graph traverser leaves a graph node, the generator loads
+up all templates for the node, looks through the templates, and figures out
+which keys are defined. The generator then calls {\tt getLocalValue} for each
+key, providing the key and the current value of the variable from the
+generator's internal variable hash table. The resulting value from this function
+is then stored back in the hash table.\footnote{Actually, in case you were
+wondering, this is where the template values from child nodes are added to the
+values in the parent node's information. When the generator stores the result of
+the {\tt getLocalValue} function back in its internal variable hash, the value
+actually gets added to the parent values in the hash table. Check out the code
+generator base class for the gory details.}
+
+By overriding this function, then, you can add a lot of powerful post processing
+capabilities to your code generator. For now, though, since you just want to get
+your generator working,
+Example~\ref{example:component-localvalue-implementation} shows one possible way
+we could implement this function, along with the helper function that removes
+the troublesome trailing comma.
+
+\begin{Example}
+\begin{minifbox}
+\begin{small}
+\begin{verbatim}
+protected String getLocalValue(String variable)
+{
+    String value = super.getLocalValue(variable);
+
+    if (current_node instanceof MOperationDef) {
+        return data_MOperationDef(variable, value);
+    }
+
+    return value;
+}
+
+// ...
+
+protected String data_MOperationDef(String data_type, String data_value)
+{
+    if (data_type.startsWith("MParameterDef") &&
+               data_value.endsWith(", ")) {
+        return data_value.substring(0, data_value.length() - 2);
+    }
+    return super.data_MOperationDef(data_type, data_value);
+}
+\end{verbatim}
+\end{small}
+\end{minifbox}
+\caption{A {\tt getLocalValue} function implementation.}
+\label{example:component-localvalue-implementation}
+\end{Example}
+
+By now you are likely sick of reading and coding. Take a nap. And take heart;
+you have finished dealing with this tutorial and know all that there is to know
+about the code generator library! Implementing code generators is simply a
+matter of applying the principles given above to each corner case that crops up
+in your generator. Again, remember to post questions to the ccmtools-devel
+mailing list.\footnote{See http://ccmtools.sf.net/lists.php for more information
+about the CCM Tools mailing lists.}
+
+%==============================================================================
+\section{Maintaining a code generator}
+%==============================================================================
+
+The CCM Tools code generator library contains one derived class and one template
+set for each target output component type. Example ``target output component
+types'' might be, for example, local C++ components, Java test components, or
+remote Python components.
+
+%------------------------------------------------------------------------------
+\subsection{IDL generators}
+%------------------------------------------------------------------------------
+
+
+
+%------------------------------------------------------------------------------
+\subsection{C++ generators}
+%------------------------------------------------------------------------------
+
+
+
+

@@ -1,0 +1,24 @@
+#ifndef __CUSTOMER_BUSINESS_IDL__
+#define __CUSTOMER_BUSINESS_IDL__
+
+#include "Exceptions.idl"
+
+module BigBusiness {
+
+  interface CustomerBusiness
+  {
+    attribute double dollars_per_mile;
+    
+    void addCustomerMiles(in long id, in double miles) 
+      raises(NoCustomerException);
+    void resetCustomerMiles(in long id) 
+      raises(NoCustomerException);
+    double getCustomerMiles(in long id) 
+      raises(NoCustomerException);
+    double getCustomerDollars(in long id) 
+      raises(NoCustomerException);
+  };
+
+}; // End of module BigBusiness
+
+#endif

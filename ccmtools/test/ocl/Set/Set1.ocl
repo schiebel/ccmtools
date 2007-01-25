@@ -1,0 +1,33 @@
+package GLOBAL
+
+context Set1
+	inv lit_01a: Set{1,2,2,3}=Set{8-5,2,1}
+	inv lit_01b: Set{Set{1,Set{2,3},4},5}=Set{1,2,3,4,5}
+	inv lit_02: Set{1,((2.7).floor())..4,5}=Set{1..5}
+	inv lit_03: Set{1,2,3}->size()=3
+	inv lit_04: Set{1,2,3}->includes(2)
+	inv lit_05: Set{1,2,3}->excludes(4)
+	inv lit_06: Set{1,2,3,4,5}->includesAll(Set{1,2,3})
+	inv lit_07: Set{1,2}->excludesAll(Set{3,4})
+	inv lit_08: Set{1,2}->isEmpty()=false
+	inv lit_09: Set{1,2}->notEmpty()
+
+	inv lit_10: Set{1,2,3}->union(Set{3,4,5})=Set{1,2,3,4,5}
+	inv lit_11: Set{1,2,3}->union(Bag{3,4,5})=Bag{1,2,3,3,4,5}
+	inv lit_12: Set{1,2,3}->intersection(Set{2,3,4})=Set{2,3}
+	inv lit_13: Set{1,2,3}->intersection(Bag{2,2,1,1})=Set{1,2}
+	inv lit_14: Set{1,2,3,4,5}-Set{2,3}=Set{1,4,5}
+	inv lit_15: Set{1,2}->including(0)=Set{0,1,2}
+	inv lit_16: Set{1,2,3}->excluding(1)=Set{2,3}
+	inv lit_17: Set{1,2,3}->symmetricDifference(Set{2,4,6})=Set{1,3,4,6}
+	inv lit_18a: Set{1,2}->count(2)=1
+	inv lit_18b: Set{1,2}->count(3)=0
+	
+	inv sequence_01: mySequence->size>=0
+	inv sequence_02: mySequence->isEmpty = not mySequence->notEmpty
+
+	inv array_01: myArray->size=0
+	inv array_02: myArray->isEmpty=true
+	inv array_03: myArray->notEmpty=false
+
+endpackage

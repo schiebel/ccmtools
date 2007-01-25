@@ -1,0 +1,24 @@
+#ifndef __CPU_IDL__
+#define __CPU_IDL__
+
+#include "InputDeviceConnector.idl"
+#include "OutputDeviceConnector.idl"
+#include "OperatingSystem.idl"
+#include "ProgrammingInterface.idl"
+
+module SimpleComputer
+{
+  component Cpu
+  supports OperatingSystem
+  {
+    provides ProgrammingInterface prg;
+    uses InputDeviceConnector in_port;
+    uses multiple OutputDeviceConnector out_port;
+  };
+  
+  home CpuFactory manages Cpu
+  {
+  };
+};
+
+#endif

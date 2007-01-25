@@ -1,0 +1,46 @@
+CCM Nested Local C++ Component Test:
+------------------------------------
+
+ time ~/tmp/benchmark_build/component/test/component_test__check_CCM_Local_CCM_Session_SuperTest 
+>>>> Start Test Client: _check_CCM_Local_CCM_Session_SuperTest.cc
++SuperTestAssemblyFactory::SuperTestAssemblyFactory()
+ SuperTestAssemblyFactory::create()
+ SuperTestAssembly::build()
+ SuperTestAssembly::configuration_complete()
+--- Start Test Case -----------------------------------
+Local CCM Super Test: void f0()              loops(10000000) size(1) real(2.42)s user(2.39)s sys(0)s 
+
+Local CCM Super Test: void f_in1(in long l1) loops(10000000) size(1) real(2.46)s user(2.44)s sys(0)s 
+
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(0)   real(2.46)s user(2.43)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(100) real(2.46)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(200) real(2.46)s user(2.43)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(300) real(2.46)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(400) real(2.49)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(500) real(2.45)s user(2.43)s sys(0.01)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(600) real(2.47)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(700) real(2.46)s user(2.43)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(800) real(2.52)s user(2.43)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(900) real(2.46)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(1000) real(2.46)s user(2.43)s sys(0)s 
+
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(0)   real(2.49)s user(2.45)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(100) real(2.46)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(200) real(2.47)s user(2.43)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(300) real(2.46)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(400) real(2.47)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(500) real(2.46)s user(2.45)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(600) real(2.47)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(700) real(2.49)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(800) real(2.46)s user(2.44)s sys(0.01)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(900) real(2.47)s user(2.44)s sys(0)s 
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(1000) real(2.46)s user(2.44)s sys(0)s 
+--- Stop Test Case ------------------------------------
+ SuperTestAssembly::tear_down()
+>>>> Stop Test Client: _check_CCM_Local_CCM_Session_SuperTest.cc
+loops(1) size(1) real(59.2)s user(58.47)s sys(0.02)s 
+-SuperTestAssemblyFactory::~SuperTestAssemblyFactory()
+
+real	0m59.200s
+user	0m58.474s
+sys	0m0.024s

@@ -1,0 +1,73 @@
+CCM TOOLS INSTALL
+=================
+
+This file describes how to get and install the CCM Tools on your box.
+(see also http://ccmtools.sourceforge.net/tutorial.pdf)	
+
+Prerequisites 
+=============
+To install the CCM Tools, the following programs must be available: 
+  Java SDK     1.4      (http://java.sun.com/j2se) 
+  Apache Ant   1.5.3    (http://ant.apache.org) 
+  Python       2.2      (http://python.org) 
+  cpp          2.96     (http://www.gnu.org) 
+
+To build the generated local C++ components, we also need: 
+  Confix       1.3pre35 (http://confix.sourceforge.net) 
+  gcc          2.95.3   (http://www.gnu.org) 
+
+To generate and build remote C++ components, we additionally need: 
+  mico         2.3.10   (http://www.mico.org/)
+
+
+How to get it
+=============
+The current ccmtools version can be checked out from sourceforge CVS:
+
+ $ cvs -d :pserver:anonymous@cvs.sf.net:/cvsroot/ccmtools login
+ Password: <press enter>
+ $ cvs -d :pserver:anonymous@cvs.sf.net:/cvsroot/ccmtools co ccmtools
+ $ cvs -d :pserver:anonymous@cvs.sf.net:/cvsroot/ccmtools co cpp-environment
+ $ cvs -d :pserver:anonymous@cvs.sf.net:/cvsroot/ccmtools co java-environment
+
+Now you have the following directory structure: 
+
+    |-- ccmtools/ 
+    |-- cpp-environment/  
+    `-- java-environment/
+
+o) ccmtools: This is the main package containing all the parsers and generators.
+o) cpp-environment: This package contains C++ libraries needed as a runtime
+   environment for generated C++ components.
+o) java-environment: This package contains Java libraries needed as a runtime
+   environment for Java clients of remote CCM components.	   
+
+
+Install ccmtools package 
+========================
+The ccmtools package can be installed with the following procedure:
+
+ # For using local components: 
+ $ cd ccmtools
+ $ ant install -Dprefix=<CCM_INSTALL_PATH>
+ $ cd ..
+ $ export CCMTOOLS_HOME=<CCM_INSTALL_PATH>
+ $ export PATH=$CCMTOOLS_HOME/bin:$PATH	    
+
+ # For using remote components too: 
+ $ export CCM_COMPONENT_REPOSITORY=${CCMTOOLS_HOME} 
+ $ export CCM_INSTALL=<CONFIX_PROFILE_PREFIX>
+ $ export CCM_NAME_SERVICE=corbaloc:iiop:1.2@localhost:5050/NameService
+
+
+Install cpp-environment package
+===============================
+See the cpp-environment/INSTALL file.
+
+
+Install java-environment package
+================================
+See the java-environment/INSTALL file.
+
+
+OK, that s it! Now we are ready to create and run components using the CCM Tools. 

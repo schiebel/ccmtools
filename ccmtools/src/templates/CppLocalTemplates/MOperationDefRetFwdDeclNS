@@ -1,0 +1,5 @@
+/*** temporarily added to support hacked return of components ***/
+namespace CCM_Session_%(ResultType)s {
+  class %(ResultType)s;
+}
+

@@ -1,0 +1,88 @@
+%******************************************************************************
+\chapter{Installing the CCM Tools}
+%******************************************************************************
+
+Installing the CCM Tools generally follows the standard GNU install procedure.
+That is, the CCM Tools package comes with a configure script and a series of
+{\tt Makefile.in} files which allow for on--site configuration and
+customization. If you are already familiar with this installation process, you
+might just want to unpack the source tarball and run {\tt ./configure --help} to
+get information about specific configuration parameters. Then {\tt ./configure},
+{\tt make}, {\tt make install}, and update your {\tt CLASSPATH} and {\tt PATH}
+environment variables appropriately.
+
+If you are not familiar with this process, or if you need clarification on a
+particular step, the rest of this chapter describes the unpack, configure,
+build, install, and environment update processes in more detail.
+
+%==============================================================================
+\section{Unpacking, Configuring, Building, and Installing}
+%==============================================================================
+
+Once you have the CCM Tools source tarball, locate a suitable directory for
+unpacking it. Common places to do this (on Linux) are {\tt \$HOME/src}, or, if
+you decide to install as the superuser, in {\tt /usr/local/src} or {\tt
+/usr/src}. For the rest of this section, as an example, I will assume you want
+to build in a directory under {\tt /home/leif/src}.
+
+First, open up a terminal window, and change directories to your chosen
+location.
+\begin{verbatim}
+leif@fridge:~ $ cd src
+\end{verbatim}
+Then unpack the source tarball, and change directories into the newly-created
+ccmtools-A.B.C directory (where A.B.C is the version of CCM Tools that you are
+using).
+\begin{verbatim}
+leif@fridge:~/src $ tar zxf ccmtools-A.B.C.tar.gz
+leif@fridge:~/src $ cd ccmtools-A.B.C
+\end{verbatim}
+
+The standard GNU install process involves two major steps: configuring and
+building. To help with platform--independence for installing and such, the
+tarball comes with a configure script. To invoke it, just type {\tt
+./configure}. You can get a list of available options by giving the {\tt --help}
+option.
+
+If you want to install the CCM Tools into a nonstandard location (the default is
+system dependent), specify the {\tt --prefix=DIR} option. If you would like to
+build the tests and documentation by default, specify the {\tt --enable-tests}
+and {\tt --enable-docs} options, respectively. Note that enabling tests while
+building the CCM Tools is not the same as building test or mirror components;
+you can keep the CCM Tools tests disabled at this point and still be able to
+generate test components later.
+
+\begin{verbatim}
+leif@fridge:~/src $ ./configure --help
+`configure' configures ccmtools A.B.C to adapt to many ...
+
+Usage: ./configure [OPTION]... [VAR=VALUE]...
+:
+:
+leif@fridge:~/src $ ./configure --prefix=/home/leif/sandbox
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+:
+:
+\end{verbatim}
+
+Then, to build the package, simply type {\tt make}. Install the package with
+{\tt make install}. Note that normally the package needs to be installed to
+function correctly, as the code generators otherwise have no way of finding
+their template sets.
+
+%==============================================================================
+\section{Updating Environment Variables}
+%==============================================================================
+
+After you install the CCM Tools package, you will probably need to update a few
+environment variables. In particular, two Java archive (jar) files need to be
+included in your {\tt CLASSPATH} environment variable: {\tt antlr.jar}, and {\tt
+ccmtools.jar}. These three files are installed in the {\tt share/java/}
+directory under your install prefix. So, for example, if you configured the CCM
+Tools package with {\tt --prefix=/a/b}, you will need to add {\tt
+/a/b/share/java/antlr.jar} and {\tt /a/b/share/java/ccmtools.jar} to your {\tt
+CLASSPATH}. If you did not give an install prefix to the configure script, the
+package will be installed under a system-dependent default directory.

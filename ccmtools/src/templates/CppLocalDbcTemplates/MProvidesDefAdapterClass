@@ -1,0 +1,21 @@
+//==============================================================================
+// Local facet DbC adapter
+//==============================================================================
+
+class DbC_%(Identifier)sFacetAdapter
+  : public %(Identifier)sFacetAdapter
+{
+ public:
+  DbC_%(Identifier)sFacetAdapter(%(ComponentType)s* c, CCM_%(ComponentType)s* lc,
+    bool disablePostconditionCheck) throw(LocalComponents::CCMException);
+  virtual ~DbC_%(Identifier)sFacetAdapter();
+%(MAttributeDefProvidesPrototype)s
+%(MOperationProvidesPrototype)s
+ private:
+  void DbC_check_invariant(const char* DbC_FUNCTION_NAME, bool) 
+    throw(CCM_OCL::OclException);
+
+  bool disablePostconditionCheck__;
+};
+
+

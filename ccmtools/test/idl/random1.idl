@@ -1,0 +1,244 @@
+//x#include "test2.idl"
+interface first{
+  typedef long firstLong[10][15]; 
+};
+/*
+interface Haystack {
+  exception Notfound {
+    unsigned long num_straws_searched;
+  }; 
+  const unsigned long MAX_LENGTH = 10;
+  attribute long num1, num2;
+  attribute long num3, num4;
+  typedef long myArray[3][4];
+  long first_supported_operation(in long value)
+    raises (GenericException) context ("ee");
+};
+*/
+
+//interface FirstSupported
+//{
+// typedef sequence<long> testSequence;
+  //  attribute string first_supported_attribute;
+  //const string testConst = 5;
+  //readonly attribute long first_supported_readonly_attribute;
+  // long first_supported_operation(in long value)
+  //raises (GenericException);
+//};
+
+/*
+
+component BaseComponent supports FirstSupported//, SecondSupported
+{
+  attribute string base_attribute;
+  readonly attribute long base_readonly_attribute;
+  
+  provides Facet base_facet;
+  uses SimplexReceptacle base_simplex_receptacle;
+  uses multiple MultiplexReceptacle base_multiplex_receptacle;
+  emits EmittedEvent base_emitted_EmittedEvent;
+  publishes PublishedEvent base_published_PublishedEvent;
+  consumes EmittedEvent base_consumed_EmittedEvent;
+};
+
+
+
+
+
+module A {
+  module B {
+      interface Bar1 {} ;
+    module C {
+    
+      interface Bar:Bar1 {  
+        attribute string name;
+      };
+
+    };
+  };
+};
+
+
+ 
+  struct MyStruct {
+    long num1, num2;
+    string name;
+  };
+
+
+typedef long myInt;
+
+const myInt MY_INT = 20; 
+
+  
+  exception MyEx {
+    string msg;
+  }; 
+
+
+
+component Display
+{
+  provides ShowFacet show;
+};
+
+
+
+valuetype WeightedBinaryTree {
+  //state definition
+  private unsigned long weight;
+  private WeightedBinaryTree left;
+  private WeightedBinaryTree right;
+  //initializer
+  factory init(in unsigned long w);
+  //local operations
+  WeightSeq pre_order();
+  WeightSeq post_order();
+};
+
+
+
+
+valuetype WeightedBinaryTree2: WeightedBinaryTree{
+  //state definition
+  private unsigned long weight;
+  private WeightedBinaryTree left;
+  private WeightedBinaryTree right;
+  //initializer
+  factory init(in unsigned long w);
+  //local operations
+  WeightSeq pre_order();
+  WeightSeq post_order();
+};
+*/
+
+
+
+/*
+module MainModule 
+{
+  
+    typedef sequence< sequence<long> > myNestedSeq ;
+  typedef long myArray[3][4];
+  
+  struct MyStruct {
+    long num1, num2;
+    string name;
+  };
+  
+  const long max = 127;
+  
+  exception MyEx {
+    string msg;
+  }; 
+
+  struct Node {
+    string data;
+    Node next;
+  };
+  
+  interface Bar { };
+  
+  exception MyException {
+    string message;
+  };
+  
+  interface class { };
+  
+  typedef sequence<long> myLongSeq;
+  
+  interface Foo {
+    attribute string name;
+    long bar(in short a, 
+             inout string s, 
+             out Foo f);
+  };
+  
+  
+  enum Color { red, blue, green };
+  typedef Foo MyFoo;
+  
+  union MyUnion switch(long) {
+  case 1: string name;
+  case 2: long num;
+  case 3: MyStruct str;
+  case 4: MyFoo mf;
+  default: boolean b;
+  };
+   
+};
+
+interface FirstSupported
+{
+  attribute string first_supported_attribute;
+  readonly attribute long first_supported_readonly_attribute;
+  long first_supported_operation(in long value)
+    raises (GenericException);
+};
+
+interface Tree {
+  void print();
+};
+
+
+valuetype WeightedBinaryTree {
+  //state definition
+  private unsigned long weight;
+  private WeightedBinaryTree left;
+  private WeightedBinaryTree right;
+  //initializer
+  factory init(in unsigned long w);
+  //local operations
+  WeightSeq pre_order();
+  WeightSeq post_order();
+};
+
+
+
+
+
+component BaseComponent supports FirstSupported, SecondSupported
+{
+  attribute string base_attribute;
+  readonly attribute long base_readonly_attribute;
+  provides Facet base_facet;
+  uses SimplexReceptacle base_simplex_receptacle;
+  uses multiple MultiplexReceptacle base_multiplex_receptacle;
+  emits EmittedEvent base_emitted_EmittedEvent;
+  publishes PublishedEvent base_published_PublishedEvent;
+  consumes EmittedEvent base_consumed_EmittedEvent;
+};
+
+
+home BaseComponentHome supports FirstSupported, SecondSupported manages BaseComponent
+{
+  attribute string base_home_attribute;
+  readonly attribute long base_home_readonly_attribute;
+  long base_home_operation(in long value)
+    raises (GenericException);
+  factory create_base_component(in string value)
+    raises (GenericException);
+  finder find_base_component(in string value)
+    raises (GenericException);
+};
+eventtype EmittedEvent: GenericEvent
+{
+  factory create(in string value);
+};
+eventtype PublishedEvent: GenericEvent
+{
+  factory create(in string value);
+};
+eventtype QueryEvent : Components::EventBase
+{
+  public string question;
+  factory create(in string question);
+};
+
+eventtype ResponseEvent : Components::EventBase
+{
+  public string response;
+  factory create(in string response);
+};
+
+*/

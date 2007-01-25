@@ -1,0 +1,19 @@
+//  <MProvidesDefEqInterfaceImpl>
+PyObject *
+provide_%(Identifier)s( Py%(ComponentType)s_object *self, PyObject *args ) {
+
+    WX::Utils::SmartPtr<%(InterfaceType)s> *local_interface =
+		new WX::Utils::SmartPtr<%(InterfaceType)s>((*self->component)->provide_%(Identifier)s( ));
+
+    PyObject *local_arg = PyCObject_FromVoidPtr( local_interface, NULL );
+
+    PyObject *result = Py%(Identifier)s_type->tp_new( Py%(Identifier)s_type, NULL, NULL );
+    int ok = Py%(Identifier)s_type->tp_init( result, local_arg, NULL );
+    if ( ok != 0 ) {
+        Py_DECREF( result );
+	result = NULL;
+    }
+    Py_DECREF( local_arg );
+    return result;
+}
+

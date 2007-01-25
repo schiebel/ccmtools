@@ -1,0 +1,31 @@
+// $Id: Hello.idl,v 1.2 2004/03/01 11:33:06 rlechner Exp $
+/**
+ * Test case: facet 
+ *
+ */
+
+interface Console 
+{
+  long println(in string s2);
+  
+  attribute long aValue;
+};
+
+interface Math
+{
+  double sqrt(in double x);
+};
+
+component Hello supports Math
+{
+  // MAttributeDef= Hello::Hello::aID
+  attribute string aID;
+  
+  provides Console console;
+};
+
+home HelloHome manages Hello
+{
+    factory create(in string name);
+};
+

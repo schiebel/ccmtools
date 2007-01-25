@@ -1,0 +1,12 @@
+/**
+ * 
+ *
+ *
+ */
+
+
+struct Message 
+{
+  string header;
+  string body;
+};

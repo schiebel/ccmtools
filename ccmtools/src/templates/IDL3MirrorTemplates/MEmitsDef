@@ -1,0 +1,2 @@
+  consumes %(ConsumesType)s %(Identifier)s_mirror;
+

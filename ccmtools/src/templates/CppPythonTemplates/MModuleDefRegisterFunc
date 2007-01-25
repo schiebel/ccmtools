@@ -1,0 +1,2 @@
+      "%(Identifier)s", %(Identifier)s_create_, METH_NOARGS,
+      "contents a(n) %(Identifier)s module"

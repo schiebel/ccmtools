@@ -1,0 +1,10 @@
+%(LanguageType)s
+%(Object)s_impl::%(Identifier)s(%(MParameterDefAll)s)
+    %(MExceptionDefThrows)s
+{
+    DEBUGNL("%(Object)s_impl->%(Identifier)s(%(MParameterDefName)s)");
+
+    // TODO : IMPLEMENT ME HERE !
+}
+
+

@@ -1,0 +1,23 @@
+%(LanguageType)s
+DbC_%(Object)sFacetAdapter::%(Identifier)s(%(MParameterDefAll)s)
+  %(MExceptionDef)s
+{
+  static const char* DbC_FUNCTION_NAME = "DbC_%(Object)sFacetAdapter::%(Identifier)s(%(MParameterDefAll)s)";
+  DEBUGNL(" DbC_%(Object)sFacetAdapter->%(Identifier)s (%(MParameterDefName)s )");
+  static bool DbC_LOOP_MARKER = false;
+  if( DbC_LOOP_MARKER )
+  {
+    const char* msg = "endless loop";
+    DEBUGNL(msg); throw OclException(msg,DbC_FUNCTION_NAME,__FILE__,__LINE__);
+  }
+  DbC_LOOP_MARKER = true;
+%(ProvidesPreInvocation)s
+  %(OperationCall)s %(Object)sFacetAdapter::%(Identifier)s(%(MParameterDefName)s);
+  if(!disablePostconditionCheck__) {
+%(ProvidesPostInvocation)s
+  }
+  DbC_LOOP_MARKER = false;
+  %(OperationReturn)s
+}
+
+

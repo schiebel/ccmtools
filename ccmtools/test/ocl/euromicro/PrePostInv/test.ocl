@@ -1,0 +1,67 @@
+package GLOBAL
+
+context BasicTypes
+    inv a1_range: a1 > 0 and a1 < 100
+    inv a2_range: a2 > 0.0 and a2 < 100.0
+    inv a3_range: a3.size() > 0 and a3.size() < 100
+
+context BasicTypes::f1_2(p1:Integer, p2:Integer):Integer
+	pre p1_range: p1 > 0 and p1 < 100
+	pre p2_range: p2 > 0 and p2 < 100
+	post: result = p1+p2
+
+context BasicTypes::f1_10(p1:Integer, p2:Integer, p3:Integer, p4:Integer,  p5:Integer,
+	                   p6:Integer, p7:Integer, p8:Integer, p9:Integer, p10:Integer):Integer
+	pre p1_range: p1 > 0 and p1 < 100
+	pre p2_range: p2 > 0 and p2 < 100
+	pre p3_range: p3 > 0 and p3 < 100
+	pre p4_range: p4 > 0 and p4 < 100
+	pre p5_range: p5 > 0 and p5 < 100
+	pre p6_range: p6 > 0 and p6 < 100
+	pre p7_range: p7 > 0 and p7 < 100
+	pre p8_range: p8 > 0 and p8 < 100
+	pre p9_range: p9 > 0 and p9 < 100
+	pre p10_range: p10 > 0 and p10 < 100
+	post: result = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10
+
+
+context BasicTypes::f2_2(p1:Real, p2:Real):Real
+	pre p1_range: p1 > 0.0 and p1 < 100.0
+	pre p2_range: p2 > 0.0 and p2 < 100.0
+	post: result = p1+p2
+
+context BasicTypes::f2_10(p1:Real, p2:Real, p3:Real, p4:Real, p5:Real, 
+	                  p6:Real, p7:Real, p8:Real, p9:Real, p10:Real):Real
+	pre p1_range: p1 > 0.0 and p1 < 100.0
+	pre p2_range: p2 > 0.0 and p2 < 100.0
+	pre p3_range: p3 > 0.0 and p3 < 100.0
+	pre p4_range: p4 > 0.0 and p4 < 100.0
+	pre p5_range: p5 > 0.0 and p5 < 100.0
+	pre p6_range: p6 > 0.0 and p6 < 100.0
+	pre p7_range: p7 > 0.0 and p7 < 100.0
+	pre p8_range: p8 > 0.0 and p8 < 100.0
+	pre p9_range: p9 > 0.0 and p9 < 100.0
+	pre p10_range: p10 > 0.0 and p10 < 100.0
+	post: result = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10
+
+
+context BasicTypes::f3_2(p1:String, p2:String):String
+	pre p1_range: p1.size() > 0 and p1.size() < 100
+	pre p2_range: p2.size() > 0 and p2.size() < 100
+	post: result = p1+p2
+
+context BasicTypes::f3_10(p1:String, p2:String, p3:String, p4:String, p5:String,
+	                  p6:String, p7:String, p8:String, p9:String, p10:String):String
+	pre p1_range: p1.size() > 0 and p1.size() < 100
+	pre p2_range: p2.size() > 0 and p2.size() < 100
+	pre p3_range: p3.size() > 0 and p3.size() < 100
+	pre p4_range: p4.size() > 0 and p4.size() < 100
+	pre p5_range: p5.size() > 0 and p5.size() < 100
+	pre p6_range: p6.size() > 0 and p6.size() < 100
+	pre p7_range: p7.size() > 0 and p7.size() < 100
+	pre p8_range: p8.size() > 0 and p8.size() < 100
+	pre p9_range: p9.size() > 0 and p9.size() < 100
+	pre p10_range: p10.size() > 0 and p10.size() < 100
+	post: result = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10
+
+endpackage

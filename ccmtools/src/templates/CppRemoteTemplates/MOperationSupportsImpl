@@ -1,0 +1,19 @@
+%(CORBAType)s 
+%(Object)s_impl::%(Identifier)s (%(MParameterDefCORBA)s)
+    %(MExceptionDefCORBA)s
+{
+    LDEBUGNL(CCM_REMOTE, " %(Object)s_impl::%(Identifier)s()");
+%(ConvertFacetParameterToCpp)s
+%(DeclareFacetCppResult)s
+    try {
+%(ConvertFacetMethodToCpp)s
+    }
+%(ConvertFacetExceptionsToCorba)s
+    catch(...) {
+        throw CORBA::SystemException();	
+    } 
+%(ConvertFacetParameterToCorba)s
+%(ConvertFacetResultToCorba)s
+}
+
+

@@ -1,0 +1,19 @@
+/**
+ * Test case: facet_rename 
+ *
+ */
+
+interface Display
+{
+  long print(in string msg);
+};
+
+component Console
+{
+  provides Display display;
+};
+
+home HConsole manages Console
+{
+};
+

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CLASSPATH=./build:./lib/Components.jar:./lib/ClientStubs.jar:$CLASSPATH
+
+java -cp $CLASSPATH Client -ORBInitialPort 5050 -ORBInitialHost localhost

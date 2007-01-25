@@ -1,0 +1,17 @@
+const %(LanguageType)s
+%(ComponentType)s::%(Identifier)s () const 
+    throw(LocalComponents::CCMException)
+{
+    DEBUGNL(" %(ComponentType)s->%(Identifier)s() - get semantic");
+    if(!ValidConnection) throw LocalComponents::InvalidConnection();
+    return local_component->%(Identifier)s();
+}
+
+void
+%(ComponentType)s::%(Identifier)s (const %(LanguageType)s value)
+    throw(LocalComponents::CCMException)
+{
+    DEBUGNL(" %(ComponentType)s->%(Identifier)s() - set semantic");
+    if(!ValidConnection) throw LocalComponents::InvalidConnection();
+    local_component->%(Identifier)s(value);
+}

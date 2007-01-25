@@ -1,0 +1,16 @@
+module __TEST__ {
+
+interface __INTERFACE__ { };
+
+interface __SECOND_INTERFACE__ {
+    __INTERFACE__ __OPERATION__(in string __STRING__);
+};
+
+component __COMPONENT__ {
+    attribute string __ATTRIBUTE__;
+    provides __SECOND_INTERFACE__ __PROVIDES__;
+};
+
+home __HOME__ manages __COMPONENT__ { };
+
+};

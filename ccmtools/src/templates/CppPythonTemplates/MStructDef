@@ -1,0 +1,232 @@
+//==============================================================================
+// %(Identifier)s - structure
+//==============================================================================
+
+#ifndef __Structure__%(PreprocIdentifier)s__PYTHON__H__
+#define __Structure__%(PreprocIdentifier)s__PYTHON__H__
+
+#include <Python.h>
+
+%(IncludeLocalHeader)s
+
+%(OpenNamespace)s
+
+PyTypeObject *%(Identifier)s_init( );
+int is_python_%(Identifier)s( PyObject * );
+int convert_%(Identifier)s_from_python( PyObject*, void* );
+PyObject *convert_%(Identifier)s_to_python( const ::%(LocalNamespace)s%(Identifier)s & );
+
+%(CloseNamespace)s
+
+#endif
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s - structure - <MStructDef>
+//==============================================================================
+
+#include "Python_Converter/%(Identifier)s_python.h"
+#include <CCM_Python/BasicTypes.h>
+%(IncludeLocalHeader)s
+%(MFieldDefInclude)s
+
+%(UsingLocalNamespace)s
+
+%(OpenNamespace)s
+
+static PyObject *Py%(Identifier)s_exception = 0;
+
+typedef struct {
+    PyObject_HEAD
+    %(Identifier)s *structure;
+} Py%(Identifier)s_object;
+
+
+static PyObject *
+Py%(Identifier)s_new ( PyTypeObject *type, PyObject *args, PyObject *keywds ) {
+    Py%(Identifier)s_object *self = (Py%(Identifier)s_object*) type->tp_alloc(type,0);
+    self->structure = new %(Identifier)s( );
+    return (PyObject*) self;
+}
+
+static void
+Py%(Identifier)s_dealloc ( Py%(Identifier)s_object *self ) {
+%(FieldFree)s
+    delete self->structure;
+    self->ob_type->tp_free ( ( PyObject * ) self );
+}
+
+static int
+Py%(Identifier)s_init( Py%(Identifier)s_object *self, PyObject *args, PyObject *keywds ) {
+
+    static char *kwlist[] = { %(MFieldDefKeyword)sNULL };
+
+%(FieldInitPre)s
+
+    if ( ! PyArg_ParseTupleAndKeywords( args, keywds,
+       	 			        "%(FieldConvertString)s", kwlist,
+					%(FieldConvertVariables)s ) )
+	return -1;
+
+%(FieldInitPost)s
+
+    return 0;
+}
+
+%(MFieldDefImpl)s
+
+static PyGetSetDef Py%(Identifier)s_getset[] = {
+%(MFieldDefGetSet)s
+  {NULL}								/* Sentinel */
+};
+
+static PyTypeObject Py%(Identifier)s_type = {
+    PyObject_HEAD_INIT ( NULL )
+    0,									/* ob_size */
+    "%(Module)s.%(Identifier)s",					/* tp_name */
+    sizeof ( Py%(Identifier)s_object ),					/* tp_basicsize */
+    0,									/* tp_itemsize */
+
+    /* methods */
+    (destructor) Py%(Identifier)s_dealloc,				/* tp_dealloc */
+
+    0,		 							/* tp_print */
+    0,									/* tp_getattr */
+    0,									/* tp_setattr */
+    0,									/* tp_compare */
+    0,									/* tp_repr */
+    0,									/* tp_as_number */
+    0,									/* tp_as_sequence */
+    0,									/* tp_as_mapping */
+    0,									/* tp_hash */
+    0,									/* tp_call */
+    0,									/* tp_str */
+    0,									/* tp_getattro */
+    0,									/* tp_setattro */
+    0,									/* tp_as_buffer */
+
+    Py_TPFLAGS_DEFAULT,							/* tp_flags */
+
+    "%(Identifier)s object",						/* tp doc */
+
+    0,		    							/* tp_traverse */
+    0,									/* tp_clear */
+    0,									/* tp_richcompare */
+    0,									/* tp_weaklistoffset */
+    0,									/* tp_iter */
+    0,									/* tp_iternext */
+
+    0,									/* tp_methods */
+    0,									/* tp_members */
+
+    Py%(Identifier)s_getset,						/* tp_getset */
+    0,									/* tp_base */
+    0,									/* tp_dict */
+    0,									/* tp_descr_get */
+    0,									/* tp_descr_set */
+    0,									/* tp_dictoffset */
+    (initproc) Py%(Identifier)s_init,					/* tp_init */
+    0,									/* tp_alloc */
+    Py%(Identifier)s_new,						/* tp_new */
+};
+
+
+PyTypeObject *%(Identifier)s_init( ) {
+
+    if ( PyType_Ready( &Py%(Identifier)s_type ) < 0 ) {
+        return NULL;
+    }
+
+    if ( ! Py%(Identifier)s_exception )
+	Py%(Identifier)s_exception = PyErr_NewException("%(Identifier)s.error", NULL, NULL);
+
+    Py_INCREF( &Py%(Identifier)s_type );
+    return &Py%(Identifier)s_type;
+}
+
+int is_python_%(Identifier)s( PyObject *o ) {
+    return PyObject_TypeCheck( o, &Py%(Identifier)s_type ) ? 1 : 0;
+}
+
+int convert_%(Identifier)s_from_python( PyObject *obj, void *s ) {
+
+    if ( ! s ) {
+        PyErr_SetString( Py%(Identifier)s_exception, "bad conversion target" );
+	return 0;
+    }
+
+    if ( ! is_python_%(Identifier)s(obj) ) {
+        PyErr_SetString( Py%(Identifier)s_exception, "cannot convert to %(Identifier)s" );
+	return 0;
+    }
+
+    %(Identifier)s *from = ((Py%(Identifier)s_object*)obj)->structure;
+    %(Identifier)s *to = (%(Identifier)s*) s;
+
+%(CopyFields)s
+
+    return 1;
+}
+
+PyObject *convert_%(Identifier)s_to_python( const %(Identifier)s &from_ ) {
+
+    Py%(Identifier)s_object *ret = (Py%(Identifier)s_object*) Py%(Identifier)s_type.tp_new( &Py%(Identifier)s_type, NULL, NULL );
+
+    if ( ! ret ) return NULL;
+    
+    const %(Identifier)s *from = &from_;
+    %(Identifier)s *to = ret->structure;
+
+%(CopyFields)s
+
+    return (PyObject*) ret;
+}
+
+%(CloseNamespace)s
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s - structure - <MStructDef>
+//==============================================================================
+
+#include "Python_Converter/%(Identifier)s_python.h"
+#include <CCM_Python/BasicTypes.h>
+%(IncludeLocalHeader)s
+%(MFieldDefInclude)s
+%(CodaConvertInclude)s
+
+%(UsingLocalNamespace)s
+
+%(OpenNamespace)s
+
+static PyObject *Py%(Identifier)s_exception = 0;
+
+PyTypeObject *%(Identifier)s_init( ) {
+    if ( ! Py%(Identifier)s_exception )
+	Py%(Identifier)s_exception = PyErr_NewException("%(Identifier)s.error", NULL, NULL);
+}
+
+int is_python_%(Identifier)s( PyObject *o ) {
+    return %(CodaConversionToCheck)s(o);
+}
+
+int convert_%(Identifier)s_from_python( PyObject *obj, void *s ) {
+    if ( ! s ) {
+        PyErr_SetString( Py%(Identifier)s_exception, "bad conversion target" );
+	return 0;
+    }
+
+    if ( ! is_python_%(Identifier)s(obj) ) {
+        PyErr_SetString( Py%(Identifier)s_exception, "cannot convert to %(Identifier)s" );
+	return 0;
+    }
+
+    return %(CodaConversionToFunc)s(obj,s);
+}
+
+PyObject *convert_%(Identifier)s_to_python( const %(Identifier)s &from_ ) {
+    return %(CodaConversionFromFunc)s(from_);
+}
+
+%(CloseNamespace)s
+

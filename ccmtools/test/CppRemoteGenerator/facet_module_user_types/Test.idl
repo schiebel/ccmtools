@@ -1,0 +1,60 @@
+/**
+ * Test case: facet_module_user_types 
+ *
+ */
+
+module world {
+  module europe {
+    module austria {
+
+      typedef long time_t;
+      
+      struct Person {
+	long id;
+	string name;
+      };
+      
+      struct Address {
+	string street;
+	long   number;
+	Person resident;
+      };
+      
+      typedef sequence<long> LongList;
+      
+      typedef sequence<string> StringList;
+      
+      typedef sequence<Person> PersonList;
+      
+      
+      //typedef double DoubleArray[10];
+      //enum Color {red, green, blue, black, orange};
+      
+      
+      interface Console 
+      {
+	Person     f2(in Person p1, inout Person p2, out Person p3);
+	Address    f3(in Address p1, inout Address p2, out Address p3);
+	LongList   f4(in LongList p1, inout LongList p2, out LongList p3);
+	StringList f5(in StringList p1, inout StringList p2, out StringList p3);
+	PersonList f6(in PersonList p1, inout PersonList p2, out PersonList p3);
+	time_t     f7(in time_t t1, inout time_t t2, out time_t t3);
+	
+	//Color f1(in Color p1, inout Color p2, out Color p3);
+	//DoubleArray f6(in DoubleArray a1, inout DoubleArray a2, out DoubleArray a3);
+      };
+      
+      
+      component Test
+      {
+	provides Console console;
+      };
+      
+      home TestHome manages Test
+      {
+      };
+      
+    }; // end of module austria
+  }; // end of module europe
+}; // end of module world
+

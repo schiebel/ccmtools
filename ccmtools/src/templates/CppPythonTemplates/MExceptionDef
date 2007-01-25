@@ -1,0 +1,39 @@
+//==============================================================================
+// %(Identifier)s - python conversion prototypes <MExceptionDef>
+//==============================================================================
+
+#ifndef __Exception__%(PreprocIdentifier)s__PYTHON__H__
+#define __Exception__%(PreprocIdentifier)s__PYTHON__H__
+
+#include <Python.h>
+
+%(OpenNamespace)s
+
+// Don't deref!
+PyObject *get_%(Identifier)s_python_exception( );
+
+%(CloseNamespace)s
+
+#endif
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s - python exception implementation - <MExceptionDef>
+//==============================================================================
+
+#include "%(Identifier)s_python.h"
+
+%(OpenNamespace)s
+
+static PyObject *Py%(Identifier)s_exception = 0;
+
+PyObject *get_%(Identifier)s_python_exception( ) {
+    if ( ! Py%(Identifier)s_exception ) {
+        Py%(Identifier)s_exception = PyErr_NewException("%(Module)s.%(Identifier)s", NULL, NULL);
+    }
+    return Py%(Identifier)s_exception;
+}
+
+%(CloseNamespace)s
+
+

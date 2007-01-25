@@ -1,0 +1,10 @@
+
+all: server
+
+server: 
+	ccmtools-idl --mico -I${CCM_INSTALL}/include *.idl
+
+client:
+	ccmtools-idl --java -I${CCM_INSTALL}/include *.idl
+	ant install -Dprefix=../JavaClientLib -Djarname=ClientStubs 
+	

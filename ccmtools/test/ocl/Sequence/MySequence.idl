@@ -1,0 +1,23 @@
+// $Id: MySequence.idl,v 1.2 2005/02/02 08:39:04 rlechner Exp $
+
+typedef sequence<long> LongSeq;
+typedef sequence<LongSeq> LongSeqSeq;
+typedef long LongArray[10];
+
+interface Interface1
+{
+    void func1(in LongSeq param);
+    void func2(in long x);
+};
+
+component MySequence supports Interface1
+{
+  attribute LongSeq seq1;
+  attribute LongArray array1;
+  attribute LongSeqSeq seq2;
+
+};
+
+home MySequenceHome manages MySequence
+{
+};

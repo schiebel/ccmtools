@@ -1,0 +1,20 @@
+
+#ifndef __MONITOR_IDL__
+#define __MONITOR_IDL__
+
+#include "OutputDeviceConnector.idl"
+
+module SimpleComputer
+{
+  component Monitor
+  {
+    attribute string Type;
+    provides OutputDeviceConnector connector;
+  };
+  
+  home MonitorFactory manages Monitor
+  {
+  };
+};
+  
+#endif

@@ -1,0 +1,2 @@
+PACKAGE_NAME('server')
+PACKAGE_VERSION('0.1')

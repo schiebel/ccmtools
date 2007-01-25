@@ -1,0 +1,32 @@
+/***
+ * receptacle_inheritance test case
+ *
+ * This test case shows the usage of inheritance with IDL interfaces that are
+ * used as receptacle type.
+ ***/
+
+interface Base1
+{
+  long op1(in string str);
+};
+
+interface Base2
+{
+  long op2(in string str);
+};
+
+interface InterfaceType : Base1, Base2 
+{
+  long op3(in string str);
+};
+
+
+component Test
+{
+  uses InterfaceType a_receptacle;
+};
+
+home TestHome manages Test
+{
+};
+

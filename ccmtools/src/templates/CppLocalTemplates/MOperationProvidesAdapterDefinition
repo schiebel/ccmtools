@@ -1,0 +1,10 @@
+%(LanguageType)s
+%(Object)sFacetAdapter::%(Identifier)s ( %(MParameterDefAll)s )
+  %(MExceptionDefThrows)s
+{
+  DEBUGNL(" %(Object)sFacetAdapter->%(Identifier)s ( %(MParameterDefName)s )");
+  if ( ! ValidConnection ) throw LocalComponents::InvalidConnection (  );
+  %(Return)sfacet->%(Identifier)s ( %(MParameterDefName)s );
+}
+
+

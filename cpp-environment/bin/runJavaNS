@@ -1,0 +1,3 @@
+#!/bin/sh
+
+orbd -ORBInitialPort 5050

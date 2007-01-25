@@ -1,0 +1,2 @@
+        my%(ComponentType)s->disconnect("%(Identifier)s", %(ComponentType)s_ck_%(Identifier)s);
+

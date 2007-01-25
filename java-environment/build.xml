@@ -1,0 +1,77 @@
+<!--
+$Header: /cvsroot/ccmtools/java-environment/build.xml,v 1.18 2005/02/10 17:51:17 teiniker Exp $
+-->
+
+<project name="java-environment" default="install">
+
+  <description>
+  This project contains java tools used by the ccmtools project.
+  Note that all tools in java-environment can be built and used
+  without the ccmtools package.   
+  </description>
+
+  <!-- Define properties that are used in the following tasks.
+       Note that a property can be set from command-line:
+          $ ant -Dprefix=/usr/local
+  -->
+  <property name="src" location="src" />
+  <property name="build" location="build" />
+  <property name="lib" location="lib" />
+  <property name="doc" location="doc" />
+  <property name="prefix" location="dist" />
+
+
+  <!-- Define different paths that are used in the following tasks -->
+  <path id="compile.classpath">
+      <fileset dir="${lib}">
+          <include name="*.jar" />
+      </fileset>
+  </path>
+
+  <path id="run.classpath">
+      <fileset dir="${lib}">
+          <include name="*.jar" />
+      </fileset>	  
+      <pathelement path="${java.class.path}" />
+  </path>
+
+
+  <!-- Define the tasks needed to build and test ccmtools.uml2idl -->
+
+  <target name="init"
+      description="Creates the build directory and deletes the old jar files." >
+      <mkdir dir="${build}" />
+  </target>
+
+
+
+  <!-- Create javaDoc -->
+  <target name="doc" 
+      description="Generates javadoc for the uml_parser and uml2idl package.">
+      <javadoc packagenames="uml_parser, uml2idl"
+           sourcepath="${src}"
+	       destDir="${build}/javadoc">
+      </javadoc>
+  </target>
+
+
+  <!-- Install java-environment -->
+  <target name="install"  
+      description="Install java-environment to prefix/.">
+       <mkdir dir="${prefix}/share/java/ccmtools" />
+       <copy file="${lib}/Components.jar"  todir="${prefix}/share/java/ccmtools"  overwrite="true" />
+  </target>
+
+
+  <!-- Clean up -->
+
+  <target name="clean"
+      description="Clean up the build and lib directory." >
+      <delete dir="${src}/uml_parser" />
+      <delete dir="${build}" />
+      <delete file="${lib}/uml2idl.jar" />
+      <delete file="u1.idl" />
+      <delete file="u1.ocl" />
+  </target>
+
+</project>

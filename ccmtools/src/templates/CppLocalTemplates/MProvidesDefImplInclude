@@ -1,0 +1,2 @@
+#include "%(ComponentType)s_%(Identifier)s_impl.h"
+

@@ -1,0 +1,155 @@
+% $Id: Introduction.tex,v 1.9 2005/03/17 08:18:03 teiniker Exp $
+
+%==============================================================================
+\chapter{CCM Tools Overview}
+%==============================================================================
+
+The CCM Tools are a set of Java programs and libraries as well as Python scripts
+that supports component development, based on the {\it CORBA Component
+Model} (CCM) \cite{CCMSpecification} and our local component extensions. 
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=12cm,angle=0] {ComponentGeneratorTools}
+        \caption{CCM Tools framework}
+        \label{ccmtools}
+    \end{center}
+\end{figure}
+
+As shown in Fig.~\ref{ccmtools}, the CCM Tools form a component development 
+framework that is flexible and extensible.
+
+
+\newpage
+Using a well defined {\bf CCM model}, we can separate component descriptions 
+from code generator tools. Therefore, we can add new description methods (e.g.
+UML profiles) or code generator tools (e.g. a Java Component Generator) without 
+changing other tools.
+
+The current CCM Tools framework contains the following tools:
+\begin{description}
+\item [uml2idl Generator]
+Using a UML profile for CCM \cite{} we can model component definitions with
+UML tools. From a given UML XMI file a uml2idl generator extracts a IDL3 
+and an OCL file. 
+While the IDL3 file is used to generate component logic, the OCL file is input
+for a Design by Contract (DbC) generator (as described later).
+
+\item [CCM Metamodel Library]
+The CCM specification defines an {\it Interface Repository Metamodel} 
+corresponding to the IDL3 syntax. We implemented a CCM Metamodel Library that 
+allows creation and manipulation of CCM models. Using this library we can 
+clearly separate the parser tools and code generators. 
+The parser creates a model object for every part of the
+source code matching an IDL grammar rule.
+
+\item [idl3 Parser]
+The idl3 Parser reads IDL3 files, checks the syntax of these source code
+and creates a CCM model using the CCM Metamodel Library in the memory. This CCM
+model is the starting point for all code generator tools in the framework.
+
+\item [idl3 Generator]
+To test the functionality of the CCM Metamodel Library and the IDL3 Parser we 
+implemented an IDL3 Generator that writes out a CCM model into corresponding 
+IDL3 Files.
+
+\item [idl3mirror Generator]
+We use a {\it Test-Driven Development} (TDD) strategy to develop and to specify
+components (as described later in this tutorial). Our component unit test uses a
+mirror component to connect all ports of an existing component. The idl3mirror
+Generator creates the IDL3 syntax definition of this mirror component.
+
+
+\item [OCL Metamodel Library]
+We have implemented an OCL metamodel library that is used by the OCL parser
+to create an OCL model in memory.
+This in memory OCL model can be used by generator tools to retrieve
+information for code generation.
+
+\item [OCL Parser]
+From an OCL source file, an OCL parser performs some syntax checks and
+establishes an OCL model in memory using the OCL metamodel library. 
+This model is the starting point for code generator tools based on OCL. 
+
+\item [c++local Generator]
+The component model is realized by the component logic that implements the
+operations for providing, using and connecting components by their facets and
+receptacles. We implemented a generator tool that creates the local component
+logic starting from a given CCM model. After generating the component logic, 
+component developers can write business logic into the generated
+component skeletons.
+
+\item [c++dbc Generator]
+From an OCL model and a CCM model this generator creates a set of
+Design by Contract adapter for local C++ components.
+These adapters can be used alternatively to the regular local component
+adapters to support DbC.
+
+\item [c++local-test Generator]
+After building a local C++ component we can run a unit test procedure. To
+provide a suitable test environment we generate a test client implementation
+that instantiates a component as well as its mirror component and manages this 
+component unit test. 
+
+\item [idl2 Generator]
+To implement CORBA components the IDL3 source code is mapped to IDL2 that can be
+processed by a usual {\bf IDL2 Compiler} (currently we use Mico ORB). The
+transformation from IDL3 to IDL2 extends the IDL2 source code with some operations 
+needed for navigation between components and their ports (equivalent operations). 
+We support this transformation with a idl2 Generator that creates IDL2 files from 
+a existing CCM model.
+
+\item [c++remote Component Generator]
+The local components only works in a common address space and must be
+implemented in the same programming language. To overcome these limitations we
+can generate remote component logic that interfaces the local components with CORBA.
+The remote component logic is thus a superset of the local component logic. Note
+that the external view of such a remote component quite conforms to the CCM
+specification.
+
+\item [c++remote-test Generator]
+After generation of remote components we can also run a remote test procedure.
+In parallel to the local test environment, we can use the mirror component test 
+concept in the remote case too.
+Thus, a generated remote test client connects a remote component with its
+mirror component and manages this remote unit test. 
+\end{description}
+
+
+%==============================================================================
+\section{CCM Tools runtime architecture}
+%==============================================================================
+
+The CCM Tools source code is available from {\tt ccmtools.sourceforge.net}
+and is organized in the following structure (Fig.~\ref{ccmtools-structure}):
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics [width=12cm,angle=0] {CcmToolsArchitecture}
+        \caption{CCM Tools structure}
+        \label{ccmtools-structure}
+    \end{center}
+\end{figure}
+
+\begin{description}
+\item [ccmtools:]
+This module contains all the tools and libraries that build the CCM Tools 
+framework in form of Java source code.
+
+\item [cpp-environment:]
+This module contains C++ source code that builds a runtime environment for
+generated components (e.g. C++ smart pointer library, CCM header files, 
+HomeFinder implementations etc.).
+The C++ components depend only on cpp-environment libraries. 
+Remote components are also based on {\bf Mico} \cite{MicoORB} an open source 
+Object Request Broker (ORB) implementation.
+
+
+\item [java-environment:]
+This module contains Java code that is used by Java clients
+as a runtime library to access remote CCM components.
+
+\end{description}
+
+\newpage
+\input{Installation}

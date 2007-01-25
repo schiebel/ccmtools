@@ -1,0 +1,252 @@
+//==============================================================================
+// %(Identifier)s - python object definition
+//==============================================================================
+#ifndef __Home__%(PreprocIdentifier)s__PYTHON__H__
+#define __Home__%(PreprocIdentifier)s__PYTHON__H__
+
+#include <Python.h>
+#include <WX/Utils/smartptr.h>
+%(IncludeLocalComponent)s
+
+using %(LocalNamespace)s%(ComponentType)s;
+
+%(OpenNamespace)s
+
+PyTypeObject *%(Identifier)s_init( );
+int is_%(Identifier)s( PyObject * );
+WX::Utils::SmartPtr<%(ComponentType)s> create_local_%(ComponentType)s(PyObject*);
+
+%(CloseNamespace)s
+
+#endif
+
+<<<<<<<SPLIT>>>>>>>
+//==============================================================================
+// %(Identifier)s : component adapter class wrapper - <MHomeDef>
+//==============================================================================
+
+#include "%(Identifier)s_python.h"
+#include "%(ComponentType)s_python.h"
+%(IncludeLocalHome)s
+
+%(UsingLocalNamespace)s
+
+%(OpenNamespace)s
+
+static PyObject *Py%(Identifier)s_exception = 0;
+
+//
+//  ------  home object struct  ------
+//
+typedef struct {
+  PyObject_HEAD
+  WX::Utils::SmartPtr<%(Identifier)s> *home;
+} Py%(Identifier)s_object;
+
+WX::Utils::SmartPtr<%(ComponentType)s> create_local_%(ComponentType)s(PyObject *arg) {
+
+    WX::Utils::SmartPtr<%(ComponentType)s> ret;
+
+    if ( arg && is_%(Identifier)s( arg ) )
+	ret = (*((Py%(Identifier)s_object*)arg)->home)->create( );
+
+    return ret;
+}
+
+//
+//  ------  component type pointer  ------
+//
+static PyTypeObject *component_type = 0;
+
+//
+//  ------  create component  ------
+//
+PyObject *
+create_%(Identifier)s( PyObject *self, PyObject *args ) {
+
+    PyObject *result = component_type->tp_new( component_type, NULL, NULL );
+    int ok = component_type->tp_init( result, self, NULL );
+    if ( ok != 0 ) {
+        Py_DECREF( result );
+	result = NULL;
+    }
+    return result;
+}
+
+//
+//  ------  string representation  ------
+//
+static PyObject *
+Py%(Identifier)s_str( Py%(Identifier)s_object *self ) {
+    return PyString_FromString( "%(Identifier)s : %(ComponentType)s home\n    create( )" );
+}
+
+
+//
+//  ------  home destructor  ------
+//
+static void
+Py%(Identifier)s_dealloc( Py%(Identifier)s_object *self ) {
+
+    int error  = undeploy_%(AbsoluteLocalHomeName)s("%(Identifier)s");
+
+    if ( error ) PyErr_SetString( Py%(Identifier)s_exception, "teardown error: can't undeploy %(Identifier)s home" );
+
+    if ( self->home ) delete self->home;
+
+    self->home = 0;
+
+    self->ob_type->tp_free( (PyObject*) self );
+}
+
+//
+// ------  home constructor  ------
+//
+static PyObject *
+Py%(Identifier)s_new( PyTypeObject *type, PyObject *args, PyObject *keywds ) {
+
+    Py%(Identifier)s_object *self = (Py%(Identifier)s_object*) type->tp_alloc(type,0);
+    self->home = 0;
+    return (PyObject*) self;
+}
+
+//
+//  ------  home initialization  ------
+//
+static int
+Py%(Identifier)s_init( Py%(Identifier)s_object *self, PyObject *args, PyObject *keywds ) {
+
+    try {
+        LocalComponents::HomeFinder* homeFinder = HomeFinder::Instance();
+        WX::Utils::SmartPtr<%(Identifier)s> *new_home =
+                new WX::Utils::SmartPtr<%(Identifier)s>(dynamic_cast<%(Identifier)s*>(homeFinder->find_home_by_name("%(Identifier)s").ptr()));
+
+        if ( new_home ) {
+
+            if ( self->home )
+                delete self->home;
+
+            self->home = new_home;
+        }
+    }
+    catch ( LocalComponents::HomeNotFound ) {
+
+        int error  = deploy_%(AbsoluteLocalHomeName)s("%(Identifier)s");
+
+        if ( error ) {
+            PyErr_SetString( Py%(Identifier)s_exception, "bootstrap error: can't deploy %(Identifier)s home" );
+            return -1;
+        }
+
+        try {
+            LocalComponents::HomeFinder* homeFinder = HomeFinder::Instance();
+            WX::Utils::SmartPtr<%(Identifier)s> *new_home =
+                new WX::Utils::SmartPtr<%(Identifier)s>(dynamic_cast<%(Identifier)s*>(homeFinder->find_home_by_name("%(Identifier)s").ptr()));
+
+            if ( new_home ) {
+
+                if ( self->home )
+                    delete self->home;
+
+                self->home = new_home;
+            }
+        }
+        catch ( LocalComponents::HomeNotFound ) {
+            PyErr_SetString( Py%(Identifier)s_exception, "bootstrap error: can't find %(Identifier)s home" );
+            return -1;
+        }
+    }
+
+    return 0;
+}
+
+//
+//  ------  home method table ------
+//
+static PyMethodDef Py%(Identifier)s_methods[] = {
+    { "create", create_%(Identifier)s, METH_NOARGS,
+      "create a %(ComponentType)s component"
+    },
+    { NULL }
+};
+
+
+//
+//  ------  home object table ------
+//
+static PyTypeObject Py%(Identifier)s_type = {
+    PyObject_HEAD_INIT ( NULL )
+    0,									/* ob_size */
+    "%(Module)s.%(Identifier)s",					/* tp_name */
+    sizeof ( Py%(Identifier)s_object ),					/* tp_basicsize */
+    0,									/* tp_itemsize */
+
+    /* methods */
+    (destructor) Py%(Identifier)s_dealloc,				/* tp_dealloc */
+    0,									/* tp_print */
+    0,									/* tp_getattr */
+    0,									/* tp_setattr */
+    0,									/* tp_compare */
+    0,									/* tp_repr */
+    0,									/* tp_as_number */
+    0,						   			/* tp_as_sequence */
+    0,						   		  	/* tp_as_mapping */
+    0,						   		 	/* tp_hash */
+    0,						   	   		/* tp_call */
+    (reprfunc) Py%(Identifier)s_str,		   	   		/* tp_str */
+    0,						   	  		/* tp_getattro */
+    0,									/* tp_setattro */
+    0,									/* tp_as_buffer */
+
+    Py_TPFLAGS_DEFAULT,				   			/* tp_flags */
+
+    "%(Identifier)s is used to create %(ComponentType)s components",	/* tp doc */
+
+    0,		  							/* tp_traverse */
+    0,									/* tp_clear */
+    0,									/* tp_richcompare */
+    0,									/* tp_weaklistoffset */
+    0,									/* tp_iter */
+    0,									/* tp_iternext */
+
+    Py%(Identifier)s_methods,						/* tp_methods */
+    NULL,								/* tp_members */
+
+    0,									/* tp_getset */
+    0,									/* tp_base */
+    0,									/* tp_dict */
+    0,									/* tp_descr_get */
+    0,									/* tp_descr_set */
+    0,									/* tp_dictoffset */
+    (initproc) Py%(Identifier)s_init,					/* tp_init */
+    0,									/* tp_alloc */
+    Py%(Identifier)s_new,						/* tp_new */
+};
+
+
+int is_%(Identifier)s( PyObject *o ) {
+    return PyObject_TypeCheck( o, &Py%(Identifier)s_type ) ? 1 : 0;
+}
+
+//
+//  ------  external home initialization hook ------
+//
+PyTypeObject *%(Identifier)s_init( ) {
+
+    if ( PyType_Ready( &Py%(Identifier)s_type ) < 0 ) {
+        return NULL;
+    }
+
+    Py%(Identifier)s_exception = PyErr_NewException("%(Identifier)s.error", NULL, NULL);
+
+    if ( ! component_type )
+	component_type = %(ComponentType)s_init( );
+
+    if ( ! component_type ) return NULL;
+
+    Py_INCREF( &Py%(Identifier)s_type );
+    return &Py%(Identifier)s_type;
+}
+
+%(CloseNamespace)s
+

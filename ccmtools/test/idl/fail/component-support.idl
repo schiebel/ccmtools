@@ -1,0 +1,2 @@
+component __COMPONENT__ supports __NO_INTERFACE__ { };
+home __HOME__ manages __COMPONENT__ { };

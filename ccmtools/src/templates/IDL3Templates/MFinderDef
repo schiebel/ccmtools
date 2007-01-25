@@ -1,0 +1,2 @@
+  finder %(Identifier)s ( %(MParameterDef)s ) %(MExceptionDefName)s;
+

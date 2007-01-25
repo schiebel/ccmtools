@@ -1,0 +1,18 @@
+/**
+ * Test case: home exception
+ *
+ */
+
+exception can_not_create {};
+
+component Hello
+{
+  attribute string id;
+};
+
+home HelloHome manages Hello
+{
+  factory create_with_exception(in string id)
+    raises (can_not_create);
+};
+

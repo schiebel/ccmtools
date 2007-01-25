@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<project name="cpp-environment" default="install.library">
+
+  <property name="destroot" location="root" />
+  <property name="prefix" location="${destroot}" />
+  <property name="srcdir" value="." />
+  <property name="pythonroot" value="${prefix}" />
+  <property name="pythonversion" value="2.5" />
+  <property name="iflags" value="-I${destroot}/include -I/opt/local/include" />
+  <property name="cflags" value="-g -fPIC -DHAVE_SSTREAM -DHAVE_MICO" />
+  <property name="c++" value="c++ ${iflags} ${cflags}" />
+  <property name="idl" value="idl ${iflags}" />
+  <property name="ar" value="ar -rc" />
+  <property name="root.version" value="0.5.5" />
+
+  <!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+       :::::::::::::::::::::::::::::::linux:::::::::::::::::::::::::::::::::::::::
+  <property name="dylib" value="c++ -g -dynamiclib -single_module -o" />
+  <property name="dylib.nameflag" value="-install_name " />
+  <property name="dylib.prefix.path" value="${prefix}/lib/" />
+  <property name="dylib.suffix.ext" value="dylib" />
+  <property name="dylib.suffix.qualified" value="${root.version}.${dylib.suffix.ext}" />
+       :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+       ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+  <property name="dylib" value="c++ -g -shared -o" />
+  <property name="dylib.nameflag" value="-Wl,-soname=" />
+  <property name="dylib.prefix.path" value=""/>
+  <property name="dylib.suffix.ext" value="so"/>
+  <property name="dylib.suffix.qualified" value="${dylib.suffix.ext}.${root.version}"/>
+
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+  <property name="WX_Utils.subdirs" value="code,error,types,measure" />
+  <property name="WX_Utils.iflags" value="" />
+  <property name="WX_Utils.dir.code" location="${srcdir}/wx/utils/code" />
+  <property name="WX_Utils.dir.error" location="${srcdir}/wx/utils/error" />
+  <property name="WX_Utils.dir.types" location="${srcdir}/wx/utils/types" />
+  <property name="WX_Utils.dir.measure" location="${srcdir}/wx/measurement" />
+  <property name="WX_Utils.incdir.code" location="${destroot}/include/WX/Utils" />
+  <property name="WX_Utils.incdir.error" location="${destroot}/include/WX/Utils" />
+  <property name="WX_Utils.incdir.types" location="${destroot}/include/WX/Utils" />
+  <property name="WX_Utils.incdir.measure" location="${destroot}/include/WX/Utils" />
+  <property name="WX_Utils.lib.code" location="${destroot}/lib/libWX_Utils_code" />
+  <property name="WX_Utils.lib.types" location="${destroot}/lib/libWX_Utils_types" />
+  <property name="WX_Utils.lib.error" location="${destroot}/lib/libWX_Utils_error" />
+  <property name="WX_Utils.lib.measure" location="${destroot}/lib/libWX_Utils_measurement" />
+  <property name="WX_Utils.link.code" value="" />
+  <property name="WX_Utils.link.error" value="-L${destroot}/lib -lWX_Utils_code" />
+  <property name="WX_Utils.link.types" value="-L${destroot}/lib -lWX_Utils_error -lWX_Utils_code" />
+  <property name="WX_Utils.link.measure" value="" />
+
+  <property name="CCM_Local.subdirs" value="HomeFinder,LocalComponents" />
+  <property name="CCM_Local.iflags" value="" />
+  <property name="CCM_Local.dir.HomeFinder" location="${srcdir}/ccm/CCM_Local/HomeFinder" />
+  <property name="CCM_Local.dir.LocalComponents" location="${srcdir}/ccm/CCM_Local/LocalComponents" />
+  <property name="CCM_Local.incdir.HomeFinder" location="${destroot}/include/CCM_Local" />
+  <property name="CCM_Local.incdir.LocalComponents" location="${destroot}/include/LocalComponents" />
+  <property name="CCM_Local.lib.HomeFinder" location="${destroot}/lib/libCCM_Local_HomeFinder" />
+  <property name="CCM_Local.lib.LocalComponents" location="${destroot}/lib/libCCM_Local_LocalComponents" />
+  <property name="CCM_Local.link.HomeFinder" value="-L${destroot}/lib -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
+  <property name="CCM_Local.link.LocalComponents" value="" />
+
+  <property name="CCM_Remote.subdirs" value="RemoteComponents,SessionContainer" />
+  <property name="CCM_Remote.iflags" value="" />
+  <property name="CCM_Remote.dir.RemoteComponents" location="${srcdir}/ccm/CCM_Remote/RemoteComponents" />
+  <property name="CCM_Remote.dir.SessionContainer" location="${srcdir}/ccm/CCM_Remote/SessionContainer" />
+  <property name="CCM_Remote.incdir.SessionContainer" location="${destroot}/include/CCM_Remote" />
+  <property name="CCM_Remote.incdir.SessionContainer.CCMContainer.h" location="${destroot}/include/CCM" />
+  <property name="CCM_Remote.incdir.RemoteComponents" location="${destroot}/include/Components" />
+  <property name="CCM_Remote.lib.SessionContainer" location="${destroot}/lib/libCCM_Remote_SessionContainer" />
+  <property name="CCM_Remote.lib.RemoteComponents" location="${destroot}/lib/libCCM_Remote_RemoteComponents" />
+  <property name="CCM_Remote.link.SessionContainer" value="-L${destroot}/lib -L/opt/local/lib -lCCM_Remote_RemoteComponents -lmico2.3.11 -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
+  <property name="CCM_Remote.link.RemoteComponents" value="-L/opt/local/lib -lmico2.3.11" />
+
+  <property name="CCM_Python.subdirs" value="root" />
+  <property name="CCM_Python.iflags" value="-I${pythonroot}/include/python${pythonversion}" />
+  <property name="CCM_Python.dir.root" location="${srcdir}/ccm/CCM_Python" />
+  <property name="CCM_Python.incdir.root" location="${destroot}/include/CCM_Python" />
+  <property name="CCM_Python.lib.root" location="${destroot}/lib/libCCM_Python" />
+  <property name="CCM_Python.link.root" value="-L${pythonroot}/lib -Wl,-rpath -Wl,${pythonroot}/lib -lpython${pythonversion}" />
+
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- :::  Run generator on IDL files                                         ::: -->
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <target name="compile.idl">
+    <for list="WX_Utils,CCM_Local,CCM_Remote,CCM_Python" param="dir">
+      <sequential>
+	<for list="${@{dir}.subdirs}" param="tgt">
+	  <sequential>
+	    <outofdate outputsources="@{dir}.idl.@{tgt}">
+	      <sourcefiles>
+		<fileset dir="${@{dir}.dir.@{tgt}}" includes="*.idl"/>
+	      </sourcefiles>
+	      <mapper type="glob" from="*.idl" to="*.h"/>
+	      <mapper type="glob" from="*.idl" to="*.cc"/>
+	      <sequential>
+		<shellscript shell="/bin/sh">
+		  cd ${@{dir}.dir.@{tgt}}
+		  for i in ${@{dir}.idl.@{tgt}}; do
+	              ${idl} $i
+		  done
+		</shellscript>
+	      </sequential>
+	    </outofdate>
+	  </sequential>
+	</for>
+      </sequential>
+    </for>
+  </target>
+
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- :::  Install all headerfiles in central location for build              ::: -->
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <target name="install.header" depends="compile.idl">
+    <for list="WX_Utils,CCM_Local,CCM_Remote,CCM_Python" param="dir">
+      <sequential>
+	<for list="${@{dir}.subdirs}" param="tgt">
+	  <sequential>
+	    <outofdate outputsources="@{dir}.hdr.@{tgt}">
+	      <sourcefiles>
+		<fileset dir="${@{dir}.dir.@{tgt}}" includes="*.h"/>
+		<fileset dir="${@{dir}.dir.@{tgt}}" includes="*.idl"/>
+	      </sourcefiles>
+	      <mapper type="glob" dir="${@{dir}.dir.@{tgt}}" from="*.h" to="${@{dir}.incdir.@{tgt}}/*.h"/>
+	      <mapper type="glob" dir="${@{dir}.dir.@{tgt}}" from="*.idl" to="${@{dir}.incdir.@{tgt}}/*.idl"/>
+	      <sequential>
+		<property name="@{dir}.hdr.@{tgt}.regex" value="${@{dir}.hdr.@{tgt}}"/>
+		<propertyregex override="yes"
+			       property="@{dir}.hdr.@{tgt}.regex"
+			       input="${@{dir}.hdr.@{tgt}}"
+			       regexp="[ ][ ]*" replace=","
+			       global="yes"/>
+		<for param="file" list="${@{dir}.hdr.@{tgt}.regex}">
+		  <sequential>
+		    <basename property="basename" file="@{file}"/>
+		    <ifsequential if="@{dir}.incdir.@{tgt}.${basename}">
+		      <propertycopy name="ref" from="@{dir}.incdir.@{tgt}.${basename}"/>
+		      <outofdate outputsources="special.files">
+			<sourcefiles>
+			  <fileset file="@{file}"/>
+			</sourcefiles>
+			<mapper type="glob" dir="${@{dir}.dir.@{tgt}}" from="*.h" to="${ref}/*.h"/>
+			<mapper type="glob" dir="${@{dir}.dir.@{tgt}}" from="*.idl" to="${ref}/*.idl"/>
+			<sequential>
+			  <echo message="special copy @{file} to ${ref}"/>
+			  <shellscript shell="/bin/sh">
+			    mkdir -p ${ref}
+			    cp @{file} ${ref}
+			  </shellscript>
+			</sequential>
+		      </outofdate>
+		      <var name="special.files" unset="true"/>
+		      <var name="ref" unset="true"/>
+		    </ifsequential>
+		    <ifsequential unless="@{dir}.incdir.@{tgt}.${basename}">
+		      <echo message="regular copy @{file} to ${@{dir}.incdir.@{tgt}}"/>
+		      <shellscript shell="/bin/sh">
+			mkdir -p ${@{dir}.incdir.@{tgt}}
+			cp @{file} ${@{dir}.incdir.@{tgt}}
+		      </shellscript>
+		    </ifsequential>
+		    <var name="basename" unset="true"/>
+		  </sequential>
+		</for>
+	      </sequential>
+	    </outofdate>
+	  </sequential>
+	</for>
+      </sequential>
+    </for>
+  </target>
+
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- :::  Compile C++ source code                                            ::: -->
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <target name="compile.source" depends="install.header">
+    <for list="WX_Utils,CCM_Local,CCM_Remote,CCM_Python" param="dir">
+      <sequential>
+	<for list="${@{dir}.subdirs}" param="tgt">
+	  <sequential>
+	    <outofdate outputsources="@{dir}.src.@{tgt}">
+	      <sourcefiles>
+		<fileset dir="${@{dir}.dir.@{tgt}}" includes="*.cc"/>
+		<fileset dir="${@{dir}.dir.@{tgt}}" includes="*.cpp"/>
+	      </sourcefiles>
+	      <mapper type="glob" from="*.cc" to="*.o"/>
+	      <mapper type="glob" from="*.cpp" to="*.o"/>
+	      <sequential>
+		<shellscript shell="/bin/sh">
+		  cd ${@{dir}.dir.@{tgt}}
+		  for i in ${@{dir}.src.@{tgt}}; do
+		      echo ${c++} ${@{dir}.iflags} -c $i
+	              ${c++} ${@{dir}.iflags} -c $i
+		  done
+		</shellscript>
+	      </sequential>
+	    </outofdate>
+	  </sequential>
+	</for>
+      </sequential>
+    </for>
+  </target>
+
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- :::  Install object libraries                                           ::: -->
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <target name="install.library" depends="compile.source">
+    <for list="WX_Utils,CCM_Local,CCM_Remote,CCM_Python" param="dir">
+      <sequential>
+	<for list="${@{dir}.subdirs}" param="tgt">
+	  <sequential>
+	    <outofdate outputsources="@{dir}.obj.@{tgt}">
+	      <sourcefiles>
+		<fileset dir="${@{dir}.dir.@{tgt}}" includes="*.o"/>
+	      </sourcefiles>
+	      <mapper type="merge" from="*.o" to="${@{dir}.lib.@{tgt}}.a"/>
+	      <mapper type="merge" from="*.o" to="${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}"/>
+	      <sequential>
+		<shellscript shell="/bin/sh">
+		  mkdir -p ${destroot}/lib
+		  ${ar} ${@{dir}.lib.@{tgt}}.a ${@{dir}.obj.@{tgt}}
+		  if [ -f ${@{dir}.lib.@{tgt}}.a ]; then ranlib ${@{dir}.lib.@{tgt}}.a; fi
+		  ${dylib} ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified} ${dylib.nameflag}${dylib.prefix.path}`basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}` ${@{dir}.obj.@{tgt}} ${@{dir}.link.@{tgt}}
+		  if [ -f ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified} ]; then (cd ${destroot}/lib;  ln -s `basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}` `basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.ext}`); fi
+		</shellscript>
+	      </sequential>
+	    </outofdate>
+	  </sequential>
+	</for>
+      </sequential>
+    </for>
+  </target>
+
+</project>

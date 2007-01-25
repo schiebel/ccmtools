@@ -1,0 +1,13 @@
+/**
+ * 
+ *
+ *
+ */
+
+
+#include"Message.idl"
+
+interface Console {
+  string read_string(in Message m);
+};
+

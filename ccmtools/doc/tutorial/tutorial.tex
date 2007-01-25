@@ -1,0 +1,76 @@
+%============================================================================
+% CCM Tools - Tutorial
+% $Id: tutorial.tex,v 1.17 2004/11/11 18:18:27 teiniker Exp $
+%=============================================================================
+
+% PAKETE =====================================================================
+\documentclass{report}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{a4}
+\usepackage{graphicx}
+
+% new float environment for example code, using framed verbatim minipages.
+\usepackage{float}
+\newfloat{Example}{htb}{loe}[section]
+
+\setlength{\fboxsep}{5mm}
+\newlength{\minifboxwidth}
+\setlength{\minifboxwidth}{\columnwidth}
+\addtolength{\minifboxwidth}{-5mm}
+\newsavebox{\fmbox}
+\newenvironment{minifbox}
+  {\begin{lrbox}{\fmbox}\begin{minipage}{\minifboxwidth}}
+  {\end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}}
+
+% length definitions for paragraph spacing and indent.
+\setlength{\parindent}{0cm}
+
+% custom controls over float placement and page flow.
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\floatpagefraction}{0.1}
+\setcounter{totalnumber}{5}
+
+%=Content======================================================================
+\title{{\Huge CCM Tools}\\Tutorial}
+
+\author{Egon Teiniker <egon.teiniker@salomon.at>\\
+Leif Johnson <leif@ambient.2y.net>}
+
+\begin{document}
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+
+\newpage
+\pagenumbering{arabic}
+\setlength{\parskip}{1em}
+
+\input{CCMOverview}
+\input{LCAC}
+\input{Introduction}
+\input{FirstComponent}
+\input{UMLComponentDesign}
+
+%\input{ProgrammingModel}
+%\input{ConnectComponents}
+%\input{RemoteComponent}
+
+
+\begin{appendix}
+\input{ManPage}
+\input{ConfixInstallation}
+\input{MicoInstallation}
+\end{appendix}
+
+%=References===================================================================
+\bibliographystyle{plain}
+\bibliography{./bibtex/cbse,./bibtex/doc,./bibtex/wx,./bibtex/pattern,./bibtex/se,./bibtex/mda}
+
+\end{document}
+
+

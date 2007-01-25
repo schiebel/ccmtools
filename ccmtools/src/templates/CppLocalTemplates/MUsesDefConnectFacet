@@ -1,0 +1,7 @@
+  if ( name == "%(Identifier)s" ) {
+    connect_%(Identifier)s ( SmartPtr<%(CCMUsesType)s> (
+      dynamic_cast<%(CCMUsesType)s*> ( connection.ptr ( ) ) ) );
+    LocalComponents::Cookie ck;
+    return ck;
+  }
+

@@ -1,0 +1,12 @@
+
+#include<Benchmark.idl>
+
+component SuperTest
+{
+  provides Benchmark bm;
+  uses Benchmark delegate;
+};
+
+home SuperTestHome manages SuperTest
+{
+};

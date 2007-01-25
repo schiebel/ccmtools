@@ -1,0 +1,12 @@
+
+
+$ ccmtools-generate idl3 -o xxx/idl3 Test.idl
+$ ccmtools-generate idl3mirror -o xxx/idl3 Test.idl
+
+
+$ ccmtools-generate c++local -a -o xxx -Ixxx/idl3/interface xxx/idl3/interface/*.idl
+$ ccmtools-generate c++local -a -o xxx -Ixxx/idl3/interface -Ixxx/idl3/component xxx/idl3/component/*.idl
+
+$ ccmtools-generate c++local-test -o xxx Test.idl
+
+$ confix.py --packageroot=`pwd`/xxx --bootstrap --configure --make --targets=check

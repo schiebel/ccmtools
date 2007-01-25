@@ -1,0 +1,119 @@
+CCM Remote with Java Client Test:
+---------------------------------
+
+time bin/runClient
+>>>> Start Test Client: Client.java
+--- Start Test Case ------------------------
+
+Java Remote CCM Test: void f0()  loops(10000) size(1) real(162.9)s
+
+Java Remote CCM Test: void f_in1(in long l1)  loops(10000) size(1) real(131.7)s
+
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(0)    real(130.7)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(100)  real(137.5)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(200)  real(141.3)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(300)  real(147.1)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(400)  real(150.7)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(500)  real(161.4)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(600)  real(167.9)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(700)  real(167.8)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(800)  real(175.9)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(900)  real(182.9)s
+Java Remote CCM Test: void f_in2(in string s1)  loops(10000) size(1000) real(186.2)s
+
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(0)    real(129.9)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(100)  real(139.7)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(200)  real(150.6)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(300)  real(161.9)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(400)  real(170.1)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(500)  real(188.4)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(600)  real(194.7)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(700)  real(202.6)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(800)  real(210.9)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(900)  real(220.5)s
+Java Remote CCM Test: void f_in3(in LongList ll1)  loops(10000) size(1000) real(227.1)s
+
+Java Remote CCM Test: void f_inout1(inout long l1)  loops(10000) size(1) real(128.9)s
+
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(0)    real(137.6)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(100)  real(146.5)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(200)  real(152.9)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(300)  real(160.8)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(400)  real(167.8)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(500)  real(178.7)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(600)  real(185.3)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(700)  real(192.5)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(800)  real(199.0)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(900)  real(208.1)s
+Java Remote CCM Test: void f_inout2(inout string s1)  loops(10000) size(1000) real(221.9)s
+
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(0)    real(132.1)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(100)  real(153.2)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(200)  real(175.5)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(300)  real(198.7)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(400)  real(216.9)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(500)  real(245.1)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(600)  real(264.6)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(700)  real(283.4)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(800)  real(301.1)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(900)  real(317.6)s
+Java Remote CCM Test: void f_inout3(inout LongList ll1)  loops(10000) size(1000) real(338.0)s
+
+Java Remote CCM Test: void f_out1(out long l1)  loops(10000) size(1) real(129.1)s
+
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(0)    real(131.8)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(100)  real(135.8)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(200)  real(138.0)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(300)  real(140.7)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(400)  real(143.1)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(500)  real(147.0)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(600)  real(149.3)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(700)  real(151.3)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(800)  real(154.4)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(900)  real(156.1)s
+Java Remote CCM Test: void f_out2(out string s1)  loops(10000) size(1000) real(158.6)s
+
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(0)    real(130.4)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(100)  real(143.8)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(200)  real(157.0)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(300)  real(168.0)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(400)  real(178.3)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(500)  real(188.6)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(600)  real(200.5)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(700)  real(212.2)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(800)  real(221.6)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(900)  real(232.6)s
+Java Remote CCM Test: void f_out3(out LongList ll1)  loops(10000) size(1000) real(244.2)s
+
+Java Remote CCM Test: long f_ret1()  loops(10000) size(1) real(129.5)s
+
+Java Remote CCM Test: string f_ret2()  loops(10000) size(0)    real(132.4)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(100)  real(136.9)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(200)  real(140.0)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(300)  real(142.6)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(400)  real(144.4)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(500)  real(149.2)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(600)  real(152.0)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(700)  real(154.7)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(800)  real(156.9)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(900)  real(158.8)s
+Java Remote CCM Test: string f_ret2()  loops(10000) size(1000) real(161.3)s
+
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(0)    real(131.2)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(100)  real(145.8)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(200)  real(158.7)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(300)  real(170.6)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(400)  real(181.3)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(500)  real(192.0)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(600)  real(204.5)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(700)  real(216.0)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(800)  real(226.5)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(900)  real(238.0)s
+Java Remote CCM Test: LongList f_ret3()  loops(10000) size(1000) real(249.7)s
+--- Stop Test Case -------------------------
+>>>> Stop Test Client: Client.java
+ loops(1) size(1) real(1.6455E8)s
+
+real	2m44.677s
+user	1m18.678s
+sys	0m16.195s

@@ -1,0 +1,3 @@
+  emits %(ConsumesType)s %(Identifier)s_emits_mirror;
+  publishes %(ConsumesType)s %(Identifier)s_publishes_mirror;
+

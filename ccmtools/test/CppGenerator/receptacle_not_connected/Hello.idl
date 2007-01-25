@@ -1,0 +1,19 @@
+/**
+ * Test case: receptacle not connected
+ *
+ */
+
+
+interface Console {
+  long println(in string s2);
+};
+
+component Hello
+{
+  uses Console console;
+};
+
+home HelloHome manages Hello
+{
+};
+

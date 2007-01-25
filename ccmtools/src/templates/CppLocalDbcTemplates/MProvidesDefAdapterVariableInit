@@ -1,0 +1,4 @@
+    %(Identifier)s_facet = 
+        SmartPtr<%(ProvidesType)s>(new DbC_%(Identifier)sFacetAdapter(this, 
+            local_component, disablePostconditionCheck));
+

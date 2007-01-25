@@ -1,0 +1,26 @@
+%(MFactoryDefInclude)s
+%(MFinderDefInclude)s
+%(MSupportsDefInclude)s
+%(BaseInclude)s
+
+#ifndef __HOME__%(PreprocIdentifier)s__
+#define __HOME__%(PreprocIdentifier)s__
+
+%(ComponentInclude)s
+
+%(OpenNamespace)s
+
+home %(Identifier)s manages %(ComponentType)s
+ %(BaseType)s
+ %(MSupportsDef)s
+{
+%(MFactoryDef)s
+%(MFinderDef)s
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

@@ -1,0 +1,67 @@
+
+%==============================================================================
+\chapter{Installation}
+%==============================================================================
+
+%------------------------------------------------------------------------------
+\section{Prerequisites}
+%------------------------------------------------------------------------------
+
+To install the CCM Tools, the following programs must be available:
+\begin{description}
+\item [Java SDK $\ge$ 1.4] {\tt http://java.sun.com/j2se/}
+\item [Python $\ge$ 2.1] {\tt http://python.org/}
+\item [Confix $\ge$ 1.1] {\tt http://confix.sf.net/}
+\item [gcc $\ge$ 2.95.3] {\tt http://www.gnu.org/}
+\end{description}
+
+%------------------------------------------------------------------------------
+\section{How to get it}
+%------------------------------------------------------------------------------
+
+The project is hosted at Sourceforge ({\tt http://ccmtools.sf.net}). See the web
+site for releases and announcements.
+
+You can also subscribe to the {\tt ccmtools-announce} mailing list for CCM Tools
+release announcements. The {\tt ccmtools-users} mailing list provides a forum
+for discussion about using the CCM Tools.
+
+%------------------------------------------------------------------------------
+\section{Source distribution}
+%------------------------------------------------------------------------------
+
+Installing of the CCM Tools requires the following steps once you get the source
+code. (Pretend that the source tarball you got was {\tt ccmtools-A.B.X.tar.gz}.)
+You will need to configure, build, and install the binary files, and then set
+environment variables appropriately:
+\begin{small}
+\begin{verbatim}
+  ~> tar xvzf ccmtools-A.B.X.tar.gz
+  ~> cd ccmtools-A.B.X
+  ~> export CCMTOOLS_HOME=<ccm_tools_path>
+  ~> ./autogen.py --prefix=$CCMTOOLS_HOME
+  ~> make
+  ~> make install
+  ~> export PATH=<ccm_tools_path>/bin:$PATH
+  ~> export CLASSPATH=$CCMTOOLS_HOME/share/java/ccmtools.jar: \
+                      $CCMTOOLS_HOME/share/java/antlr.jar:    \
+                      $CLASSPATH
+\end{verbatim}
+\end{small}
+
+You can also use the binary distribution, which includes a minimal set of Jar
+archives, templates, and documents. To install this distribution, download the
+binary distribution (again assume {\tt ccmtools-A.B.X.bin.tar.gz}) file and do
+the following:
+\begin{small}
+\begin{verbatim}
+  ~> tar xvzf ccmtools-A.B.X.bin.tar.gz
+  ~> cd ccmtools-A.B.X
+  ~> export CCMTOOLS_HOME=`pwd`
+  ~> export PATH=`pwd`/bin:$PATH
+  ~> export CLASSPATH=`pwd`/share/java/ccmtools.jar: \
+                      `pwd`/share/java/antlr.jar:    \
+                      $CLASSPATH
+\end{verbatim}
+\end{small}
+

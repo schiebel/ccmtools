@@ -1,0 +1,17 @@
+-- $Id: Example3.ocl,v 1.1 2004/03/08 13:02:25 teiniker Exp $
+
+package GLOBAL
+
+context Point::move(dx:Real, dy:Real)
+    post px: x=x@pre+dx
+    post py: y=y@pre+dy
+
+context Line::move(dx:Real, dy:Real)
+    -- OCL standard
+    post start_x: startPt.x = startPt@pre.x@pre + dx
+    post start_y: startPt.y = startPt@pre.y@pre + dy
+    -- non-standard
+    post end_x: endPt.x = endPt.x@pre + dx
+    post end_y: endPt.y = endPt.y@pre + dy
+
+endpackage

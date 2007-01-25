@@ -1,0 +1,3 @@
+// <MProvidesDefEqInterfaceLocalCtorDecl>
+WX::Utils::SmartPtr<%(InterfaceType)s> create_local_%(InterfaceType)s(PyObject*);
+

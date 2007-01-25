@@ -1,0 +1,4 @@
+    PyObject *%(Identifier)s_dictval_ = %(ValueToPython)s;
+    PyDict_SetItem( ret, Py_BuildValue( "s", "%(Identifier)s" ), %(Identifier)s_dictval_ );
+    Py_DECREF(%(Identifier)s_dictval_);
+

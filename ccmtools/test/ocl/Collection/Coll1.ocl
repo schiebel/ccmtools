@@ -1,0 +1,30 @@
+package GLOBAL
+
+context Coll1
+    inv exists_1: Set{2,3,4,5}->exists(x,y|(x-y)=2)
+
+    inv forAll_1: Set{1,2,3}->forAll(p|p>0)
+
+    inv select_1: Set{0,1,2,3,4}->select(q|q>0 and q<4)->size()=3
+
+    inv reject_1: Set{0,1,2,3,4}->reject(q|q>0 and q<4)->size()=2
+
+    inv one_1: Set{0,1,2}->one(p|p<1)
+
+    inv any_1: Set{0,1,2}->any(p|p>0) >= 1
+
+    inv collect_1: Set{-1,2,-3,4}->collect(x|x.abs()) = Bag{1,2,3,4}
+    inv collect_2: Sequence{1,2,1,5}->collect(y|y+1) = Sequence{2,3,2,6}
+    inv collect_3a: seq2->collect(p|p.x)->size() >= 0
+    inv collect_3b: seq2->collect(x)->size() >= 0
+    inv collect_3c: seq2.x->size() >= 0
+
+    inv isUnique_1: Set{1,2,3}->isUnique(q|q+1)
+    inv isUnique_2: Set{1,2,3}->isUnique(q|q/2)
+
+    inv sortedBy_1: Set{-7,-4,1,2,3,5,6,8}->sortedBy(p|p*p) = Sequence{1,2,3,-4,5,6,-7,8}
+    inv sortedBy_2: Set{4,3,2,1}->sortedBy(p|p/2) = Sequence{1,2,3,4}
+
+    inv iterate_1: Set{1,2,3,4,5}->iterate(p; acc:Integer=1 | acc*p) = 120
+
+endpackage

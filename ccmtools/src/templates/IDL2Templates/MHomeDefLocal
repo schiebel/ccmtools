@@ -1,0 +1,37 @@
+%(MSupportsDefInclude)s
+%(MFactoryDefInclude)s
+%(MFinderDefInclude)s
+%(BaseInclude)s
+
+#ifndef __HOME__%(PreprocIdentifier)s__
+#define __HOME__%(PreprocIdentifier)s__
+
+%(OpenNamespace)s
+
+interface %(ComponentType)s;
+
+local interface %(Identifier)sExplicit :
+  Components::CCMHome%(BaseType)s%(MSupportsDef)s
+{
+%(MFactoryDef)s
+%(MFinderDef)s
+};
+
+interface %(Identifier)sImplicit : Components::CCMHome
+{
+  %(ComponentType)s create(%(MHomeDefPrimaryKeyParameters)s)
+    raises (Components::CreateFailure%(MHomeDefPrimaryKeyExceptions)s);
+
+%(MHomeDefPrimaryKeyFunctions)s
+};
+
+interface %(Identifier)s : %(Identifier)sExplicit, %(Identifier)sImplicit
+{
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

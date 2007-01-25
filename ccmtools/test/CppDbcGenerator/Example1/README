@@ -1,0 +1,15 @@
+
+# Don't forget to set the CCM_USE_DBC macro in .confix
+# (or directly in test/_check*.cc)
+
+# create local component
+$ ccmtools-generate c++local -a -o xxx Example1.idl
+
+# create local test client (mirror component stuff must be eliminated)
+$ ccmtools-generate c++local-test -o xxx Example1.idl
+
+# create DbC aware local adapter set
+$ ccmtools-generate c++dbc -o xxx Example1.idl
+
+# compile example and run the test
+$ confix.py --packageroot=`pwd`/xxx --bootstrap --configure --make --targets=check

@@ -1,0 +1,13 @@
+//  <MOperationDefWrapper>
+static PyObject *
+Py%(Identifier)s( Py%(InterfaceType)s_object *self, PyObject *args, PyObject *keywds ) {
+
+%(InvocationSetup)s
+// --  --  --  --  --  --  --  --  --  --  --  --  --  --
+%(Invocation)s
+// --  --  --  --  --  --  --  --  --  --  --  --  --  --
+%(InvocationTeardown)s
+
+}
+
+

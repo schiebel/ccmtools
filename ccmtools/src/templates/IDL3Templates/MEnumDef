@@ -1,0 +1,16 @@
+#ifndef __ENUM__%(PreprocIdentifier)s__
+#define __ENUM__%(PreprocIdentifier)s__
+
+%(OpenNamespace)s
+
+enum %(Identifier)s
+{
+%(Members)s
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

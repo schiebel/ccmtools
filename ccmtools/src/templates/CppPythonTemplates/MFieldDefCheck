@@ -1,0 +1,4 @@
+    PyObject *_%(Identifier)s_ob_ = PyDict_GetItem( arg, "%(Identifier)s" );
+    if ( ! _%(Identifier)s_ob_ || ! is_python_%(IdentifierTypeSymbol)s( _%(Identifier)s_ob_ ) )
+	return 0;
+

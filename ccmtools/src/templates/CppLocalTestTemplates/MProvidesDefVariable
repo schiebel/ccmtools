@@ -1,0 +1,2 @@
+    SmartPtr<LocalComponents::Object> %(ComponentType)s_provides_%(Identifier)s;
+

@@ -1,0 +1,3 @@
+    WX::Utils::SmartPtr<%(UsesType)s> get_connection_%(Identifier)s()
+  		throw(LocalComponents::NoConnection);
+

@@ -1,0 +1,68 @@
+/* test case : home types */
+
+typedef long time_t;
+
+enum Color {red, green, blue, black, orange};
+
+struct Value {
+  string s;
+  double dd;
+};
+
+typedef sequence<Value> map;
+
+typedef double doubleArray[10];
+
+interface LongCommon {
+  void set_attrib_long(in long param);
+  long get_attrib_long();
+};
+
+component Hello {
+  /* basic types */
+  attribute short short_value;
+  attribute long long_value;
+  attribute unsigned short ushort_value;
+  attribute unsigned long ulong_value;
+  attribute float float_value;
+  attribute double double_value;
+  attribute char char_value;
+  attribute string string_value;
+  attribute boolean boolean_value;
+  attribute octet octet_value;
+
+  /* complex types */
+  attribute time_t typedef_value;
+  attribute Color enum_value;
+  attribute Value struct_value;
+  attribute map sequence_value;
+  attribute doubleArray array_value;
+
+  /* interface types */
+  //  attribute LongCommon the_long;
+};
+
+home HelloHome manages Hello {
+  /* basic types */
+  factory create_with_short(in short id);
+  factory create_with_long(in long id);
+  factory create_with_ushort(in unsigned short id);
+  factory create_with_ulong(in unsigned long id);
+  factory create_with_float(in float id);
+  factory create_with_double(in double id);
+  factory create_with_char(in char id);
+  factory create_with_string(in string id);
+  factory create_with_boolean(in boolean id);
+  factory create_with_octet(in octet id);
+
+  /* complex types */
+  factory create_with_typedef(in time_t p);
+  factory create_with_enum(in Color p);
+  factory create_with_struct(in Value p);
+  factory create_with_sequence(in map p);
+  factory create_with_array(in doubleArray p);
+
+  /* interface types */
+  //factory copy_from(in LongCommon the_long);
+};
+

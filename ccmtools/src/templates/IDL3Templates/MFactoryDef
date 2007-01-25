@@ -1,0 +1,2 @@
+  factory %(Identifier)s ( %(MParameterDef)s ) %(MExceptionDefName)s;
+

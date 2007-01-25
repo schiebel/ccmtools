@@ -1,0 +1,6 @@
+  if ( Py_%(Identifier)s ) {
+    Py_DECREF( self->%(Identifier)s );
+    Py_INCREF( Py_%(Identifier)s );
+    self->%(Identifier)s = Py_%(Identifier)s;
+  }
+

@@ -1,0 +1,11 @@
+// <MProvidesDefEqInterfaceLocalCtorImpl>
+WX::Utils::SmartPtr<%(InterfaceType)s> create_local_%(InterfaceType)s(PyObject *arg) {
+
+    WX::Utils::SmartPtr<%(InterfaceType)s> ret;
+
+    if ( arg && is_%(ComponentType)s( arg ) )
+	ret = (*((Py%(ComponentType)s_object*)arg)->component)->provide_%(Identifier)s( );
+
+    return ret;
+}
+

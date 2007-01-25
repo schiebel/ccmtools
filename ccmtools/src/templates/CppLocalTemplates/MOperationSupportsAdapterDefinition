@@ -1,0 +1,9 @@
+%(LanguageType)s
+%(Object)s::%(Identifier)s ( %(MParameterDefAll)s )
+  %(MExceptionDefThrows)s
+{
+  DEBUGNL ( " %(Object)s->%(Identifier)s ( %(MParameterDefName)s )" );
+  %(Return)slocal_component->%(Identifier)s ( %(MParameterDefName)s );
+}
+
+

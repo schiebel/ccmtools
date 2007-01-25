@@ -1,0 +1,16 @@
+
+#include<DbcBenchmark.idl>
+
+component DbcTest
+{
+  provides DbcBenchmarkInv1 bmInv1;
+  provides DbcBenchmarkInv2 bmInv2;
+  provides DbcBenchmarkInv3 bmInv3;
+
+  provides DbcBenchmarkPre  bmPre;
+  provides DbcBenchmarkPost bmPost;
+};
+
+home DbcTestHome manages DbcTest
+{
+};

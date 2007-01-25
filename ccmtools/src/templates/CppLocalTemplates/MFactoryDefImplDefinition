@@ -1,0 +1,12 @@
+LocalComponents::EnterpriseComponent*
+CCM_%(HomeType)s_impl::%(Identifier)s ( %(MParameterDefAll)s )
+  throw ( LocalComponents::CCMException, LocalComponents::CreateFailure )
+{
+  DEBUGNL ( " CCM_%(HomeType)s_impl->%(Identifier)s (  )" );
+  CCM_%(ComponentType)s_impl* lc = new CCM_%(ComponentType)s_impl();
+
+  // TODO : IMPLEMENT FACTORY DETAILS HERE !
+
+  return dynamic_cast<LocalComponents::EnterpriseComponent*> ( lc );
+}
+

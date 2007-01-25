@@ -1,0 +1,19 @@
+/**
+ * Test case: receptacle multiple
+ *
+ */
+
+
+interface Console {
+  long println(in string s2);
+};
+
+component Test
+{
+  uses multiple Console console;
+};
+
+home TestHome manages Test
+{
+};
+

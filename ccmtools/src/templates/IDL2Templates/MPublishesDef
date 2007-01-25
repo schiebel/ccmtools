@@ -1,0 +1,19 @@
+module %(ComponentType)sEventConsumers
+{
+  interface %(EventType)sConsumer :
+    Components::EventConsumerBase
+  {
+    void push ( in %(EventType)s evt );
+  };
+};
+
+interface %(ComponentType)s :
+  Components::CCMObject
+{
+  Components::Cookie subscribe_%(Identifier)s ( in %(ComponentType)sEventConsumers::%(EventType)sConsumer consumer )
+    raises ( Components::ExceededConnectionLimit );
+
+  %(ComponentType)sEventConsumers::%(EventType)sConsumer %unsubscribe_%(Identifier)s ( in Components::Cookie ck )
+    raises ( Components::InvalidConnection );
+};
+

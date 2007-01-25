@@ -1,0 +1,1 @@
+%(ComponentType)s_ptr %(Identifier)s ( %(MParameterCORBA)s );

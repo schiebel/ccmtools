@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nsd -ORBIIOPAddr inet:homer:5050 -ORBIIOPVersion 1.2 

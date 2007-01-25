@@ -1,0 +1,69 @@
+%============================================================================
+%  CCM Tools Manual
+%=============================================================================
+
+% PAKETE =====================================================================
+\documentclass{book}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{a4}
+\usepackage{graphicx}
+
+% new float environment for example code, using framed verbatim minipages.
+\usepackage{float}
+\newfloat{Example}{htb}{loe}[section]
+
+\setlength{\fboxsep}{5mm}
+\newlength{\minifboxwidth}
+\setlength{\minifboxwidth}{\columnwidth}
+\addtolength{\minifboxwidth}{-5mm}
+\newsavebox{\fmbox}
+\newenvironment{minifbox}
+  {\begin{lrbox}{\fmbox}\begin{minipage}{\minifboxwidth}}
+  {\end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}}
+
+% length definitions for paragraph spacing and indent.
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{0.3cm}
+
+% custom controls over float placement and page flow.
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\floatpagefraction}{0.35}
+\setcounter{totalnumber}{5}
+
+\begin{document}
+
+%=Content======================================================================
+\title{{\Huge CCM Component Tools} \vspace{1cm} \\Programmer's Guide\\ {\it Edin, Leif, Egon} }
+
+\maketitle
+\tableofcontents
+
+%--------------------------------------------------------------------
+\include{Introduction}
+\include{CCMMetamodelLib}
+\include{IDLParser}
+\include{ComponentGeneratorTools}
+\include{AssemblyGeneratorTools}
+\include{TestingTools}
+
+\begin{appendix}
+\include{Installing}
+\end{appendix}
+
+
+%=References===================================================================
+\bibliographystyle{plain}
+\bibliography{cbse,doc,pattern}
+%==============================================================================
+
+
+\end{document}
+
+
+
+
+

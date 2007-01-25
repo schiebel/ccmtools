@@ -1,0 +1,3 @@
+#!/bin/sh
+
+server  -ORBInitRef NameService=corbaloc:iiop:1.2@homer:5050/NameService

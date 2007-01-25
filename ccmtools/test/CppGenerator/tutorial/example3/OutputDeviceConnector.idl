@@ -1,0 +1,12 @@
+#ifndef __OUTPUT_DEVICE_CONNECTOR_IDL__
+#define __OUTPUT_DEVICE_CONNECTOR_IDL__
+
+module SimpleComputer
+{
+  interface OutputDeviceConnector
+  {
+    long   write(in string msg);
+  };
+};
+
+#endif

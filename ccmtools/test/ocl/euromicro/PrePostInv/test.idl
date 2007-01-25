@@ -1,0 +1,33 @@
+/***
+ * Test cases for the EUROMICRO 2004 paper about contract based CCM 
+ *
+ *
+ ***/
+
+interface BasicTypes {
+  attribute long a1;
+  attribute double a2;
+  attribute string a3;
+
+  long   f1_2(in long p1, in long p2);
+  long   f1_10(in long p1, in long p2, in long p3, in long p4, in long p5,
+	       in long p6, in long p7, in long p8, in long p9, in long p10);
+
+  double f2_2(in double p1, in double p2);
+  double f2_10(in double p1, in double p2, in double p3, in double p4, in double p5,
+	       in double p6, in double p7, in double p8, in double p9, in double p10);
+
+  string f3_2(in string p1, in string p2);
+  string f3_10(in string p1, in string p2, in string p3, in string p4, in string p5, 
+	       in string p6, in string p7, in string p8, in string p9, in string p10);
+};
+
+
+component C1 
+{ 
+  provides BasicTypes i1; 
+};
+
+home H1 manages C1
+{ 
+};

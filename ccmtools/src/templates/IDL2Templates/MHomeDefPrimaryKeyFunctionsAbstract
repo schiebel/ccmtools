@@ -1,0 +1,14 @@
+  %(ComponentType)s
+  find_by_primary_key
+    ( in %(KeyType)s key )
+    raises ( Components::FinderFailure, Components::UnknownKeyValue, Components::InvalidKey );
+
+  void
+  remove
+    ( in %(KeyType)s key )
+    raises ( Components::RemoveFailure, Components::UnknownKeyValue, Components::InvalidKey );
+
+  %(KeyType)s
+  get_primary_key
+    ( in %(ComponentType)s comp );
+

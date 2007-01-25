@@ -1,0 +1,4 @@
+    // <MProvidesDefEqInterfaceInit>
+    if ( ! Py%(Identifier)s_type )
+	Py%(Identifier)s_type = %(InterfaceType)s_init( );
+

@@ -1,0 +1,35 @@
+/**
+ * Test case: receptacle exception
+ *
+ */
+
+struct ErrorInfo
+{
+  long code;
+  string message;
+};
+
+typedef sequence<ErrorInfo> ErrorInfoList;
+
+exception Error
+{
+  ErrorInfoList info;
+};
+
+exception SuperError{};
+exception FatalError{};
+
+interface Console {
+  long print(in string msg)
+    raises (Error, SuperError, FatalError);
+};
+
+component Test
+{
+  uses Console console;
+};
+
+home TestHome manages Test
+{
+};
+

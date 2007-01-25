@@ -1,0 +1,19 @@
+
+#ifndef __BARCODE_READER_IDL__
+#define __BARCODE_READER_IDL__
+
+#include "InputDeviceConnector.idl"
+
+module SimpleComputer
+{
+  component BarcodeReader
+  {
+    provides InputDeviceConnector connector;
+  };
+  
+  home BarcodeReaderFactory manages BarcodeReader
+  {
+  };
+};
+
+#endif

@@ -1,0 +1,15 @@
+%(LanguageTypeInclude)s
+
+#ifndef __ALIAS__%(PreprocIdentifier)s__
+#define __ALIAS__%(PreprocIdentifier)s__
+
+%(OpenNamespace)s
+
+typedef %(LanguageType)s %(AliasIdentifier)s;
+
+%(CloseNamespace)s
+
+#endif
+
+
+

@@ -1,0 +1,66 @@
+<project name="java-stubs" default="stubs.jar">
+
+  <description>
+  Generate Java stubs that can be used by a client to
+  access remote CORBA components. 
+  </description>
+
+
+  <!-- Define different paths that are used in the following tasks -->
+
+  <!-- Define properties that are used in the following tasks.
+       Note that a property can be set from command-line:
+          $ ant -Dprefix=/usr/local
+  -->
+  <property name="src" location="." />
+  <property name="build" location="build" />
+  <property name="lib" location="lib" />
+  <property name="prefix" location="dist" />
+  <property name="jarname" location="${lib}/ClientStubs" />
+
+  <path id="compile.classpath">
+      <pathelement path="${java.class.path}" />
+  </path>
+
+
+  <!-- Create the generated and build directory-->
+  <target name="init"
+      description="Creates the generate and build directory." >
+      <mkdir dir="${build}" />
+      <mkdir dir="${lib}" />
+  </target>
+
+  <!-- Compile generated Java files-->
+  <target name="stubs" depends="init"
+      description="" >
+      <javac srcdir="${src}" destdir="${build}" debug="on" >
+          <classpath refid="compile.classpath" />  
+      </javac>
+  </target>
+
+
+  <!-- Generate a jar file from stub classes -->
+  <target name="stubs.jar" depends="stubs"
+     description="Package stubs class files into stubs.jar" >
+      <jar jarfile="${jarname}.jar" basedir="${build}" >
+      </jar>
+  </target>
+
+
+  <!-- Install jar file -->
+  <target name="install"  depends="stubs.jar" 
+      description="Install java-runtime to prefix/">
+      <mkdir dir="${prefix}" />
+      <copy file="${jarname}.jar"  todir="${prefix}/lib"  
+            overwrite="true" />
+   </target>
+
+
+  <!-- Clean up -->
+  <target name="clean"
+      description="Clean up the generate, build and lib directory" >
+      <delete dir="${build}" />
+      <delete file="${lib}/${jarname}.jar" /> 
+  </target>
+
+</project>

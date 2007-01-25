@@ -1,0 +1,23 @@
+/**
+ * Test case: supports exception
+ *
+ */
+
+exception error{};
+exception super_error{};
+exception fatal_error{};
+
+interface Console {
+  long println(in string s2)
+    raises (error, super_error, fatal_error);
+};
+
+component Hello supports Console
+{
+};
+
+home HelloHome manages Hello
+{
+};
+
+

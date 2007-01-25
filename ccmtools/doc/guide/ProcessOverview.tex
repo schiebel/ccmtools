@@ -1,0 +1,34 @@
+
+%==============================================================================
+\chapter{Process Overview}
+%==============================================================================
+
+The CCM Tools currently concentrate on C++ component development. Use the
+"ccmtools-c++-{generate|make|install|uninstall}" scripts to drive the Java
+classes. Double check that you have both Python ($\ge 2.1$) and Confix ($\ge
+1.1$) installed before beginning.
+
+The basic development process follows a few simple steps. These are described in
+further detail later in this chapter.
+
+\begin{enumerate}
+\item Change directories to your component development directory.
+\item Edit/create all source IDL files required for your components.
+\item Set the CCMTOOLS\_PACKAGE environment variable to the name of your
+      component set.
+\item Run {\tt ccmtools-c++-generate [options] *.idl} to generate component code
+      and skeleton application logic files. Use {\tt ccmtools-c++-generate
+      -\-help} to get a list of available options. (All of the CCM Tools C++
+      scripts support the GNU standard options of {\tt -\-help} and {\tt
+      -\-version}, along with other script-specific options.)
+\item Edit the *\_app.cc and *\_user\_types.h files.
+\item Run {\tt ccmtools-c++-make} to compile and test the components.
+\item Run {\tt ccmtools-c++-install} to install the components.
+\item If you need to later, run {\tt ccmtools-c++-uninstall} to uninstall the
+      components.
+\end{enumerate}
+
+If you want to use the CCM Tools for another code generation purpose, use the
+more generic "ccmtools-generate" script, described in
+Chapter~\ref{chapter:ccmtools-generate}.
+

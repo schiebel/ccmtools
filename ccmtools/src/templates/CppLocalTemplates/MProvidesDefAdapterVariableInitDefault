@@ -1,0 +1,1 @@
+    %(Identifier)s_facet = SmartPtr<%(ProvidesType)s>();

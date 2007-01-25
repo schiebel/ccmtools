@@ -1,0 +1,24 @@
+
+
+a) Run local tests (ObjectTest, CcmLocalTest, Collocated CORBA)
+   $ make remote
+   $ make install
+   $ make check	
+
+   $ time ~/tmp/ccmtools_benchmark_build/xxx/test/xxx_test__check_CCM_Local_Object_Test
+   $ time ~/tmp/ccmtools_benchmark_build/xxx/test/xxx_test__check_CCM_Local_CCM_Session_Test
+   $ time ~/tmp/ccmtools_benchmark_build/xxx/test/xxx_test__check_CCM_Remote_CCM_Session_Test_remote		
+
+
+b) Run remote tests	
+   $ cd server/cpp_server
+   $ make server
+   $ ~/tmp/ccmtools_benchmark_build/server/cpp_server/server_cpp_server_CCM_Remote_Server
+
+   $ cd client/cpp_client
+   $ make client
+   $ time ~/tmp/client/cpp_client/client_cpp_client_CCM_Remote_Client
+
+   $ cd client/java_client	
+   $ ant
+   $ bin/runClient

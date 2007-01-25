@@ -1,0 +1,15 @@
+module %(ComponentType)sEventConsumers
+{
+  interface %(EventType)sConsumer :
+    Components::EventConsumerBase
+  {
+    void push ( in %(EventType)s evt );
+  };
+};
+
+interface %(ComponentType)s :
+  Components::CCMObject
+{
+  %(ComponentType)sEventConsumers::%(EventType)sConsumer %get_consumer_%(Identifier)s (  );
+};
+

@@ -1,0 +1,36 @@
+    WX::Utils::SmartPtr<%(QualifiedReturnObject)sHome> *new_home = 0;
+    try {
+        LocalComponents::HomeFinder* homeFinder = HomeFinder::Instance();
+        new_home = new WX::Utils::SmartPtr<%(QualifiedReturnObject)sHome>(dynamic_cast<%(QualifiedReturnObject)sHome*>(homeFinder->find_home_by_name("%(ReturnObject)sHome").ptr()));
+    }
+    catch ( LocalComponents::HomeNotFound ) {
+
+        int error  = deploy_%(AbsoluteLocalHomeName)s("%(ReturnObject)sHome");
+
+        if ( error ) {
+	    return WX::Utils::SmartPtr<%(QualifiedReturnObject)s>(0);
+        }
+
+        try {
+            LocalComponents::HomeFinder* homeFinder = HomeFinder::Instance();
+            new_home = new WX::Utils::SmartPtr<%(QualifiedReturnObject)sHome>(dynamic_cast<%(QualifiedReturnObject)sHome*>(homeFinder->find_home_by_name("%(ReturnObject)sHome").ptr()));
+
+        }
+        catch ( LocalComponents::HomeNotFound ) {
+	    return WX::Utils::SmartPtr<%(QualifiedReturnObject)s>(0);
+        }
+
+    }
+
+    WX::Utils::SmartPtr<%(QualifiedReturnObject)s> ret(0);
+    if (new_home) {
+        %(Try)s
+            %(WrappedReturnObject)s *wobj = %(Object)s_->%(Identifier)s(%(MParameterDefName)s);
+            if ( ! wobj ) {
+                throw LocalComponents::CCMException( "failed to create %(ReturnObject)s object in %(Object)s.%(Identifier)s" );
+            }
+            ret = (*new_home)->create( wobj );
+	%(Catch)s
+        delete new_home;
+    }
+    return ret;

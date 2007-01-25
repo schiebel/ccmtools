@@ -1,0 +1,126 @@
+$Id: debug.txt,v 1.1 2005/01/11 08:59:24 teiniker Exp $
+
+An Approach To Writing Useful Debug Messages
+============================================
+
+A common problem of writing debug output in nontrivial applications is
+that the debug output is hard to read. From the linear sequence of
+textual information, one cannot easily see what has actually
+happened. It is often impossible to determine that the reason that one
+message has been output is the reason that another message has been
+output. In other words, what we need is
+
+- a call stack that is embedded in the output
+
+- an association of messages to stack frames
+
+Here's a list of more detailed requirements.
+
+1. Messages. 
+
+   We want to output messages just like we do now, regardless of the
+   said "stack frames". The current output facilities are a set of
+   preprocessor macros,
+
+   - DEBUG. Unconditionally output a debug message; the only parameter
+     is the message itself.
+
+   - LDEBUG. Accepts as first parameter a string, the "level". The
+     second is the message. Depending on whether the level is switched
+     on or off, the message is output or not, respectively. Levels can
+     are switched on or off globally.
+
+   Interaction of these macros with the stack frames is described in
+   3..
+
+2. Stack Frames.
+
+   Although we can reduce the amount of message that are output by
+   using LDEBUG, the output of those messages is still of a global
+   nature. Consider a module A that is used by modules B and C. Using
+   only LDEBUG or DEBUG, one cannot have the messages of A only be
+   output if it is called from B, but not be output if it is called
+   from C.
+
+   We define some sort of "top level entry points" (component/facet
+   methods are good candidates) where we open new "message output
+   stack frames". All messages that are output by code that is called
+   inside that stack frame are automatically associated with that
+   stack frame (see 3. for association details).
+
+   Message output stack frames can be nested (else there is no reason
+   for them to be called stack frames). For example, consider that we
+   choose to make all component/facet methods "top level entry
+   points". Then the fact that component C1 uses component C2 results
+   in a stack of depth 2 during the invocation of C2 from C1.
+
+3. Association between stack frames and messages.
+
+   A stack frame, once defined, contains information about whether it
+   wants messages to be output during its lifetime or not, or if it
+   doesn't care.
+
+   The DEBUG and LDEBUG macros must examine the stack for information
+   about whether their message is to be output or not. This is done as
+   follows.
+
+   If the current stack frame declares that it wants all messages to
+   be output, we are done. Else, if it declares that it wants to
+   remain quiet, we are done. Else, the stack frame declares that it
+   doesn't care about message output, so the previous frame is
+   examined just the same as the current was, and so on,
+   recursively. If there is no previous frame, then a configurable
+   default value is taken (this value must not be "don't care" of
+   course). The same is done if there is no frame at all.
+
+   After examining the stack, both macros see either a value of "yes,
+   we want output" or a value of "no, we remain quiet". If the value
+   is "no", both macros do not output their messages, and we are
+   done. If the value is "yes", they output the message in their own
+   specific way. That is, DEBUG unconditionally outputs the message,
+   whereas LDEBUG has to consult its set of configured levels first,
+   and output the message only if its own requirements are met.
+
+4. Reproducing the call stack from the log file.
+
+   In order to be able to reproduce the call stack (its frames and the
+   messages that were triggered from each frame), the beginning and
+   the end of each frame have to be logged (presumably using its ID)
+   as well.
+
+5. Multithreading issues.
+
+   If we can guarantee that the sequence of messages in the log file
+   matches the sequence of their invocation in the program flow, then
+   the log format described in 3. and 4. suffices to reproduce the
+   program flow from the log file. Stack frames are marked be the
+   begin and end messages, and messages automatically belong to the
+   enclosing frame (if any).
+
+   If sequentiality cannot be guaranteed, however, we must take
+   further precautions that reproduction is possible. Messages that
+   are issued by one thread will generally appear between begin and
+   end markers of another thread's stack frame. To make the
+   association of the message to the stack frame unambiguous, we have
+   to tag each message with the stack frame it belongs to.
+
+   Multiple threads have multiple stacks (both in the OS sense and the
+   "message output stack" sense). The begin and end messages of frames
+   of two different threads will generally overlap, so we have to
+   disambiguate these as well. This can be done by interlinking one
+   stack frame with its caller frame by outputting a pair of IDs in
+   the frame start message (it suffices to output only the frame ID in
+   the end message).
+
+   The bottom frame (the first frame that is defined) has no caller
+   frame, so we have to write a special frame ID to make the beginning
+   of a new call stack explicit.
+
+6. Extensibility.
+
+   So far we have only been talking about debug messages. Commonly,
+   when there is no debugging going on, these are switched off. Other
+   types of messages are informative messages which are always logged,
+   or error messages. This list could be infinitely extended, so care
+   has to be taken that the design permits easy addition of new
+   message types.

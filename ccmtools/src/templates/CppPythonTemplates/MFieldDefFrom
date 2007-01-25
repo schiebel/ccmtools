@@ -1,0 +1,7 @@
+    PyObject *_%(Identifier)s_ob_ = PyDict_GetItem( arg, "%(Identifier)s" );
+    if ( ! _%(Identifier)s_ob_ || ! is_python_%(IdentifierTypeSymbol)s( _%(Identifier)s_ob_ ) ) {
+	delete result;
+	return 0;
+    }
+    result->%(Identifier)s = convert_%(IdentifierTypeSymbol)s_from_python ( _%(Identifier)s_ob_ );
+

@@ -1,0 +1,20 @@
+
+module world {
+  module europe {
+    module austria {
+
+      interface I2
+      {
+	long op1(in string str);
+      };
+      
+      component Test supports I2
+      {
+      };
+      
+      home TestHome manages Test
+      {
+      };
+    };
+  };
+};

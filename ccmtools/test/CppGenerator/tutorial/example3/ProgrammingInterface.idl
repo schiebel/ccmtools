@@ -1,0 +1,10 @@
+
+#ifndef __PRAGRAMMING_INTERFACE_IDL__
+#define __PRAGRAMMING_INTERFACE_IDL__
+
+interface ProgrammingInterface
+{
+  long execute_cmd(in string cmd);
+};
+
+#endif

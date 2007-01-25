@@ -1,0 +1,18 @@
+/**
+ * Test case: supports
+ *
+ */
+
+interface Console {
+  long println(in string s2);
+  //  long foo(in long il, inout long iol, out long ol);
+};
+
+component Hello supports Console
+{
+};
+
+home HelloHome manages Hello
+{
+};
+

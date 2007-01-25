@@ -1,0 +1,3 @@
+        %(ComponentType)s_ck_%(Identifier)s = my%(ComponentType)s->connect("%(Identifier)s", 
+                %(ComponentType)s_uses_%(Identifier)s);
+

@@ -1,0 +1,3 @@
+    PyObject *%(Identifier)s_ = %(Identifier)s_init( );
+    PyModule_AddObject( m, "%(Identifier)s", %(Identifier)s_ );
+

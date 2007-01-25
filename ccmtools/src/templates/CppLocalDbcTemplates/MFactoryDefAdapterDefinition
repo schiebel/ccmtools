@@ -1,0 +1,23 @@
+WX::Utils::SmartPtr<%(ComponentType)s>
+DbC_%(HomeType)s::%(Identifier)s (%(MParameterDefAll)s)
+  throw ( LocalComponents::CCMException, LocalComponents::CreateFailure )
+{
+  static const char* DbC_FUNCTION_NAME = "DbC_%(HomeType)s::%(Identifier)s (%(MParameterDefAll)s)";
+  DEBUGNL ( " DbC_%(HomeType)s->%(Identifier)s (%(MParameterDefName)s)");
+%(FactoryPreInvocation)s
+  WX::Utils::SmartPtr<%(ComponentType)s> ret(
+    dynamic_cast<%(ComponentType)s*>(
+      new DbC_%(ComponentType)s(this,
+        dynamic_cast<CCM_%(ComponentType)s*>(
+          ((CCM_%(HomeType)sExplicit*)local_home)->%(Identifier)s(%(MParameterDefName)s)
+        ),
+        disablePostconditionCheck__
+      )
+    )
+  );
+  if(!disablePostconditionCheck__) {
+%(FactoryPostInvocation)s
+  }
+  return ret;
+}
+

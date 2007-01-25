@@ -1,0 +1,3 @@
+      ::%(IdlUsesType)s_ptr get_connection_%(Identifier)s()
+      		throw(Components::NoConnection);
+

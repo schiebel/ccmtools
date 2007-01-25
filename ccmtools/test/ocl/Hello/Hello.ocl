@@ -1,0 +1,36 @@
+-- $Id: Hello.ocl,v 1.3 2004/03/01 11:33:06 rlechner Exp $
+
+package GLOBAL
+
+context Console::println(s2:String):Integer
+    pre not_too_large: s2.size()<256*256
+    pre not_x: s2<>'x'
+    post: result>=0
+
+context Console
+    inv invConsole: if aValue>0 then not aValue<=0 else aValue<=0 endif
+
+context Math::sqrt(x:Real)
+    pre: x>=0
+    post: (result>=0) and (result*result=x)
+
+context Hello
+    inv invHello1: aID.size()=0
+
+context Math
+    inv invMath: (12.5).round()=13
+
+context Hello
+    inv invHello2: 'abc'.toUpper().size()=3
+    inv invHello3: '12345'.substring(2,4)='234'
+
+context Hello::sqrt(x:Real)
+    pre: not (x<0)
+
+context HelloHome
+    inv: 'Hello'<>'hello'
+
+context HelloHome::create(name:String)
+    pre: name.size()>0
+
+endpackage

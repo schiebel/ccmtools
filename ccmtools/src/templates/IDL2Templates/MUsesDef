@@ -1,0 +1,8 @@
+  void connect_%(Identifier)s ( in %(UsesType)s conxn )
+    raises ( Components::AlreadyConnected, Components::InvalidConnection );
+
+  %(UsesType)s disconnect_%(Identifier)s (  )
+    raises ( Components::NoConnection );
+
+  %(UsesType)s get_connection_%(Identifier)s (  );
+

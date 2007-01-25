@@ -1,0 +1,2 @@
+PACKAGE_NAME('facet_simple')
+PACKAGE_VERSION('0.0.0')

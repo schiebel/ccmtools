@@ -1,0 +1,2 @@
+  uses %(UsesType)s %(Identifier)s;
+

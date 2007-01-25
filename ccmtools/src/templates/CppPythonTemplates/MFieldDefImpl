@@ -1,0 +1,25 @@
+//
+//  ------  get & set for %(Identifier)s  ------    <MFieldDefImpl>
+//
+static PyObject *
+Py%(Identifier)s_getter( Py%(StructIdentifier)s_object *self, void *closure ) {
+    return convert_%(IdentifierTypeSymbol)s_to_python( self->structure->%(Identifier)s );
+}
+
+static int
+Py%(Identifier)s_setter( Py%(StructIdentifier)s_object *self, PyObject *arg, void *closure ) {
+
+    if ( arg == NULL ) {
+        PyErr_SetString(PyExc_TypeError, "null structure field");
+	return -1;
+    }
+    if ( ! is_python_%(IdentifierTypeSymbol)s(arg) ) {
+        PyErr_SetString(PyExc_TypeError, "invalid type, expected %(IdentifierTypeSymbol)s");
+	return -1;
+    }
+
+    %(FieldFree)s
+    return convert_%(IdentifierTypeSymbol)s_from_python( arg, &self->structure->%(Identifier)s ) ? 0 : -1;
+}
+
+

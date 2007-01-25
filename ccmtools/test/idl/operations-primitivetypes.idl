@@ -1,0 +1,69 @@
+interface __INTERFACE__
+{
+  void __OPERATION_V__ (  );
+
+  void __OPERATION_V_IOL__ ( inout long p );
+  void __OPERATION_V_OL__ ( out long p );
+  void __OPERATION_V_IL__ ( in long p );
+
+  void __OPERATION_V_IOS__ ( inout string s );
+  void __OPERATION_V_OS__ ( out string s );
+  void __OPERATION_V_IS__ ( in string s );
+
+  void __OPERATION_V_IOL_IOS__ ( inout long p, inout string s );
+  void __OPERATION_V_IOL_OS__ ( inout long p, out string s );
+  void __OPERATION_V_IOL_IS__ ( inout long p, in string s );
+
+  void __OPERATION_V_OL_IOS__ ( out long p, inout string s );
+  void __OPERATION_V_OL_OS__ ( out long p, out string s );
+  void __OPERATION_V_OL_IS__ ( out long p, in string s );
+
+  void __OPERATION_V_IL_IOS__ ( in long p, inout string s );
+  void __OPERATION_V_IL_OS__ ( in long p, out string s );
+  void __OPERATION_V_IL_IS__ ( in long p, in string s );
+
+  long __OPERATION_L__ (  );
+
+  long __OPERATION_L_IOL__ ( inout long p );
+  long __OPERATION_L_OL__ ( out long p );
+  long __OPERATION_L_IL__ ( in long p );
+
+  long __OPERATION_L_IOS__ ( inout string s );
+  long __OPERATION_L_OS__ ( out string s );
+  long __OPERATION_L_IS__ ( in string s );
+
+  long __OPERATION_L_IOL_IOS__ ( inout long p, inout string s );
+  long __OPERATION_L_IOL_OS__ ( inout long p, out string s );
+  long __OPERATION_L_IOL_IS__ ( inout long p, in string s );
+
+  long __OPERATION_L_OL_IOS__ ( out long p, inout string s );
+  long __OPERATION_L_OL_OS__ ( out long p, out string s );
+  long __OPERATION_L_OL_IS__ ( out long p, in string s );
+
+  long __OPERATION_L_IL_IOS__ ( in long p, inout string s );
+  long __OPERATION_L_IL_OS__ ( in long p, out string s );
+  long __OPERATION_L_IL_IS__ ( in long p, in string s );
+
+  string __OPERATION_S__ (  );
+
+  string __OPERATION_S_IOL__ ( inout long p );
+  string __OPERATION_S_OL__ ( out long p );
+  string __OPERATION_S_IL__ ( in long p );
+
+  string __OPERATION_S_IOS__ ( inout string s );
+  string __OPERATION_S_OS__ ( out string s );
+  string __OPERATION_S_IS__ ( in string s );
+
+  string __OPERATION_S_IOL_IOS__ ( inout long p, inout string s );
+  string __OPERATION_S_IOL_OS__ ( inout long p, out string s );
+  string __OPERATION_S_IOL_IS__ ( inout long p, in string s );
+
+  string __OPERATION_S_OL_IOS__ ( out long p, inout string s );
+  string __OPERATION_S_OL_OS__ ( out long p, out string s );
+  string __OPERATION_S_OL_IS__ ( out long p, in string s );
+
+  string __OPERATION_S_IL_IOS__ ( in long p, inout string s );
+  string __OPERATION_S_IL_OS__ ( in long p, out string s );
+  string __OPERATION_S_IL_IS__ ( in long p, in string s );
+};
+

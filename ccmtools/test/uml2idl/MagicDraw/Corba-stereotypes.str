@@ -1,0 +1,1225 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- <!DOCTYPE XMI SYSTEM 'uml14xmi11.dtd'> -->
+
+<XMI xmi.version = '1.1' xmlns:UML = 'omg.org/UML/1.4' >
+	<XMI.header >
+		<XMI.documentation >
+			<XMI.exporter >MagicDraw UML</XMI.exporter>
+			<XMI.exporterVersion >5.5i</XMI.exporterVersion>
+		</XMI.documentation>
+		<XMI.metamodel xmi.name = 'UML' xmi.version = '1.4' />
+	</XMI.header>
+	<XMI.content >
+		<UML:Model xmi.id = 'rlechner_1069854948442_326061_38' >
+			<UML:ModelElement.name >Daten</UML:ModelElement.name>
+			<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+			<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+			<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+			<UML:ModelElement.comment >
+				<UML:Comment xmi.id = 'rlechner_1069854948552_667516_39' >
+					<UML:ModelElement.name >Author:rlechner.
+Created:26.11.03 14:50.
+Title:.
+Comment:.
+</UML:ModelElement.name>
+				</UML:Comment>
+			</UML:ModelElement.comment>
+			<UML:Namespace.ownedElement >
+				<UML:Stereotype xmi.id = 'rlechner_1069854815411_627876_11' >
+					<UML:ModelElement.name >CORBAModule</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948622_12158_48' >
+					<UML:ModelElement.name >global</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >LinkEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359506_812980_40' >
+							<UML:ModelElement.name > Global is a constraint applied to a link-end, specifying that the corresponding instance is visible because it is in a global scope relative to the link.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948622_271618_46' >
+					<UML:ModelElement.name >modelLibrary</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359507_26607_41' >
+							<UML:ModelElement.name >A model library is a stereotyped package that contains model elements that are intended to be reused by other packages. A model library differs from a profile in that a model library does not extend the metamodel using stereotypes and tagged definitions. A model library is analogous to a class library in some programming languages.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948622_39404_40' >
+					<UML:ModelElement.name >document</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Artifact</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359508_703301_42' >
+							<UML:ModelElement.name >Denotes a generic file that is not a «source» file or «executable». Subclass of «file».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948622_579671_41' >
+					<UML:ModelElement.name >metaclass</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Classifier</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359508_255596_43' >
+							<UML:ModelElement.name >Specifies that the instances of the classifier are classes.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948622_617232_47' >
+					<UML:ModelElement.name >control</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359513_332434_44' >
+							<UML:ModelElement.name >A control is a class whose objects manage interactions between collections of objects.
+A control class usually has behavior that is specific for one use case, and a control object usually does not outlive the use case realizations in which it participates.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948622_695092_42' >
+					<UML:ModelElement.name >useCaseModel</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Model</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359514_951271_45' >
+							<UML:ModelElement.name >A use case model specifies the services a system provides to its users; that is, the different ways of using the system, and whose top-level package is a use case system.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_10363_103' >
+					<UML:ModelElement.name >trace</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Abstraction</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359515_10495_46' >
+							<UML:ModelElement.name >(Name for the stereotyped class is Trace.) Specifies a trace relationship between model elements or sets of model elements that represent the same concept in different models. Traces are mainly used for tracking requirements and changes across models. Since model changes can occur in both directions, the directionality of the dependency can often be ignored. The mapping specifies the relationship between the two, but it is rarely computable and is usually informal.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_104763_115' >
+					<UML:ModelElement.name >systemModel</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Model</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359516_51717_47' >
+							<UML:ModelElement.name >A systemModel is a stereotyped model that contains a collection of models of the same physical system. A systemModel also contains all relationships and constraints between model elements contained in different models.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_107758_107' >
+					<UML:ModelElement.name >file</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Artifact</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359517_954077_48' >
+							<UML:ModelElement.name >Denotes a physical file in the context of the system developed.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_11441_136' >
+					<UML:ModelElement.name >powertype</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Classifier</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359518_581036_49' >
+							<UML:ModelElement.name >Specifies that the classifier is a metaclass whose instances are siblings
+marked by the same discriminator. For example, the metaclass
+TreeSpecies might be a power type for the subclasses of Tree that
+represent different species, such as AppleTree, BananaTree, and
+CherryTree.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_122315_80' >
+					<UML:ModelElement.name >modelLibrary</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Dependency</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359519_637071_50' >
+							<UML:ModelElement.name >This dependency means that the supplier package is being used as a model library associated with a profile. The client is a package that is stereotyped as a profile and the supplier is a non-profile package that contains shared model elements, such as classes and data types.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_127779_56' >
+					<UML:ModelElement.name >responsibility</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Comment</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359520_852485_51' >
+							<UML:ModelElement.name >Specifies a contract or an obligation of an element in its relationship Comment to other elements.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_143286_111' >
+					<UML:ModelElement.name >local</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359521_629181_52' >
+							<UML:ModelElement.name >  Specifies that the relationship represents a local variable within a AssociationEnd procedure rather than an actual association.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_152452_59' >
+					<UML:ModelElement.name >create</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >BehavioralFeature</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359521_223456_53' >
+							<UML:ModelElement.name > Specifies that the designated feature creates an instance of the BehavioralFeature classifier to which the feature is attached. May be promoted to the Classifier containing the feature.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_167982_53' >
+					<UML:ModelElement.name >postcondition</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Constraint</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359522_737915_54' >
+							<UML:ModelElement.name >Specifies a constraint that must be attached to an operation, and denotes that the conditions of the constraint must hold after the invocation of the operation.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_168902_106' >
+					<UML:ModelElement.name >requirement</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Comment</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359530_973616_55' >
+							<UML:ModelElement.name >Specifies a desired feature, property, or behavior of an element as part Comment of a system.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_232648_125' >
+					<UML:ModelElement.name >self</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359533_440057_56' >
+							<UML:ModelElement.name >Specifies that the relationship represents a reference to the object that  AssociationEnd owns an operation or action rather than an actual association.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_234277_120' >
+					<UML:ModelElement.name >utility</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Classifier</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359533_461414_57' >
+							<UML:ModelElement.name >Specifies a classifier that has no instances, but rather denotes a named collection of non-member attributes and operations, all of which are class-scoped.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_283569_60' >
+					<UML:ModelElement.name >type</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359535_754450_58' >
+							<UML:ModelElement.name >Specifies a domain of objects together with the operations applicable
+to the objects, without defining the physical implementation of those
+objects. A type may not contain any methods, maintain its own thread
+of control, or be nested. However, it may have attributes and
+associations. The associations of a Type are defined solely for the
+purpose of specifying the behavior of the type&apos;s operations and do not
+represent the implementation of state data.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_290650_109' >
+					<UML:ModelElement.name >table</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Component</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359536_749326_59' >
+							<UML:ModelElement.name >Denotes a data base table.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_295548_87' >
+					<UML:ModelElement.name >stateInvariant</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Constraint</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359537_409530_60' >
+							<UML:ModelElement.name >Specifies a constraint that must be attached to a state vertex in a state machine that has a classifier for a context. The stereotype indicates that the constraint holds for instances of the classifier when an instance is in that state.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_306921_58' >
+					<UML:ModelElement.name >table</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Artifact</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359537_578721_61' >
+							<UML:ModelElement.name >Denotes a database table.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_309602_91' >
+					<UML:ModelElement.name >appliedProfile</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Dependency</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359537_326988_62' >
+							<UML:ModelElement.name >This dependency is used to indicate which profiles are applicable to a package. Typically, the client is an ordinary package or a model (but could be any other kind of package), while the supplier is a profile package. This means that the profile applies transitively to the model elements contained in the client package, including the client package itself.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_344899_63' >
+					<UML:ModelElement.name >boundary</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359538_140762_63' >
+							<UML:ModelElement.name >A boundary is a class that lies on the periphery of a system, but within it. It interacts with actors outside the system as well as with entity, control, and other boundary classes within the system.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_353079_69' >
+					<UML:ModelElement.name >create</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Usage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359538_648501_64' >
+							<UML:ModelElement.name >Create is a stereotyped usage dependency denoting that the client classifier creates instances of the supplier classifier.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_380549_102' >
+					<UML:ModelElement.name >implicit</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359539_15747_65' >
+							<UML:ModelElement.name > The «implicit» stereotype is applied to an association, specifying that the association is not manifest, but rather is only conceptual.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_381807_77' >
+					<UML:ModelElement.name >precondition</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Constraint</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359539_237705_66' >
+							<UML:ModelElement.name > Specifies a constraint that must be attached to an operation, and denotes that the conditions of the constraint must hold for the invocation of the operation.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_393201_50' >
+					<UML:ModelElement.name >time-out</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Stimulus</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359539_940636_67' >
+							<UML:ModelElement.name >A time-out message the sender sends for a given period of time while waiting for acknowledgment by recipient. The sender is freed up if the acknowledgment does not occur within the duration specified in the description.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_416106_83' >
+					<UML:ModelElement.name >implementationClass</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359540_396821_68' >
+							<UML:ModelElement.name >Specifies the implementation of a class in some programming Class language in which an instance may not have more than one class. This is in contrast to a general UML Class, for which an instance may have multiple classes at one time and may gain or lose classes over time, and an object (a child of instance) may dynamically have  multiple classes.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_429976_117' >
+					<UML:ModelElement.name >thread</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Classifier</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359541_479868_69' >
+							<UML:ModelElement.name >Classifier Specifies a classifier that represents a flow of control.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_436395_96' >
+					<UML:ModelElement.name >association</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359541_439921_70' >
+							<UML:ModelElement.name > Specifies a real association (default and redundant, but may be included AssociationEnd for emphasis).</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_492583_119' >
+					<UML:ModelElement.name >source</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Artifact</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359541_127_71' >
+							<UML:ModelElement.name >Denotes a source file that can be compiled into an executable file.Subclass of «file».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_493689_99' >
+					<UML:ModelElement.name >balking</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Message</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359542_396463_72' >
+							<UML:ModelElement.name >message In the balking message case the sender abandons the message if the receiver is not ready.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_506126_75' >
+					<UML:ModelElement.name >focus</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359542_633368_73' >
+							<UML:ModelElement.name >Specifies a class that defines the core logic or control flow for one or more auxiliary classes that support it. Support classes may be defined explicitly using Auxiliary classes or implicitly by dependency relationships. Focus classes are typically used together with one or more Auxiliary classes, and are particularly useful for specifying the core business logic or control flow of components during design. See also: «auxiliary».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_549069_85' >
+					<UML:ModelElement.name >realize</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Abstraction</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359543_3801_74' >
+							<UML:ModelElement.name >(Name for the stereotyped class is Realization.) Specifies a realization relationship between a specification model element or elements (the supplier) and a model element or elements that implement it (the client). The implementation model element is required to support all of the operations or received signals that the specification model element declares. The implementation model element must make or inherit its own declarations of the operations and signal receptions. The mapping specifies the relationship between the two. The mapping may or may not be computable. Realization can be used to model stepwise refinement, optimizations, transformations, templates, model synthesis, framework composition, etc.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_556248_62' >
+					<UML:ModelElement.name >friend</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Permission</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359543_717572_75' >
+							<UML:ModelElement.name > Friend is a stereotyped permission dependency whose source is a model element, such as an operation, class, or package, and whose target is a model element in a different package, such as an operation, class or package. A friend relationship grants the source access to the target regardless of the declared visibility. It extends the visibility of the supplier so that the client can see into the supplier.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_564157_88' >
+					<UML:ModelElement.name >file</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Component</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359544_951024_76' >
+							<UML:ModelElement.name >Denotes a document containing source code or data.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_569405_94' >
+					<UML:ModelElement.name >process</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Classifier</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359544_860536_77' >
+							<UML:ModelElement.name >Specifies a classifier that represents a heavy-weight flow of control.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_572693_110' >
+					<UML:ModelElement.name >library</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Component</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359545_114260_78' >
+							<UML:ModelElement.name >Denotes a static or dynamic library.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_578874_55' >
+					<UML:ModelElement.name >self</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >LinkEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359545_623218_79' >
+							<UML:ModelElement.name > Self is a constraint applied to a link-end, specifying that the corresponding instance is visible because it is the dispatcher of the request.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_579580_66' >
+					<UML:ModelElement.name >refine</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Abstraction</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_581975_67' >
+					<UML:ModelElement.name >auxiliary</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359546_971889_80' >
+							<UML:ModelElement.name >Specifies a class that supports another more central or fundamental
+class, typically by implementing secondary logic or control flow. The
+class that the auxiliary supports may be defined explicitly using a
+Focus class or implicitly by a dependency relationship. Auxiliary
+classes are typically used together with Focus classes, and are
+particularly useful for specifying the secondary business logic or
+control flow of components during design. See also: «focus».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_598395_118' >
+					<UML:ModelElement.name >implementation</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Generalization</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359546_476044_81' >
+							<UML:ModelElement.name >Specifies that the child inherits the implementation of the parent (its attributes, operations and methods) but does not make public the supplier s interfaces nor guarantee to support them, thereby violating substitutability. This is private inheritance and is usually used only for programming implementation purposes.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_60795_76' >
+					<UML:ModelElement.name >document</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Component</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359547_93734_82' >
+							<UML:ModelElement.name >Denotes a document.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_633859_105' >
+					<UML:ModelElement.name >signalflow</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ObjectFlowState</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359547_270263_83' >
+							<UML:ModelElement.name >Signalflow is a stereotype of ObjectFlowState with a Signal as its type.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_637827_98' >
+					<UML:ModelElement.name >executable</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Component</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359548_288913_84' >
+							<UML:ModelElement.name >Denotes a program that may be run on a node.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_642575_89' >
+					<UML:ModelElement.name >unnamed1</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_656699_52' >
+					<UML:ModelElement.name >implementation</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359548_878309_85' >
+							<UML:ModelElement.name >Specifies the implementation of a class in some programming
+language (for example, C++, Smalltalk, Java) in which an instance
+may not have more than one class. This is in contrast to Class, for
+which an instance may have multiple classes at one time and may
+gain or lose classes over time, and an object (a child of instance) may
+dynamically have multiple classes.
+An Implementation class is said to realize a Type if it provides all of
+the operations defined for the Type with the same behavior as
+specified for the Type’s operations. An Implementation Class may
+realize a number of different Types. Note that the physical attributes
+and associations of the Implementation class do not have to be the
+same as those of any Type it realizes and that the Implementation
+Class may provide methods for its operations in terms of its physical
+attributes and associations. See also: «type».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_658128_79' >
+					<UML:ModelElement.name >local</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >LinkEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359549_790695_86' >
+							<UML:ModelElement.name > Local is a constraint applied to a link-end, specifying that the corresponding instance is visible because it is in a local scope relative to the link.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_658393_84' >
+					<UML:ModelElement.name >import</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Permission</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359549_799648_87' >
+							<UML:ModelElement.name >Import is a stereotyped permission dependency between two namespaces, denoting that the public contents of the target package are added to the namespace of the source package.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_659639_134' >
+					<UML:ModelElement.name >entity</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359550_512268_88' >
+							<UML:ModelElement.name >An entity is a passive class; that is, its objects do not initiate interactions on their own. An entity object may participate in many different use case realizations and usually outlives any single interaction.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_661694_51' >
+					<UML:ModelElement.name >derive</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Abstraction</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359550_574371_89' >
+							<UML:ModelElement.name >(Name for the stereotyped class is Derivation.) Specifies a derivation relationship among model elements that are usually, but not necessarily, of the same type. A derived dependency specifies that the client may be computed from the supplier. The mapping specifies the computation. The client may be implemented for design reasons, such as efficiency, even though it is logically redundant.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_674012_122' >
+					<UML:ModelElement.name >invariant</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Constraint</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359551_574151_90' >
+							<UML:ModelElement.name >Specifies a constraint that must be attached to a set of classifiers or relationships. It indicates that the conditions of the constraint must hold over time (for the time period of concern in the particular  containing element) for the classifiers or relationships and their instances.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_67561_61' >
+					<UML:ModelElement.name >facade</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359551_484543_91' >
+							<UML:ModelElement.name >A facade is a stereotyped package containing only references to model elements owned by another package. It is used to provide a  public view  of some of the contents of a package. A facade does not contain any model elements of its own.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_678502_137' >
+					<UML:ModelElement.name >access</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Permission</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359551_772167_92' >
+							<UML:ModelElement.name >Access is a stereotyped permission dependency between two namespaces, denoting that the public contents of the target namespace are accessible to the namespace of the source package.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_679056_123' >
+					<UML:ModelElement.name >stub</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359552_706943_93' >
+							<UML:ModelElement.name >A stub is a stereotyped package representing a package that is incompletely transferred; specifically, a stub provides the public parts of the package, but nothing more.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_691050_128' >
+					<UML:ModelElement.name >destroy</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >CallEvent</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359553_605081_94' >
+							<UML:ModelElement.name >Destroy is a stereotyped call event denoting that the instance receiving the event is being destroyed.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_767877_74' >
+					<UML:ModelElement.name >parameter</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359554_280189_95' >
+							<UML:ModelElement.name >Specifies that the relationship represents a procedure parameter rather than AssociationEnd an actual association.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_76813_73' >
+					<UML:ModelElement.name >association</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >LinkEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359554_734411_96' >
+							<UML:ModelElement.name > Association is a constraint applied to a link-end, specifying that the corresponding instance is visible via association.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_772506_121' >
+					<UML:ModelElement.name >global</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359555_699624_97' >
+							<UML:ModelElement.name > Specifies that the target is a global value that is known to all elements AssociationEnd rather than an actual association.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_809093_133' >
+					<UML:ModelElement.name >library</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Artifact</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359555_17631_98' >
+							<UML:ModelElement.name >Denotes a static or dynamic library file. Subclass of «file».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_85376_112' >
+					<UML:ModelElement.name >time-out</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Message</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359557_905735_99' >
+							<UML:ModelElement.name >A time-out message the sender sends for a given period of time while waiting for acknowledgment by recipient. The sender is freed up if the acknowledgment does not occur within the duration specified in the description.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_854858_82' >
+					<UML:ModelElement.name >parameter</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >LinkEnd</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359558_392312_100' >
+							<UML:ModelElement.name > Parameter is a constraint applied to a link-end, specifying that the corresponding instance is visible because it is in a parameter scope relative to the link.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_855920_72' >
+					<UML:ModelElement.name >call</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Usage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359561_902877_101' >
+							<UML:ModelElement.name >Call is a stereotyped usage dependency whose source is an operation and whose target is an operation. The relationship may also be subsumed to the class containing an operation, with the meaning that there exists an operation in the class to which the dependency applies. A call dependency specifies that the source operation or an operation in the source class invokes the target operation or an operation in the target class. A call dependency may connect a source operation to any target operation that is within scope including, but not limited to, operations of the enclosing classifier and operations of other visible classifiers.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_869652_95' >
+					<UML:ModelElement.name >topLevel</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359561_136090_102' >
+							<UML:ModelElement.name >TopLevel is a stereotype of package denoting the top-most package in a containment hierarchy. The topLevel stereotype defines the outer limit for looking up names, as namespaces  see  outwards. A topLevel subsystem represents the top of the subsystem containment hierarchy, i.e., it is the model element that represents the boundary of the entire physical system being modeled.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_88357_93' >
+					<UML:ModelElement.name >framework</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359561_266951_103' >
+							<UML:ModelElement.name >A framework is a stereotyped package consisting mainly of patterns, where patterns are defined as template collaborations.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_902031_57' >
+					<UML:ModelElement.name >balking</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Stimulus</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359562_269276_104' >
+							<UML:ModelElement.name >message In the balking message case the sender abandons the message if the receiver is not ready.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_932318_108' >
+					<UML:ModelElement.name >metamodel</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Model</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359562_671217_105' >
+							<UML:ModelElement.name >A metamodel is a stereotyped model denoting that the model is an abstraction of another model, i.e., it is a model of a model. Hence, if M2 is a model of the model M1, then M2 is a metamodel of M1. It follows then that classes in M1 are instances of metaclasses in M2. The stereotype can be recursively applied, as in the case of a 4-layer metamodel architecture.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_93259_130' >
+					<UML:ModelElement.name >create</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >CallEvent</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359563_878057_106' >
+							<UML:ModelElement.name >Create is a stereotyped call event denoting that the instance receiving that event has just been created. For state machines, it triggers the initial transition at the topmost level of the state machine (and is the only kind of trigger that may be applied to an initial transition).</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_967930_116' >
+					<UML:ModelElement.name >destroy</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >BehavioralFeature</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359563_92142_107' >
+							<UML:ModelElement.name >Specifies that the designated feature destroys an instance of the BehavioralFeature classifier to which the feature is attached. May be promoted to the  classifier containing the feature.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_972217_114' >
+					<UML:ModelElement.name >executable</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Artifact</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359567_831404_108' >
+							<UML:ModelElement.name >Denotes a program file that can be executed on a computer system.Subclass of «file».</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_973732_132' >
+					<UML:ModelElement.name >instantiate</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Usage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359567_131176_109' >
+							<UML:ModelElement.name >A stereotyped usage dependency among classifiers indicating that operations on the client create instances of the supplier.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_983065_101' >
+					<UML:ModelElement.name >profile</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelPackage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359568_49896_110' >
+							<UML:ModelElement.name >A profile is a stereotyped package that contains model elements that have been customized for a specific domain or purpose using extension mechanisms, such as stereotypes, tagged definitions, and constraints. A profile may also specify model libraries on which it depends and the metamodel subset that it extends. (The latter is specified via an applicableSubset tag definition.)</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_986342_90' >
+					<UML:ModelElement.name >become</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Flow</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359568_498354_111' >
+							<UML:ModelElement.name > Specifies a Flow relationship, source and target of which represent the same instance at different points in time, but each with potentially different values, state instance, and roles. A Become Dependency from A to B means that instance A becomes B with possibly new values, state instance, and roles at a different moment in time/space.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_990377_70' >
+					<UML:ModelElement.name >send</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Usage</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359569_105743_112' >
+							<UML:ModelElement.name >«send» Usage Send is a stereotyped usage dependency whose source is an operation and whose target is a signal, specifying that the source sends the target signal.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069854948632_993346_127' >
+					<UML:ModelElement.name >copy</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Flow</UML:Stereotype.baseClass>
+					<UML:ModelElement.comment >
+						<UML:Comment xmi.id = 'rlechner_1088493359569_9924_113' >
+							<UML:ModelElement.name >Specifies a Flow relationship, the source and target of which are different instances, but each with the same values, state instance, and roles (but a distinct identity). A Copy Dependency from A to B means that B is an exact copy of A. Future changes in A are not necessarily reflected in B.</UML:ModelElement.name>
+						</UML:Comment>
+					</UML:ModelElement.comment>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1069941910786_307505_25' >
+					<UML:ModelElement.name >CORBAInterface</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1071667956943_586439_107' >
+					<UML:ModelElement.name >CORBAStruct</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072448246468_753846_52' >
+					<UML:ModelElement.name >CORBASequence</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072602613865_50424_57' >
+					<UML:ModelElement.name >CORBAConstants</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072602671217_430021_58' >
+					<UML:ModelElement.name >CORBAConstant</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Attribute</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072624962924_13626_65' >
+					<UML:ModelElement.name >CORBAEnum</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072627435420_451596_254' >
+					<UML:ModelElement.name >CORBATypedef</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072629756067_218223_448' >
+					<UML:ModelElement.name >CORBAAnonymousSequence</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072629982562_294382_513' >
+					<UML:ModelElement.name >unnamed1</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072775445237_827061_51' >
+					<UML:ModelElement.name >CORBAArray</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072775600610_883997_107' >
+					<UML:ModelElement.name >CORBAAnonymousArray</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1072778266063_209677_352' >
+					<UML:ModelElement.name >CORBAException</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073313050678_768435_64' >
+					<UML:ModelElement.name >CORBAValue</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073313161768_658874_65' >
+					<UML:ModelElement.name >CORBAValueFactory</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Operation</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073313318734_336424_103' >
+					<UML:ModelElement.name >CORBAValueSupports</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Generalization</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073313745608_307409_289' >
+					<UML:ModelElement.name >CORBABoxedValue</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073318790131_332578_343' >
+					<UML:ModelElement.name >CCMEvent</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073323109042_192331_450' >
+					<UML:ModelElement.name >readonly</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Attribute</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073323275090_857103_541' >
+					<UML:ModelElement.name >readonlyEnd</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073326950485_159261_696' >
+					<UML:ModelElement.name >CCMComponent</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073327055446_506736_709' >
+					<UML:ModelElement.name >CCMSupports</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Generalization</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073327372592_674427_835' >
+					<UML:ModelElement.name >CCMProvides</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073331067345_710367_893' >
+					<UML:ModelElement.name >CCMUses</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073331328230_110527_1002' >
+					<UML:ModelElement.name >CCMEmits</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073331378753_652711_1034' >
+					<UML:ModelElement.name >CCMPublishes</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073331441153_836855_1097' >
+					<UML:ModelElement.name >CCMConsumes</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073381707839_427483_106' >
+					<UML:ModelElement.name >CCMUses</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Attribute</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073383763415_534259_218' >
+					<UML:ModelElement.name >CCMHome</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073383984903_527723_228' >
+					<UML:ModelElement.name >CCMFactory</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Operation</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073384009068_87513_229' >
+					<UML:ModelElement.name >CCMFinder</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Operation</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073384287709_161948_293' >
+					<UML:ModelElement.name >CCMManages</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Association</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073384658642_786606_429' >
+					<UML:ModelElement.name >CCMPrimaryKey</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073406496365_359676_200' >
+					<UML:ModelElement.name >CORBAUnion</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >ModelClass</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073406878665_299514_248' >
+					<UML:ModelElement.name >switchEnd</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >AssociationEnd</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1073406988653_453743_268' >
+					<UML:ModelElement.name >switch</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >Attribute</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+				<UML:Stereotype xmi.id = 'rlechner_1081953042081_360018_7' >
+					<UML:ModelElement.name >CORBAPrimitive</UML:ModelElement.name>
+					<UML:GeneralizableElement.isRoot xmi.value = 'false' />
+					<UML:GeneralizableElement.isLeaf xmi.value = 'false' />
+					<UML:GeneralizableElement.isAbstract xmi.value = 'false' />
+					<UML:Stereotype.baseClass >DataType</UML:Stereotype.baseClass>
+				</UML:Stereotype>
+			</UML:Namespace.ownedElement>
+		</UML:Model>
+	</XMI.content>
+	<XMI.extensions xmi.extender = 'MagicDraw UML 3.6' >
+		<mdOwnedDiagrams />
+	</XMI.extensions>
+</XMI>

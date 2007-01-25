@@ -1,0 +1,3 @@
+        %(ComponentType)s_provides_%(Identifier)s = 
+            my%(ComponentType)s->provide_facet("%(Identifier)s");
+

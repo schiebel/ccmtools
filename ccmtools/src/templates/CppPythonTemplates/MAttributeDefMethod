@@ -1,0 +1,4 @@
+    { "%(Identifier)s", (PyCFunction) Py%(Identifier)s, METH_VARARGS,
+      "%(Identifier)s function wrapper"
+    },                                                            /* <MAttributeDefMethod> */
+

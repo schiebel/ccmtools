@@ -1,0 +1,15 @@
+  struct %(Identifier)sConnection {
+    %(UsesType)s objref;
+    Components::Cookie ck;
+  };
+
+  typedef sequence <%(Identifier)sConnection> %(Identifier)sConnections;
+
+  Components::Cookie connect_%(Identifier)s ( in %(UsesType)s connection )
+    raises ( Components::ExceededConnectionLimit, Components::InvalidConnection );
+
+  %(UsesType)s disconnect_%(Identifier)s ( in Components::Cookie ck )
+    raises ( Components::InvalidConnection );
+
+  %(Identifier)sConnections get_connections_%(Identifier)s (  );
+

@@ -1,0 +1,119 @@
+CCM Local Component (C++) Test:
+-------------------------------
+
+time ~/tmp/benchmark_build/client/ccm_local_client/client_ccm_local_client_Client 
+>>>> Start Test Client: client/ccm_local_client/Client.cc
+--- Start Test Case -----------------------------------
+
+Local CCM Test: void f0() loops(100000000) size(1) real(0.0164)us
+
+Local CCM Test: void f_in1(in long l1) loops(100000000) size(1) real(0.0188)us
+
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(0)    real(0.0191)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(100)  real(0.019)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(200)  real(0.0191)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(300)  real(0.019)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(400)  real(0.019)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(500)  real(0.0191)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(600)  real(0.019)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(700)  real(0.019)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(800)  real(0.0191)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(900)  real(0.019)us
+Local CCM Test: void f_in2(in string s1) loops(100000000) size(1000) real(0.0191)us
+
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(0)    real(0.0223)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(100)  real(0.0223)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(200)  real(0.0221)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(300)  real(0.0224)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(400)  real(0.0219)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(500)  real(0.0216)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(600)  real(0.0219)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(700)  real(0.0215)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(800)  real(0.0216)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(900)  real(0.0221)us
+Local CCM Test: void f_in3(in LongList ll1) loops(100000000) size(1000) real(0.0219)us
+
+Local CCM Test: void f_inout1(inout long l1) loops(100000000) size(1) real(0.0231)us
+
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(0)    real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(100)  real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(200)  real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(300)  real(0.033)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(400)  real(0.033)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(500)  real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(600)  real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(700)  real(0.033)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(800)  real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(900)  real(0.034)us
+Local CCM Test: void f_inout2(inout string s1) loops(10000000) size(1000) real(0.034)us
+
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(0)    real(0.14)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(100)  real(0.23)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(200)  real(0.28)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(300)  real(0.34)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(400)  real(0.37)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(500)  real(0.41)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(600)  real(0.46)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(700)  real(0.52)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(800)  real(0.54)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(900)  real(0.59)us
+Local CCM Test: void f_inout3(inout LongList ll1) loops(1000000) size(1000) real(0.64)us
+
+Local CCM Test: void f_out1(out long l1) loops(100000000) size(1) real(0.0234)us
+
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(0)    real(0.033)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(100)  real(0.034)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(200)  real(0.033)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(300)  real(0.034)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(400)  real(0.033)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(500)  real(0.034)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(600)  real(0.033)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(700)  real(0.034)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(800)  real(0.033)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(900)  real(0.034)us
+Local CCM Test: void f_out2(out string s1) loops(10000000) size(1000) real(0.033)us
+
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(0)    real(0.08)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(100)  real(0.24)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(200)  real(0.28)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(300)  real(0.33)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(400)  real(0.37)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(500)  real(0.41)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(600)  real(0.46)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(700)  real(0.51)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(800)  real(0.55)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(900)  real(0.59)us
+Local CCM Test: void f_out3(out LongList ll1) loops(1000000) size(1000) real(0.63)us
+
+Local CCM Test: long f_ret1() loops(100000000) size(1) real(0.0199)us
+
+Local CCM Test: string f_ret2() loops(10000000) size(0)    real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(100)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(200)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(300)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(400)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(500)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(600)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(700)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(800)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(900)  real(0.119)us
+Local CCM Test: string f_ret2() loops(10000000) size(1000) real(0.119)us
+
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(0)    real(0.18)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(100)  real(0.71)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(200)  real(0.99)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(300)  real(1.22)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(400)  real(1.45)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(500)  real(1.7)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(600)  real(1.95)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(700)  real(2.21)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(800)  real(2.45)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(900)  real(2.7)us
+Local CCM Test: void f_in3(in LongList ll1) loops(1000000) size(1000) real(2.95)us
+--- Stop Test Case ------------------------------------
+>>>> Stop Test Client: client/ccm_local_client/Client.cc
+loops(1) size(1) real(1.0325e+08)us
+
+real	1m43.251s
+user	1m43.038s
+sys	0m0.024s

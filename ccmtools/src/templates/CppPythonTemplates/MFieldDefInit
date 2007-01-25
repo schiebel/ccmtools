@@ -1,0 +1,9 @@
+    if ( %(Identifier)s_param_ ) {
+	Py_XDECREF( self->%(Identifier)s );
+	Py_INCREF( %(Identifier)s_param_ );
+	self->%(Identifier)s = %(Identifier)s_param_;
+    } else if ( ! self->%(Identifier)s ) {
+	PyObject *default_%(Identifier)s = default_python_%(IdentifierTypeSymbol)s( "%(ScopeId)s" );
+	self->%(Identifier)s = default_%(Identifier)s;
+    }
+

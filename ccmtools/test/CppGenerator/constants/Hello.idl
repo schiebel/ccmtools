@@ -1,0 +1,25 @@
+/**
+ * Test case: constants
+ *
+ */
+
+const short SHORT_CONST = -7;
+const long LONG_CONST = -7777;
+const unsigned short USHORT_CONST = 7;
+const unsigned long ULONG_CONST = 7777;
+const float FLOAT_CONST = 3.14;
+const double DOUBLE_CONST = 3.1415926;
+const char CHAR_CONST = 'c';
+const string STRING_CONST = "1234567890";
+const boolean BOOLEAN_CONST = 1;
+const octet OCTET_CONST = 255;
+
+
+component Hello
+{
+};
+
+home HelloHome manages Hello
+{
+};
+

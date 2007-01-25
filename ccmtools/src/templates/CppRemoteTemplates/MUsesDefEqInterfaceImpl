@@ -1,0 +1,60 @@
+void 
+%(ComponentType)s_impl::connect_%(Identifier)s(::%(IdlUsesType)s_ptr value)
+    throw(Components::AlreadyConnected, Components::InvalidConnection )	
+{
+    LDEBUGNL(CCM_REMOTE, " %(ComponentType)s_impl::connect_%(Identifier)s()");
+
+    reference_for_receptacle_%(Identifier)s = 
+        ::%(IdlUsesType)s::_duplicate (value);
+
+    SmartPtr<CCM_Local::%(UsesType)s> %(Identifier)s_adapter = 
+        SmartPtr<CCM_Local::%(UsesType)s>(
+            dynamic_cast<CCM_Local::%(UsesType)s*>
+	            (new %(InterfaceType)sAdapterToCorba(
+	                 reference_for_receptacle_%(Identifier)s)));
+
+    try {
+        local_adapter->connect_%(Identifier)s(%(Identifier)s_adapter);
+    }
+    catch(const LocalComponents::AlreadyConnected&) {
+        throw Components::AlreadyConnected();
+    }
+    catch(const LocalComponents::InvalidConnection&) {
+        throw Components::InvalidConnection();
+    }
+}
+
+::%(IdlUsesType)s_ptr 
+%(ComponentType)s_impl::disconnect_%(Identifier)s()
+    throw(Components::NoConnection)
+{
+    LDEBUGNL(CCM_REMOTE, " %(ComponentType)s_impl::disconnect_%(Identifier)s()");
+
+    try {
+        local_adapter->disconnect_%(Identifier)s();
+    }
+    catch(const LocalComponents::NoConnection&) {
+        throw Components::NoConnection();
+    }
+    
+    ::%(IdlUsesType)s_var _res = 
+        ::%(IdlUsesType)s::_duplicate(
+            reference_for_receptacle_%(Identifier)s);
+    reference_for_receptacle_%(Identifier)s = 
+        ::%(IdlUsesType)s::_nil();
+    return _res._retn();
+}
+
+::%(IdlUsesType)s_ptr 
+%(ComponentType)s_impl::get_connection_%(Identifier)s()
+    throw(Components::NoConnection)
+{
+    LDEBUGNL(CCM_REMOTE, " %(ComponentType)s_impl::get_connection_%(Identifier)s()");
+
+    if(reference_for_receptacle_%(Identifier)s == NULL)
+        throw Components::NoConnection();
+    return ::%(IdlUsesType)s::_duplicate(
+        reference_for_receptacle_%(Identifier)s);
+}
+
+

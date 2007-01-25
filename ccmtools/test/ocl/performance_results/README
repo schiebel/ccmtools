@@ -1,0 +1,12 @@
+This directory contains the results of the performance tests
+for 'design by contract' components.
+
+All performance tests return results for the local component
+and for the DbC-component. If you want to measure only the
+overhead of DbC-components without the test of the constraints,
+do the following:
+1) rename the OCL-file, so the parser will not find it
+2) create new code -> you will get a DbC-component without constraints
+3) run the test and use the output from the DbC-test
+4) rename the OCL-file to it's original name
+

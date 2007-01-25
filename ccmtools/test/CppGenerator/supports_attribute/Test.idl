@@ -1,0 +1,19 @@
+/**
+ * Test case: supports_attribute 
+ *
+ */
+
+interface Console 
+{
+  attribute long max_size;
+};
+
+component Test 
+  supports Console
+{
+};
+
+home TestHome manages Test
+{
+};
+

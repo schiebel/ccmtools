@@ -1,0 +1,20 @@
+// $Id: Coll1.idl,v 1.2 2004/03/10 20:58:35 rlechner Exp $
+
+typedef sequence<long> LongSeq;
+
+struct Data
+{
+    double x;
+};
+
+typedef sequence<Data> DataSeq;
+
+component Coll1
+{
+  attribute LongSeq seq1;
+  attribute DataSeq seq2;
+};
+
+home Coll1Home manages Coll1
+{
+};

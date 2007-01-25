@@ -1,0 +1,30 @@
+RELEASE-0.5.1-pre4
+----------------------------------------------------------------------------
+*) changed ccmtools/bin from Python scripts to Shell scripts
+     - ccmtools-generate is already implemented in Python 
+     - ccmtools is the Shell script version of ccmtools-generate 
+     - uml2idl has been implemented as a Shell script
+     - ccmtools-idl is already implemented in Python
+     
+*) added Constants.Version string to all generated C++ source files.     
+
+*) changed all test cases to handle confix version > pre34
+   (A Makefile.py with package-name and -version has been added)
+    
+*) added interface adapter classes that delegates to and from CORBA stubs.
+   These interface adapter classes are used by the remote component logic and 
+   replaces existing facet and receptacle adapters.
+   
+*) added #ifdef HAVE_MICO conditions into all generated remote source files
+   (cpp-environment/CCM_Remote and files generated from c++remote)   
+   
+*) added support of receptacle attributes
+
+
+RELEASE-0.5.1-pre5
+----------------------------------------------------------------------------
+*) removed CORBA_Stubs namespace from generated IDL2 and remote C++ files
+
+*) bugfix: *_entry.h files in impl/ must be overwritten by every generator 
+   call because they are part of the component logic.
+

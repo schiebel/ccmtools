@@ -1,0 +1,66 @@
+-- $Id: MyInteger.ocl,v 1.1 2004/02/09 13:32:41 rlechner Exp $
+
+package GLOBAL
+
+context MyInteger
+	inv op1a:	1=1
+	inv op1b:	1=1.0
+	inv op2a:	1<>2
+	inv op2b:	1<>1.1
+	inv op3a:	1+2=3
+	inv op3b:	1+2.2=3.2
+	inv op3c:	1.1+2=3.1
+	inv op4a:	3-2=1
+	inv op4b:	3-2.1=0.9
+	inv op4c:	3.2-1=2.2
+	inv op5a:	2*3=6
+	inv op5b:	2*3.1=6.2
+	inv op5c:	2.1*3=6.3
+	inv op6a:	-(5)=(-5)
+	inv op6b:	-5=-(5)
+	inv op7a:	4/2=2.0
+	inv op7b:	5/4=1.25
+	inv op8:	2<3
+	inv op9:	2>1
+	inv op10a:	2<=3
+	inv op10b:	2<=2
+	inv op11a:	2>=1
+	inv op11b:	2>=2
+
+	inv abs_1:	(1).abs()=1
+	inv abs_2:	(-1).abs()=1
+
+	inv div_1:	(7).div(2)=3
+	inv div_2:	(3).div(4)=0
+	inv div_3:	(3).div(3)=1
+	inv div_4:	(8).div(1)=8
+	inv div_5:	(0).div(2)=0
+	inv div_6:	(-7).div(-3)=2
+	inv div_7:	(12345).div(678)=(12345.0/678.0).floor()
+	inv div_8:	(-7).div(2)=-3
+	inv div_9:	(-12345).div(678)=-((12345.0/678.0).floor())
+	
+	inv mod_1:	(7).mod(2)=1
+	inv mod_2:	(3).mod(4)=3
+	inv mod_3:	(3).mod(3)=0
+	inv mod_4:	(8).mod(2)=0
+	inv mod_5:	(0).mod(2)=0
+	inv mod_6a:	(12345).mod(678)=12345-((12345).div(678) * 678)
+	inv mod_6b:	(-12345).mod(678)=(-12345)-((-12345).div(678) * 678)
+	inv mod_6c:	(12345).mod(-678)=12345-((12345).div(-678) * (-678))
+	inv mod_6d:	(-12345).mod(-678)=(-12345)-((-12345).div(-678) * (-678))
+
+	inv max_1:	(1).max(2)=2
+	inv max_2:	(2).max(1)=2
+	inv max_3:	(-2).max(1)=1
+	inv max_4:	(-1).max(-2)=-1
+
+	inv min_1:	(1).min(2)=1
+	inv min_2:	(2).min(1)=1
+	inv min_3:	(-2).min(1)=-2
+	inv min_4:	(-1).min(-2)=-2
+
+	inv LongSeq:	seq1->sum()=0
+	inv LongArray:	array1->sum()=0
+
+endpackage

@@ -1,0 +1,301 @@
+CCM without DbC Adapters Test:
+------------------------------
+
+time ~/tmp/benchmark_build/client/ccm_dbc_client/client_ccm_dbc_client_Client           
+>>>> Start Test Client: client/ccm_dbc_client/Client.cc
+--- Start Test Case -----------------------------------
+
+CCM DbC Test: void bmPre->f_in1(in long l1) loops(100000000) size(1) real(1.88)s call(0.0188)us
+
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(0)    real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(100)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(200)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(300)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(400)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(500)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(600)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(700)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(800)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(900)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(1000) real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(100000000) size(1100) real(1.91)s call(0.0191)us
+
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(0)    real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(100)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(200)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(300)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(400)  real(1.91)s call(0.0191)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(500)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(600)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(700)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(800)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(900)  real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(1000) real(1.9)s  call(0.019)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(100000000) size(1100) real(1.9)s  call(0.019)us
+
+CCM DbC Test: void bmInv1->f0() loops(100000000) size(1) real(1.64)s call(0.0164)us
+
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(0) real(1.65)s    call(0.0165)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(100) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(200) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(300) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(400) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(500) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(600) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(700) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(800) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(900) real(1.65)s  call(0.0165)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(1000) real(1.63)s call(0.0163)us
+CCM DbC Test: void bmInv2->f0() loops(100000000) size(1100) real(1.65)s call(0.0165)us
+
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(0) real(1.63)s     call(0.0163)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(100) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(200) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(300) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(400) real(1.63)s   call(0.0163)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(500) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(600) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(700) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(800) real(1.64)s   call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(900) real(1.63)s   call(0.0163)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(1000) real(1.64)s  call(0.0164)us
+CCM DbC Test: void bmInv3->f0() loops(100000000) size(1100) real(1.64)s  call(0.0164)us
+
+CCM DbC Test: long bmPost->f_ret1() loops(100000000) size(1) real(1.78)s call(0.0178)us
+
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(0) real(1.19)s    call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(100) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(200) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(300) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(400) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(500) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(600) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(700) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(800) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(900) real(1.19)s  call(0.119)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(1000) real(1.2)s  call(0.12)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(1100) real(1.19)s call(0.119)us
+
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(0) real(0.23)s    call(0.23)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(100) real(0.66)s  call(0.66)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(200) real(0.7)s   call(0.7)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(300) real(0.87)s  call(0.87)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(400) real(1.51)s  call(1.51)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(500) real(1.76)s  call(1.76)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(600) real(1.99)s  call(1.99)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(700) real(2.21)s  call(2.21)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(800) real(2.5)s   call(2.5)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(900) real(2.76)s  call(2.76)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(1000) real(3.02)s call(3.02)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(1100) real(3.26)s call(3.26)us
+--- Stop Test Case ------------------------------------
+>>>> Stop Test Client: client/ccm_dbc_client/Client.cc
+loops(1) size(1) real(126.12)s call(1.2612e+08)us
+
+real	2m6.126s
+user	2m5.853s
+sys	0m0.036s
+
+
+
+
+
+CCM with DbC Adapters (Precondition + Invariants) Test:
+-------------------------------------------------------
+
+time ~/tmp/benchmark_build/client/ccm_dbc_client/client_ccm_dbc_client_ClientPreInv
+>>>> Start Test Client: client/ccm_dbc_client/ClientPreInv.cc
+--- Start Test Case -----------------------------------
+
+CCM DbC Test: void bmPre->f_in1(in long l1) loops(10000000) size(1) real(0.34)s call(0.034)us
+
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(0) real(0.33)s    call(0.033)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(100) real(0.33)s  call(0.033)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(200) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(300) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(400) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(500) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(600) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(700) real(0.33)s  call(0.033)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(800) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(900) real(0.34)s  call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(1000) real(0.34)s call(0.034)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(1100) real(0.34)s call(0.034)us
+
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(0) real(0.16)s    call(0.16)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(100) real(1.11)s  call(1.11)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(200) real(1.91)s  call(1.91)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(300) real(2.36)s  call(2.36)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(400) real(2.96)s  call(2.96)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(500) real(4.32)s  call(4.32)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(600) real(4.25)s  call(4.25)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(700) real(4.91)s  call(4.91)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(800) real(5.51)s  call(5.51)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(900) real(6.16)s  call(6.16)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(1000) real(8.28)s call(8.28)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(1100) real(7.46)s call(7.46)us
+
+CCM DbC Test: void bmInv1->f0() loops(10000000) size(1) real(0.75)s call(0.075)us
+
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(0) real(2.6)s     call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(100) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(200) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(300) real(2.62)s  call(0.262)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(400) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(500) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(600) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(700) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(800) real(2.61)s  call(0.261)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(900) real(2.6)s   call(0.26)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(1000) real(2.61)s call(0.261)us
+CCM DbC Test: void bmInv2->f0() loops(10000000) size(1100) real(2.59)s call(0.259)us
+
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(0) real(0.24)s    call(0.24)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(100) real(1.58)s  call(1.58)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(200) real(2.21)s  call(2.21)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(300) real(2.99)s  call(2.99)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(400) real(3.73)s  call(3.73)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(500) real(4.44)s  call(4.44)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(600) real(5.17)s  call(5.17)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(700) real(5.93)s  call(5.93)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(800) real(6.62)s  call(6.62)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(900) real(7.35)s  call(7.35)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(1000) real(8.09)s call(8.09)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(1100) real(8.92)s call(8.92)us
+
+CCM DbC Test: long bmPost->f_ret1() loops(10000000) size(1) real(0.33)s call(0.033)us
+
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(0) real(1.36)s    call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(100) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(200) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(300) real(1.35)s  call(0.135)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(400) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(500) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(600) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(700) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(800) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(900) real(1.36)s  call(0.136)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(1000) real(1.35)s call(0.135)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(1100) real(1.36)s call(0.136)us
+
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(0) real(0.25)s    call(0.25)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(100) real(0.81)s  call(0.81)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(200) real(0.79)s  call(0.79)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(300) real(0.89)s  call(0.89)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(400) real(1.53)s  call(1.53)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(500) real(1.77)s  call(1.77)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(600) real(2.01)s  call(2.01)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(700) real(2.28)s  call(2.28)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(800) real(2.51)s  call(2.51)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(900) real(2.78)s  call(2.78)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(1000) real(3.05)s call(3.05)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(1100) real(1.53)s call(1.53)us
+--- Stop Test Case ------------------------------------
+>>>> Stop Test Client: client/ccm_dbc_client/ClientPreInv.cc
+loops(1) size(1) real(179.88)s call(1.7988e+08)us
+
+real	2m59.887s
+user	2m59.549s
+sys	0m0.066s
+
+
+
+
+
+CCM with DbC Adapters (Preconditions + Invariants + Postconditions) Test:
+-------------------------------------------------------------------------
+
+time ~/tmp/benchmark_build/client/ccm_dbc_client/client_ccm_dbc_client_ClientPreInvPost 
+>>>> Start Test Client: client/ccm_dbc_client/ClientPreInvPost.cc
+--- Start Test Case -----------------------------------
+
+CCM DbC Test: void bmPre->f_in1(in long l1) loops(10000000) size(1) real(0.37)s call(0.037)us
+
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(0) real(0.36)s    call(0.036)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(100) real(0.38)s  call(0.038)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(200) real(0.37)s  call(0.037)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(300) real(0.36)s  call(0.036)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(400) real(0.37)s  call(0.037)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(500) real(0.36)s  call(0.036)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(600) real(0.36)s  call(0.036)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(700) real(0.38)s  call(0.038)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(800) real(0.36)s  call(0.036)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(900) real(0.36)s  call(0.036)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(1000) real(0.38)s call(0.038)us
+CCM DbC Test: void bmPre->f_in2(in string s1) loops(10000000) size(1100) real(0.37)s call(0.037)us
+
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(0) real(0.16)s    call(0.16)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(100) real(1.12)s  call(1.12)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(200) real(1.91)s  call(1.91)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(300) real(2.36)s  call(2.36)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(400) real(2.96)s  call(2.96)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(500) real(4.32)s  call(4.32)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(600) real(4.23)s  call(4.23)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(700) real(4.91)s  call(4.91)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(800) real(5.5)s   call(5.5)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(900) real(6.16)s  call(6.16)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(1000) real(8.28)s call(8.28)us
+CCM DbC Test: void bmPre->f_in3(in LongList ll1) loops(1000000) size(1100) real(7.46)s call(7.46)us
+
+CCM DbC Test: void bmInv1->f0() loops(1000000) size(1) real(0.11)s call(0.11)us
+
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(0) real(0.48)s    call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(100) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(200) real(0.49)s  call(0.49)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(300) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(400) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(500) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(600) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(700) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(800) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(900) real(0.48)s  call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(1000) real(0.48)s call(0.48)us
+CCM DbC Test: void bmInv2->f0() loops(1000000) size(1100) real(0.48)s call(0.48)us
+
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(0) real(0.42)s     call(0.42)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(100) real(3.11)s   call(3.11)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(200) real(4.41)s   call(4.41)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(300) real(5.95)s   call(5.95)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(400) real(7.43)s   call(7.43)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(500) real(8.89)s   call(8.89)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(600) real(10.3)s   call(10.3)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(700) real(11.8)s   call(11.8)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(800) real(13.23)s  call(13.23)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(900) real(14.65)s  call(14.65)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(1000) real(16.17)s call(16.17)us
+CCM DbC Test: void bmInv3->f0() loops(1000000) size(1100) real(17.77)s call(17.77)us
+
+CCM DbC Test: long bmPost->f_ret1() loops(10000000) size(1) real(0.35)s call(0.035)us
+
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(0) real(1.42)s    call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(100) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(200) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(300) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(400) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(500) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(600) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(700) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(800) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(900) real(1.42)s  call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(1000) real(1.42)s call(0.142)us
+CCM DbC Test: string bmPost->f_ret2() loops(10000000) size(1100) real(1.42)s call(0.142)us
+
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(0) real(0.35)s     call(0.35)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(100) real(1.89)s   call(1.89)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(200) real(2.7)s    call(2.7)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(300) real(3.62)s   call(3.62)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(400) real(5.08)s   call(5.08)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(500) real(6.13)s   call(6.13)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(600) real(7.19)s   call(7.19)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(700) real(8.21)s   call(8.21)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(800) real(9.26)s   call(9.26)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(900) real(10.24)s  call(10.24)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(1000) real(11.38)s call(11.38)us
+CCM DbC Test: LongList bmPost->f_ret3() loops(1000000) size(1100) real(8.98)s  call(8.98)us
+--- Stop Test Case ------------------------------------
+>>>> Stop Test Client: client/ccm_dbc_client/ClientPreInvPost.cc
+loops(1) size(1) real(266.59)s call(2.6659e+08)us
+
+real	4m26.594s
+user	4m26.193s
+sys	0m0.094s

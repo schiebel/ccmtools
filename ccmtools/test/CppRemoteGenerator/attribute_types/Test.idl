@@ -1,0 +1,92 @@
+/**
+ * CCM Tools test case: attribute_types 
+ *
+ * This test case checks some kinds of attribute access with
+ * different attribute types.
+ **/
+
+// TODO: Supported Attributes
+
+enum Color {red, green, blue, black, orange};
+
+struct Person {
+  long id;
+  string name;
+};
+
+struct Address {
+  string street;
+  long   number;
+  Person resident;
+};
+
+typedef long time_t;
+
+typedef sequence<long> LongList;
+
+typedef sequence<string> StringList;
+
+typedef sequence<Person> PersonList;
+
+
+interface BasicTypeInterface
+{
+  attribute short short_value;
+  attribute long long_value;
+  attribute unsigned short ushort_value;
+  attribute unsigned long ulong_value;
+  attribute float float_value;
+  attribute double double_value;
+  attribute char char_value;
+  attribute string string_value;
+  attribute boolean boolean_value;
+  attribute octet octet_value;
+};
+
+
+interface UserTypeInterface
+{
+  attribute Color color_value;
+  attribute Person person_value;
+  attribute Address address_value;
+  attribute LongList longList_value;
+  attribute StringList stringList_value;
+  attribute PersonList personList_value;
+  attribute time_t time_t_value;
+};
+
+
+component Test
+{
+  // Basic Type Component Attributes
+  attribute short short_value;
+  attribute long long_value;
+  attribute unsigned short ushort_value;
+  attribute unsigned long ulong_value;
+  attribute float float_value;
+  attribute double double_value;
+  attribute char char_value;
+  attribute string string_value;
+  attribute boolean boolean_value;
+  attribute octet octet_value;
+
+  // User Type Component Attributes
+  attribute Color color_value;
+  attribute Person person_value;
+  attribute Address address_value;
+  attribute LongList longList_value;
+  attribute StringList stringList_value;
+  attribute PersonList personList_value;
+  attribute time_t time_t_value;
+
+  provides BasicTypeInterface inBasicType;
+  provides UserTypeInterface inUserType;
+
+  uses BasicTypeInterface outBasicType;
+  uses UserTypeInterface outUserType;
+};
+
+home TestHome manages Test
+{
+};
+

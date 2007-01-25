@@ -1,0 +1,2 @@
+    o << "    %(CORBAType)s = " << value.%(CORBATypeIn)s << endl;
+

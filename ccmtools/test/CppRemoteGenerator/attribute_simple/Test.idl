@@ -1,0 +1,10 @@
+
+component Test
+{
+  attribute string id;
+};
+
+home TestHome manages Test
+{
+};
+

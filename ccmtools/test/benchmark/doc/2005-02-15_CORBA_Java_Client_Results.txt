@@ -1,0 +1,119 @@
+CORBA Object with Java Client Test:
+-----------------------------------
+
+time bin/runClient
+>>>> Start Test Client: Client.java
+--- Start Test Case ------------------------
+
+CORBA Object Java Test: void f0()  loops(10000) size(1) real(160.4)us/call
+
+CORBA Object Java Test: void f_in1(in long l1)  loops(10000) size(1) real(131.1)us/call
+
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(0)    real(129.9)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(100)  real(136.2)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(200)  real(141.7)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(300)  real(145.5)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(400)  real(150.5)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(500)  real(159.5)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(600)  real(165.6)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(700)  real(168.1)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(800)  real(171.6)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(900)  real(173.9)us/call
+CORBA Object Java Test: void f_in2(in string s1)  loops(10000) size(1000) real(190.8)us/call
+
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(0)    real(129.3)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(100)  real(138.2)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(200)  real(146.9)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(300)  real(159.4)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(400)  real(167.1)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(500)  real(184.5)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(600)  real(191.4)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(700)  real(198.9)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(800)  real(205.7)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(900)  real(212.9)us/call
+CORBA Object Java Test: void f_in3(in LongList ll1)  loops(10000) size(1000) real(220.8)us/call
+
+CORBA Object Java Test: void f_inout1(inout long l1)  loops(10000) size(1) real(127.8)us/call
+
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(0)    real(136.2)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(100)  real(144.0)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(200)  real(151.7)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(300)  real(157.7)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(400)  real(166.0)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(500)  real(176.9)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(600)  real(184.8)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(700)  real(194.8)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(800)  real(198.0)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(900)  real(210.0)us/call
+CORBA Object Java Test: void f_inout2(inout string s1)  loops(10000) size(1000) real(219.3)us/call
+
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(0)    real(129.5)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(100)  real(150.1)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(200)  real(170.3)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(300)  real(192.5)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(400)  real(209.3)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(500)  real(235.9)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(600)  real(256.3)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(700)  real(275.0)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(800)  real(289.8)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(900)  real(305.3)us/call
+CORBA Object Java Test: void f_inout3(inout LongList ll1)  loops(10000) size(1000) real(324.6)us/call
+
+CORBA Object Java Test: void f_out1(out long l1)  loops(10000) size(1) real(127.0)us/call
+
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(0)    real(130.6)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(100)  real(134.5)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(200)  real(136.3)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(300)  real(139.3)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(400)  real(141.7)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(500)  real(145.2)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(600)  real(147.9)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(700)  real(150.8)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(800)  real(152.4)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(900)  real(154.7)us/call
+CORBA Object Java Test: void f_out2(out string s1)  loops(10000) size(1000) real(157.6)us/call
+
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(0)    real(127.8)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(100)  real(139.3)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(200)  real(151.8)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(300)  real(162.0)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(400)  real(170.9)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(500)  real(182.2)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(600)  real(192.5)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(700)  real(204.9)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(800)  real(215.6)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(900)  real(222.4)us/call
+CORBA Object Java Test: void f_out3(out LongList ll1)  loops(10000) size(1000) real(236.8)us/call
+
+CORBA Object Java Test: long f_ret1()  loops(10000) size(1) real(128.1)us/call
+
+CORBA Object Java Test: string f_ret2()  loops(10000) size(0)    real(130.7)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(100)  real(135.8)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(200)  real(138.5)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(300)  real(140.9)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(400)  real(143.5)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(500)  real(147.7)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(600)  real(149.8)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(700)  real(152.1)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(800)  real(154.4)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(900)  real(156.8)us/call
+CORBA Object Java Test: string f_ret2()  loops(10000) size(1000) real(159.5)us/call
+
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(0)    real(128.7)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(100)  real(141.7)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(200)  real(154.0)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(300)  real(164.9)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(400)  real(174.0)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(500)  real(185.1)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(600)  real(195.7)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(700)  real(206.7)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(800)  real(219.4)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(900)  real(226.2)us/call
+CORBA Object Java Test: LongList f_ret3()  loops(10000) size(1000) real(240.8)us/call
+--- Stop Test Case -------------------------
+>>>> Stop Test Client: Client.java
+ loops(1) size(1) real(1.61046E8)us/call
+
+real	2m41.151s
+user	1m18.631s
+sys	0m15.858s

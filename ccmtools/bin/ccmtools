@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -z "$CCMTOOLS_HOME" ]; then
+CCMTOOLS_LIB="/usr/share/java/ccmtools"
+CCMTOOLS_HOME="/usr"
+JAVA_HOME="/usr"
+else
+CCMTOOLS_LIB="$CCMTOOLS_HOME/lib"
+fi
+
+JAVA_OPTIONS="-Xmx512M -Xms512M -Djava.library.path=/usr/lib:$LD_LIBRARY_PATH"
+JAVA_LAUNCHER="$JAVA_HOME"/bin/java
+if [ -x $JAVA_LAUNCHER ]; then 
+
+CLASSPATH=$CCMTOOLS_LIB/antlr.jar:$CCMTOOLS_LIB/mdr01.jar:$CCMTOOLS_LIB/oclmetamodel.jar:$CCMTOOLS_LIB/ccmtools.jar:/usr/share/java/xerces.jar:/usr/share/java/xml-commons-apis.jar:/usr/share/java//usr/share/java/xml-commons-resolver.jar:/usr/share/java/db.jar:/usr/share/java/dbxml.jar:$CLASSPATH
+
+$JAVA_HOME/bin/java $JAVA_OPTIONS -cp $CLASSPATH ccmtools.UI.ConsoleCodeGenerator --home=$CCMTOOLS_HOME $@
+  
+else
+echo "ERROR!"
+echo "Java executable not found in" $JAVA_HOME/bin/java
+fi

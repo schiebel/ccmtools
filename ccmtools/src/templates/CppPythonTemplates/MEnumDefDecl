@@ -1,0 +1,1 @@
+static Py%(EnumType)s_object *Py%(Identifier)s_enum = 0;

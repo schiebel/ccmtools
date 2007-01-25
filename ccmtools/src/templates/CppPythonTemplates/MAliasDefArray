@@ -1,0 +1,41 @@
+PyObject *
+convert_%(Identifier)s_to_python ( %(Identifier)s arg )
+{
+  PyObject *result0 = PyList_New ( %(FirstBound)s );
+%(LoopConvertTo)s
+  return result0;
+}
+
+PyObject *
+convert_const_%(Identifier)s_to_python ( const %(Identifier)s arg )
+{
+  PyObject *result = PyList_New ( %(FirstBound)s );
+%(LoopConvertTo)s
+  return result;
+}
+
+PyObject *
+convert_const_%(Identifier)s_ref_to_python ( const %(Identifier)s& arg )
+{
+  PyObject *result = PyList_New ( %(FirstBound)s );
+%(LoopConvertTo)s
+  return result;
+}
+
+%(Identifier)s
+convert_%(Identifier)s_from_python ( PyObject *arg )
+{
+  %(Identifier)s result%(AllBounds)s;
+%(LoopConvertFrom)s
+  return result;
+}
+
+%(Identifier)s *
+convert_%(Identifier)s_ptr_from_python ( PyObject *arg )
+{
+  %(Identifier)s *result = new %(Identifier)s;
+%(LoopConvertFrom)s
+  return result;
+}
+
+

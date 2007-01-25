@@ -1,0 +1,39 @@
+%==============================================================================
+\chapter{Mico Installation}
+%==============================================================================
+\begin{flushright}
+{\it }
+\end{flushright}
+
+%------------------------------------------------------------------------------
+\section{Prerequisites}
+%------------------------------------------------------------------------------
+
+Before trying to compile MICO make sure you have installed the following
+software packages:
+\begin{itemize}
+\item make, at least version 3.7
+\item gcc 2.95.x or gcc 3.2.x 
+\end{itemize}
+
+
+%------------------------------------------------------------------------------
+\section{How to get it}
+%------------------------------------------------------------------------------
+
+The MICO homepage is found at
+{\tt http://www.mico.org}. 
+
+
+%------------------------------------------------------------------------------
+\section{Source distribution}
+%------------------------------------------------------------------------------
+
+\begin{verbatim}
+$ tar xvzf mico-2.3.10.tar.gz
+$ cd mico
+$ configure --prefix=<confix_path> 
+$ make
+$ make install
+$ ldconfig -v
+\end{verbatim}

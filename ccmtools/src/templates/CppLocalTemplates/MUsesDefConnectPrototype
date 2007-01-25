@@ -1,0 +1,9 @@
+    // Equivalent operations for single receptacle %(Identifier)s
+
+  	void connect_%(Identifier)s(WX::Utils::SmartPtr<%(UsesType)s> i)
+    	throw(LocalComponents::AlreadyConnected, LocalComponents::InvalidConnection);
+
+  	WX::Utils::SmartPtr<%(UsesType)s> disconnect_%(Identifier)s()
+    	throw(LocalComponents::NoConnection);
+
+

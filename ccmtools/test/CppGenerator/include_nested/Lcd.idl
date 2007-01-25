@@ -1,0 +1,10 @@
+
+/**
+ * 
+ *
+ *
+ */
+
+interface Lcd {
+  long write_text(in string s2);
+};

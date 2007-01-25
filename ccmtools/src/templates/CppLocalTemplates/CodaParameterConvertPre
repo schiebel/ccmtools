@@ -1,0 +1,3 @@
+    %(Type)s %(Identifier)s_coda_;
+    %(Convert)s(%(Identifier)s, %(Identifier)s_coda_);
+

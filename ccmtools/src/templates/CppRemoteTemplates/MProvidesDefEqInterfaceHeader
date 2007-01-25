@@ -1,0 +1,2 @@
+    ::%(IdlProvidesType)s_ptr provide_%(Identifier)s();
+

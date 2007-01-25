@@ -1,0 +1,36 @@
+#ifndef __COMPONENT__%(PreprocIdentifier)s__
+#define __COMPONENT__%(PreprocIdentifier)s__
+
+%(BaseInclude)s
+%(MAttributeDefInclude)s
+%(MConstantDefInclude)s
+%(MSupportsDefInclude)s
+%(MProvidesDefInclude)s
+%(MConsumesDefInclude)s
+%(MEmitsDefInclude)s
+%(MPublishesDefInclude)s
+%(MUsesDefInclude)s
+
+#include "Components/CCM.idl"
+
+%(OpenNamespace)s
+
+local interface %(Identifier)s : Components::CCMObject%(BaseType)s%(MSupportsDef)s
+{
+%(MAttributeDef)s
+%(MConstantDef)s
+%(MProvidesDef)s
+%(MUsesDef)s
+%(MPublishesDef)s
+%(MConsumesDef)s
+%(MEmitsDef)s
+};
+
+%(CloseNamespace)s
+
+
+
+#endif
+
+
+

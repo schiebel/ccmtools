@@ -1,0 +1,3 @@
+%(Try)s
+    %(Return)s %(Convert)s(%(Object)s_->%(Identifier)s(%(MParameterDefName)s));
+%(Catch)s

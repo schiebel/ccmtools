@@ -1,0 +1,4 @@
+    { "%(Identifier)s", (PyCFunction) Py%(Identifier)s, METH_KEYWORDS,
+      "%(ShortDescription)s : %(Signature)s"
+    },                                                            /* <MOperationDefMethod> */
+

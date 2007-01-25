@@ -1,0 +1,4 @@
+#!/bin/sh
+
+nsadmin -ORBInitRef NameService=corbaloc:iiop:1.2@localhost:5050/NameService
+

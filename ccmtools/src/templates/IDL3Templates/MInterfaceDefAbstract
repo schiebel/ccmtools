@@ -1,0 +1,22 @@
+%(MAttributeDefInclude)s
+%(MOperationDefInclude)s
+%(BaseInclude)s
+
+#ifndef __INTERFACE__%(PreprocIdentifier)s__
+#define __INTERFACE__%(PreprocIdentifier)s__
+
+%(OpenNamespace)s
+
+abstract interface %(Identifier)s
+  %(BaseType)s
+{
+%(MAttributeDef)s
+%(MOperationDef)s
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

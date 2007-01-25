@@ -1,0 +1,125 @@
+CCM Nested Local Component Test:
+--------------------------------
+
+time ~/tmp/benchmark_build/client/ccm_nested_client/client_ccm_nested_client_Client 
+>>>> Start Test Client: client/ccm_nested_client/Client.cc
++SuperTestAssemblyFactory::SuperTestAssemblyFactory()
+ SuperTestAssemblyFactory::create()
+ SuperTestAssembly::build()
+SuperTestAssembly::configuration_complete()
+--- Start Test Case -----------------------------------
+All functional test cases passed!
+Local CCM Super Test: void f0() loops(10000000) size(1) real(0.248)us
+
+Local CCM Super Test: void f_in1(in long l1) loops(10000000) size(1) real(0.251)us
+
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(0)    real(0.255)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(100)  real(0.255)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(200)  real(0.254)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(300)  real(0.256)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(400)  real(0.256)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(500)  real(0.256)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(600)  real(0.255)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(700)  real(0.255)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(800)  real(0.255)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(900)  real(0.256)us
+Local CCM Super Test: void f_in2(in string s1) loops(10000000) size(1000) real(0.255)us
+
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(0)    real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(100)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(200)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(300)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(400)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(500)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(600)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(700)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(800)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(900)  real(0.255)us
+Local CCM Super Test: void f_in3(in LongList ll1) loops(10000000) size(1000) real(0.255)us
+
+Local CCM Super Test: void f_inout1(inout long l1) loops(10000000) size(1) real(0.262)us
+
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(0)    real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(100)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(200)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(300)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(400)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(500)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(600)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(700)  real(0.271)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(800)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(900)  real(0.272)us
+Local CCM Super Test: void f_inout2(inout string s1) loops(10000000) size(1000) real(0.272)us
+
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(0)    real(0.299)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(100)  real(0.463)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(200)  real(0.512)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(300)  real(0.565)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(400)  real(0.598)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(500)  real(0.642)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(600)  real(0.691)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(700)  real(0.743)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(800)  real(0.777)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(900)  real(0.82)us
+Local CCM Super Test: void f_inout3(inout LongList ll1) loops(10000000) size(1000) real(0.869)us
+
+Local CCM Super Test: void f_out1(out long l1) loops(10000000) size(1) real(0.258)us
+
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(0)    real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(100)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(200)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(300)  real(0.271)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(400)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(500)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(600)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(700)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(800)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(900)  real(0.272)us
+Local CCM Super Test: void f_out2(out string s1) loops(10000000) size(1000) real(0.272)us
+
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(0)    real(0.315)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(100)  real(0.463)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(200)  real(0.511)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(300)  real(0.565)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(400)  real(0.599)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(500)  real(0.641)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(600)  real(0.691)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(700)  real(0.743)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(800)  real(0.777)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(900)  real(0.82)us
+Local CCM Super Test: void f_out3(out LongList ll1) loops(10000000) size(1000) real(0.868)us
+
+Local CCM Super Test: long f_ret1() loops(10000000) size(1) real(0.25)us
+
+Local CCM Super Test: string f_ret2() loops(10000000) size(0)    real(0.361)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(100)  real(0.362)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(200)  real(0.361)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(300)  real(0.362)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(400)  real(0.361)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(500)  real(0.361)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(600)  real(0.362)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(700)  real(0.362)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(800)  real(0.361)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(900)  real(0.362)us
+Local CCM Super Test: string f_ret2() loops(10000000) size(1000) real(0.361)us
+
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(0)    real(0.413)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(100)  real(0.935)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(200)  real(1.221)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(300)  real(1.443)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(400)  real(1.68)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(500)  real(1.929)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(600)  real(2.221)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(700)  real(2.484)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(800)  real(2.673)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(900)  real(2.924)us
+Local CCM Super Test: void f_ret3(in LongList ll1) loops(10000000) size(1000) real(3.175)us
+--- Stop Test Case ------------------------------------
+SuperTestAssembly::tear_down()
+>>>> Stop Test Client: client/ccm_nested_client/Client.cc
+loops(1) size(1) real(5.1912e+08)us
+-SuperTestAssemblyFactory::~SuperTestAssemblyFactory()
+
+real	8m39.119s
+user	8m38.725s
+sys	0m0.121s

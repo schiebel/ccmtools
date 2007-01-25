@@ -1,0 +1,21 @@
+# Enable debug messages
+$ export WX_DEBUG_LEVELS="CCM_REMOTE"
+
+# create local component
+$ ccmtools-generate c++local -a -o xxx Test.idl
+
+# create mico stubs
+$ ccmtools-generate idl2 -o xxx/CORBA_Stubs Test.idl
+
+# create remote component
+$ ccmtools-generate c++remote -o xxx Test.idl
+
+# create remote component test
+$ ccmtools-generate c++remote-test -o xxx Test.idl
+$ cp impl/Test_console_impl.cc xxx/impl/
+$ cp test/_check_CCM_Remote_world_europe_austria_CCM_Session_Test_remote.cc xxx/test/
+$ confix.py --packageroot=`pwd`/xxx --bootstrap --configure --make --targets=check
+
+# remove all generated code
+$ confix.py --packageroot=`pwd`/xxx --make --targets=clean
+$ rm -rf xxx 

@@ -1,0 +1,3 @@
+// <MProvidesDefEqInterfaceInitDecl>
+static PyTypeObject *Py%(Identifier)s_type = 0;
+

@@ -1,0 +1,16 @@
+SmartPtr<%(ComponentType)s>
+%(HomeType)s::%(Identifier)s ( %(MParameterDefAll)s )
+  throw(LocalComponents::CCMException, LocalComponents::CreateFailure)
+{
+  DEBUGNL ( " %(HomeType)s->%(Identifier)s ( %(MParameterDefName)s )");
+  SmartPtr<%(ComponentType)s> ret (
+    dynamic_cast<%(ComponentType)s*> (
+      new %(ComponentType)s (
+        this, dynamic_cast<CCM_%(ComponentType)s*> (
+          ((CCM_%(HomeType)sExplicit*)local_home)->%(Identifier)s ( %(MParameterDefName)s ) )
+        )
+      )
+    );
+  return ret;
+}
+

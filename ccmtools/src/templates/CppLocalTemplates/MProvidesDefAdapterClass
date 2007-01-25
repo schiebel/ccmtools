@@ -1,0 +1,27 @@
+//==============================================================================
+// %(Identifier)sFacetAdapter class
+//==============================================================================
+
+class %(Identifier)sFacetAdapter
+  : public %(CCMProvidesType)s
+{
+  friend class %(ComponentType)s;
+
+ protected:
+  %(CCMProvidesType)s* facet;
+  %(ComponentType)s* component;
+  CCM_%(ComponentType)s* local_component;
+  bool ValidConnection;
+
+ public:
+  %(Identifier)sFacetAdapter();
+  %(Identifier)sFacetAdapter ( %(ComponentType)s* c, CCM_%(ComponentType)s* lc );
+  virtual ~%(Identifier)sFacetAdapter (  );
+
+%(MAttributeProvidesPrototype)s
+%(MOperationProvidesPrototype)s
+
+  WX::Utils::SmartPtr<LocalComponents::Object> get_component (  );
+};
+
+

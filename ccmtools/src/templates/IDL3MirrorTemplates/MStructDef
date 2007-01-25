@@ -1,0 +1,18 @@
+%(MFieldDefInclude)s
+
+#ifndef __STRUCT__%(PreprocIdentifier)s__
+#define __STRUCT__%(PreprocIdentifier)s__
+
+%(OpenNamespace)s
+
+struct %(Identifier)s
+{
+%(MFieldDef)s
+};
+
+%(CloseNamespace)s
+
+#endif
+
+
+

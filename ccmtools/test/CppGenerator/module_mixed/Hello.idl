@@ -1,0 +1,21 @@
+/**
+ * test case: module mixed
+ *
+ */
+
+#include "Console.idl"
+
+module WORLD {
+
+component Hello
+{
+  attribute string prompt;
+
+  provides Europe::Console console;
+};
+
+home HelloHome manages Hello
+{
+};
+
+}; // end of module WORLD

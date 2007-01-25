@@ -1,0 +1,58 @@
+/***
+ * attribute_types test case
+ *
+ * This test case shows the usage of IDL basic and user types as component's
+ * attributes. 
+ ***/
+
+typedef long time_t;
+
+enum Color {red, green, blue, black, orange};
+
+struct Pair {
+  string key;
+  double value;
+};
+
+typedef sequence<Pair> Map;
+
+typedef double doubleArray[10];
+
+interface Console 
+{ 
+  attribute string prompt;
+  long println(in string msg); 
+};
+
+
+component Test
+{
+  // basic types
+  attribute short    short_value;
+  attribute long     long_value;
+  attribute unsigned short ushort_value;
+  attribute unsigned long ulong_value;
+  attribute float    float_value;
+  attribute double   double_value;
+  attribute char     char_value;
+  attribute string   string_value;
+  attribute boolean  boolean_value;
+  attribute octet    octet_value;
+  attribute wchar    wchar_value;
+  attribute wstring  wstring_value;
+
+  // user defined types
+  attribute time_t      typedef_value;
+  attribute Color       enum_value;
+  attribute Pair        struct_value;
+  attribute Map         sequence_value;
+  attribute doubleArray array_value;
+  
+  // interface types
+  attribute Console console_value;
+};
+
+home TestHome manages Test
+{
+};
+

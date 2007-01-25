@@ -1,0 +1,20 @@
+%(LanguageType)s
+DbC_%(Object)sFacetAdapter::%(Identifier)s (  )
+  throw(LocalComponents::CCMException)
+{
+  DEBUGNL ( " DbC_%(Object)sFacetAdapter->%(Identifier)s () - get semantic");
+  return %(Object)sFacetAdapter::%(Identifier)s();
+}
+
+void
+DbC_%(Object)sFacetAdapter::%(Identifier)s ( const %(LanguageType)s value )
+  throw(LocalComponents::CCMException)
+{
+  DEBUGNL ( " DbC_%(Object)sFacetAdapter->%(Identifier)s () - set semantic");
+  static const char* DbC_FUNCTION_NAME = "%(Object)sFacetAdapter::%(Identifier)s(%(LanguageType)s)";
+  DbC_check_invariant(DbC_FUNCTION_NAME,false);
+  %(Object)sFacetAdapter::%(Identifier)s(value);
+  DbC_check_invariant(DbC_FUNCTION_NAME,true);
+}
+
+
