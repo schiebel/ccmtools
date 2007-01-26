@@ -427,3 +427,56 @@ int convert_intvec_from_int_compatible_sequence( PyObject *seq, void *s ) {
 
     return 1;
 }
+
+// --------------------------------------------------------------------------------
+//    StringVec polymorph
+// --------------------------------------------------------------------------------
+int is_string_compatible_single( const PyObject *element ) {
+    if ( PyString_Check(element) )
+	return 1;
+    return 0;
+}
+
+int is_string_compatible_sequence( const PyObject *seq ) {
+
+    if ( ! PyList_Check(seq) )
+	return 0;
+
+    for ( int i=0; i < PyList_Size((PyObject*)seq); ++i ) {
+	PyObject *element = PyList_GetItem((PyObject*)seq,i);
+	if ( ! (PyString_Check(element)) )
+	    return 0;
+    }
+    return 1;
+}
+
+int convert_stringvec_from_string_compatible_single( PyObject *element, void *s ) {
+
+    std::vector<std::string> *vec = (std::vector<int>*) s;
+    (*vec).resize(1);
+
+    if (PyString_Check(element))
+	(*vec)[0] = PyString_AsString(element);
+    else
+	(*vec)[0] = "";
+
+    return 1;
+}
+
+int convert_stringvec_from_string_compatible_sequence( PyObject *seq, void *s ) {
+
+    if ( ! PyList_Check(seq) )
+	return 0;
+
+    std::vector<int> *vec = (std::vector<int>*) s;
+    (*vec).resize(PyList_Size(seq));
+    for ( int i=0; i < PyList_Size(seq); ++i ) {
+	PyObject *element = PyList_GetItem(seq,i);
+	if (PyString_Check(element))
+	    (*vec)[i] = PyString_AsString(element);
+	else
+	    (*vec)[i] = (int) 0;
+    }
+
+    return 1;
+}

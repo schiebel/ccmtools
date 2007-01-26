@@ -120,4 +120,9 @@ int is_int_compatible_sequence( const PyObject *o );
 int convert_intvec_from_int_compatible_single( PyObject *obj, void *s );
 int convert_intvec_from_int_compatible_sequence( PyObject *obj, void *s );
 
+int is_string_compatible_single( const PyObject *o );
+int is_string_compatible_sequence( const PyObject *o );
+int convert_stringvec_from_string_compatible_single( PyObject *obj, void *s );
+int convert_stringvec_from_string_compatible_sequence( PyObject *obj, void *s );
+
 #endif
