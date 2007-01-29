@@ -78,18 +78,20 @@ inline PyObject* convert_long_longvec_to_python_single( const std::vector<long l
 		{ return v.size() >= 1 ? convert_long_long_to_python(v[0]) : convert_long_long_to_python(0); }
 inline PyObject* convert_floatvec_to_python_single( const std::vector<float> &v )
 		{ return v.size() >= 1 ? convert_float_to_python(v[0]) : convert_float_to_python(0); }
-inline PyObject* convert_stringvec_to_python_single( const std::vector<std::string> &v )
-		{ return v.size() >= 1 ? convert_string_to_python(v[0]) : convert_string_to_python(""); }
 inline PyObject* convert_booleanvec_to_python_single( const std::vector<bool> &v )
 		{ return v.size() >= 1 ? convert_boolean_to_python(v[0]) : convert_boolean_to_python(false); }
 inline PyObject* convert_longvec_to_python_single( const std::vector<long> &v )
 		{ return v.size() >= 1 ? convert_double_to_python((double)v[0]) : convert_double_to_python(0); }
 #endif
+
 inline PyObject* convert_doublevec_to_python_single( const std::vector<double> &v )
 		{ return v.size() >= 1 ? convert_double_to_python(v[0]) : convert_double_to_python(0); }
 
 inline PyObject* convert_intvec_to_python_single( const std::vector<int> &v )
 		{ return v.size() >= 1 ? convert_int_to_python(v[0]) : convert_int_to_python(0); }
+
+inline PyObject* convert_stringvec_to_python_single( const std::vector<std::string> &v )
+		{ return v.size() >= 1 ? convert_string_to_python(v[0]) : convert_string_to_python(""); }
 
 #if 0
 int convert_intvec_from_python_single( PyObject *obj, void *s );
