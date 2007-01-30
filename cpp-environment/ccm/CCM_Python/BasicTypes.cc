@@ -468,14 +468,14 @@ int convert_stringvec_from_string_compatible_sequence( PyObject *seq, void *s ) 
     if ( ! PyList_Check(seq) )
 	return 0;
 
-    std::vector<int> *vec = (std::vector<int>*) s;
+    std::vector<std::string> *vec = (std::vector<std::string>*) s;
     (*vec).resize(PyList_Size(seq));
     for ( int i=0; i < PyList_Size(seq); ++i ) {
 	PyObject *element = PyList_GetItem(seq,i);
 	if (PyString_Check(element))
 	    (*vec)[i] = PyString_AsString(element);
 	else
-	    (*vec)[i] = (int) 0;
+	    (*vec)[i] = "";
     }
 
     return 1;
