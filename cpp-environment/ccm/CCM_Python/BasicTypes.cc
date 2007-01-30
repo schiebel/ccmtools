@@ -452,7 +452,7 @@ int is_string_compatible_sequence( const PyObject *seq ) {
 
 int convert_stringvec_from_string_compatible_single( PyObject *element, void *s ) {
 
-    std::vector<std::string> *vec = (std::vector<int>*) s;
+    std::vector<std::string> *vec = (std::vector<std::string>*) s;
     (*vec).resize(1);
 
     if (PyString_Check(element))
