@@ -1,3 +1,3 @@
     PyTypeObject *%(Identifier)s_type_ = %(Identifier)s_init( );
-    PyModule_AddObject( m, "%(Identifier)s", (PyObject*) %(Identifier)s_type_ );
+    if ( %(Identifier)s_type_ ) PyModule_AddObject( m, "%(Identifier)s", (PyObject*) %(Identifier)s_type_ );
     %(CodaExport)s

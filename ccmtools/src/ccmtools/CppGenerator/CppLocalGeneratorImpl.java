@@ -528,6 +528,7 @@ public class CppLocalGeneratorImpl extends CppGenerator
             	wvars.put(getScopeID("Catch"), "");
             }
             
+            String ot = getBaseIdlType(idl_op_type);
             if (idl_op_type instanceof MPrimitiveDef &&
             		((MPrimitiveDef) idl_op_type).getKind() == MPrimitiveKind.PK_ANY) {
             		String op_type = coda.getAnyType(operation.getDefinedIn().getIdentifier(),operation.getIdentifier());
@@ -539,6 +540,17 @@ public class CppLocalGeneratorImpl extends CppGenerator
             			wvars.put(getScopeID("Convert"),to.get("func"));
             		} else
             			wvars.put(getScopeID("Convert"), "");
+            } else if ( !(idl_op_type instanceof MPrimitiveDef) &&
+            			coda.translateType(ot,"coda") != null) {
+            		vars.put("LanguageTypeCoda", coda.translateType(ot,"coda") + "*");
+            		Map conversion = coda.getConversionInfo(ot,"coda");
+            		if (! conversion.isEmpty() && conversion.containsKey("type") &&
+            			conversion.containsKey("to") && conversion.containsKey("from")) {
+            		Map to = (Map) (((List)conversion.get("to")).get(0));
+            		wvars.put(getScopeID("Convert"),to.get("func"));
+        		} else
+        			wvars.put(getScopeID("Convert"), "");
+	
             } else {
             		vars.put("LanguageTypeCoda", getLanguageTypeStd(operation));
             		wvars.put(getScopeID("Convert"), "");
@@ -616,6 +628,18 @@ public class CppLocalGeneratorImpl extends CppGenerator
     			}
     			return "  " + sd.getIdentifier() + "(" + Text.join(", ",args) + ")" +
     					" : " + Text.join(", ",inits) + " { }";
+    		} else if (variable.equals("MacroDefs")) {
+    			if ((flags & FLAG_CODA_INFO) == 0) 
+    				return "";
+    			Map macros = coda.getMacros();
+    			Iterator keys = macros.keySet().iterator();
+    			List result = new ArrayList();
+    			while (keys.hasNext()) {
+    				String key = (String) keys.next();
+    				String val = (String) macros.get(key);
+    				result.add("#define " + key + (val != null ? " " + val : ""));
+    			}
+    			return join("\n", result);
     		}
 //    		if ((flags & FLAG_CODA_INFO) != 0 &&
 //    				variable.equals("LanguageTypeInclude")) {

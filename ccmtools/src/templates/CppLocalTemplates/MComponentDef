@@ -583,8 +583,8 @@ CCM_%(Identifier)s_impl::ccm_remove()
  * @version 
  ***/
 
-#ifndef _%(Identifier)s_cpnt__H__
-#define _%(Identifier)s_cpnt__H__
+#ifndef _%(Identifier)s_cmpt__H__
+#define _%(Identifier)s_cmpt__H__
 
 #include <vector>
 #include <impl/%(Module)s/%(Module)s.h>

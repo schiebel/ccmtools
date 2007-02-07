@@ -17,6 +17,7 @@ public abstract class CodaManager implements CodaHandler {
 	abstract public void setInputSource(String source);
 	abstract public Map getPolymorphInfo(String type, String target);
 	abstract public Map getExports( );
+	abstract public Map getMacros( );
 	abstract public String translateType(String type, String target);
 	abstract public Map getInclude(String type, String target, String include_use);
 	abstract public String getTie(String tie_type, String component, String name);

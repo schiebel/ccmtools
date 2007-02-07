@@ -7,6 +7,8 @@
 #include <stdarg.h>
 #include <vector>
 
+%(MacroDefs)s
+
 namespace %(Module)s {
 
     template<class T>
@@ -25,4 +27,5 @@ namespace %(Module)s {
 } // %(Module)s namespace
 
 #endif
+
 

@@ -40,6 +40,7 @@ public class XMLFileManager extends CodaManager {
 	private static Map polymorphs = new HashMap();
 	private static Map any_conversions = new HashMap();
 	private static Map exports = new HashMap();
+	private static Map macros = new HashMap();
 	private static List loaded = new ArrayList( );
 	private static Map privates = new HashMap();
 	private static Map substitute = new HashMap();
@@ -425,6 +426,10 @@ public class XMLFileManager extends CodaManager {
 		return exports;
 	}
 	
+	public Map getMacros( ) {
+		return macros;
+	}
+	
 	public String translateType(String type, String target) {
 		if (conversions.containsKey(type)) {
 			Map type_map = (Map) conversions.get(type);
@@ -644,6 +649,10 @@ public class XMLFileManager extends CodaManager {
 				if (attr.getValue("type").length() > 0 &&
 						attr.getValue("name").length() > 0) {
 					exports.put(attr.getValue("type"), attr.getValue("name"));
+				}
+			} else if (new_element.equals("macro")) {
+				if (attr.getValue("name").length() > 0) {
+					macros.put(attr.getValue("name"), attr.getValue("value"));
 				}
 			} else if (new_element.equals("polymorph") ||
 						new_element.equals("conversion") ||

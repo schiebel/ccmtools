@@ -14,6 +14,7 @@ public interface CodaHandler {
 	String getCodeInfo(String type,String section);
 	Map getPolymorphInfo(String type, String target);
 	Map getExports( );
+	Map getMacros( );
 	String translateType(String type, String target);
 	Map getInclude(String type, String target, String include_use);
 	void setInputSource(String source);

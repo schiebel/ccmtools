@@ -204,6 +204,7 @@ static PyObject *Py%(Identifier)s_exception = 0;
 PyTypeObject *%(Identifier)s_init( ) {
     if ( ! Py%(Identifier)s_exception )
 	Py%(Identifier)s_exception = PyErr_NewException("%(Identifier)s.error", NULL, NULL);
+    return 0;
 }
 
 int is_python_%(Identifier)s( PyObject *o ) {
@@ -224,7 +225,7 @@ int convert_%(Identifier)s_from_python( PyObject *obj, void *s ) {
     return %(CodaConversionToFunc)s(obj,s);
 }
 
-PyObject *convert_%(Identifier)s_to_python( const %(Identifier)s &from_ ) {
+PyObject *convert_%(Identifier)s_to_python( const ::%(LocalNamespace)s%(Identifier)s &from_ ) {
     return %(CodaConversionFromFunc)s(from_);
 }
 
