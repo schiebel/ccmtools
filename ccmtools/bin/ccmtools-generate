@@ -1,9 +1,10 @@
 #!/bin/bash
 
+JAVA_HOME="/usr"
+
 if [ -z "$CCMTOOLS_HOME" ]; then
 CCMTOOLS_LIB="/usr/share/java/ccmtools"
 CCMTOOLS_HOME="/usr"
-JAVA_HOME="/usr"
 else
 CCMTOOLS_LIB="$CCMTOOLS_HOME/lib"
 fi
