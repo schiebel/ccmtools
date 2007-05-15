@@ -19,17 +19,17 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import org.apache.xerces.parsers.SAXParser;
 
-import com.sleepycat.dbxml.XmlContainer;
-import com.sleepycat.dbxml.XmlDocumentConfig;
-import com.sleepycat.dbxml.XmlException;
-import com.sleepycat.dbxml.XmlManager;
-import com.sleepycat.dbxml.XmlModify;
-import com.sleepycat.dbxml.XmlQueryContext;
-import com.sleepycat.dbxml.XmlQueryExpression;
-import com.sleepycat.dbxml.XmlResults;
-import com.sleepycat.dbxml.XmlUpdateContext;
-import com.sleepycat.dbxml.XmlValue;
-import com.sleepycat.dbxml.XmlDocument;
+//import com.sleepycat.dbxml.XmlContainer;
+//import com.sleepycat.dbxml.XmlDocumentConfig;
+//import com.sleepycat.dbxml.XmlException;
+//import com.sleepycat.dbxml.XmlManager;
+//import com.sleepycat.dbxml.XmlModify;
+//import com.sleepycat.dbxml.XmlQueryContext;
+//import com.sleepycat.dbxml.XmlQueryExpression;
+//import com.sleepycat.dbxml.XmlResults;
+//import com.sleepycat.dbxml.XmlUpdateContext;
+//import com.sleepycat.dbxml.XmlValue;
+//import com.sleepycat.dbxml.XmlDocument;
 
 import ccmtools.utils.Text;
 
@@ -47,11 +47,11 @@ public class XMLFileManager extends CodaManager {
 	private static Map implement = new HashMap();
 
 	private static String export_file = null;
-	private static XmlManager export_mgr = null;
-	private static XmlContainer export_container = null;
+//	private static XmlManager export_mgr = null;
+//	private static XmlContainer export_container = null;
 	private static boolean export_aborted = false;
-	private static Map exported = null;
-	private static long state_index = 0;
+//	private static Map exported = null;
+//	private static long state_index = 0;
 	
 	private static class CodaFileReader extends FileReader {
 		public CodaFileReader(File file) throws FileNotFoundException { super(file); }
@@ -237,146 +237,146 @@ public class XMLFileManager extends CodaManager {
 	
 	public void exportDefault(String component, String op, String param, String xmldflt) {
 		
-		if (xmldflt == null || xmldflt.length() == 0)
-			xmldflt = "<value unset=\"true\"" + (param != null && param.length() > 0 ? " param=\"" + param + "\"" : "") + " />";
-
-		// export wasn't specified in coda setup file
-		if ( export_file == null ) return;
-
-		// database uninitialized
-		if ( export_container == null && export_aborted == false ) {
-			try {
-				export_mgr = new XmlManager();
-				File out = new File(export_file);
-				if (out.exists())
-					export_container = export_mgr.openContainer(export_file);
-				else
-					export_container = export_mgr.createContainer(export_file);
-			} catch (XmlException e) {
-				System.out.println(">>>> dbxml " + e.getMessage());
-				export_aborted = true;
-
-				if (export_mgr != null) {
-					try {
-						export_mgr.close();
-					} catch (XmlException e1) {  }
-					export_mgr = null;
-				}
-			} catch (FileNotFoundException e) {
-				export_aborted = true;
-				System.out.println(">>>> dbxml file does not exist");
-				
-				if (export_mgr != null) {
-					try {
-						export_mgr.close();
-					} catch (XmlException e1) { }
-					export_mgr = null;
-				}
-			}
-			
-			if (export_container != null) {
-				try {
-					XmlUpdateContext ucontext = export_mgr.createUpdateContext();
-					state_index += 1;
-					export_container.putDocument("casa-sig","<casasig><type>system</type><version>1</version></casasig>", ucontext, null);
-				} catch(XmlException e) {
-					System.out.println(">>>> error creating component \"" + component + "\" document in defaults db");
-				}
-			}
-		}
-		
-		
-
-		// add component document
-		if ( exported == null ) {
-			exported = new HashMap();
-		}
-		
-		if (exported.containsKey(component + "*" + op + "*" + param))
-			return;
-		
-		exported.put(component + "*" + op + "*" + param, "1");
-
-		try {
-			// do we have a node for this 'op'?
-			XmlQueryContext context = export_mgr.createQueryContext();
-			XmlQueryExpression expr = export_mgr.prepare("collection('" + export_file + "')/components/component[name='" + component + "']/methods/op[name='" + op + "']/param/state", context);
-			XmlResults opr = expr.execute(context);
-			
-			if (opr.hasNext()) {
-				// we need to append new param
-				context = export_mgr.createQueryContext();
-				XmlUpdateContext ucontext = export_mgr.createUpdateContext();
-				String qs = "/components/component[name='" + component + "']/methods/op[name='" + op + "']";
-				XmlQueryExpression select = export_mgr.prepare(qs, context);
-				XmlModify mod = export_mgr.createModify();
-				state_index += 1;
-				// here we use '0' as the "location" because we get the parameters in the reverse order
-				mod.addAppendStep(select,XmlModify.Element, "param", "<name>" + param + "</name><state>" + xmldflt + "<index>" + state_index +
-															"</index><invocation>0</invocation><tag>system</tag><tag>current</tag></state>", 0);
-				XmlDocument doc = export_container.getDocument(component);
-				XmlValue docval = new XmlValue(doc);
-				mod.execute(docval,context,ucontext);
-
-			} else {
-				context = export_mgr.createQueryContext();
-				expr = export_mgr.prepare("collection('" + export_file + "')/components/component[name='" + component + "']", context);
-				XmlResults cmr = expr.execute(context);
-				if (cmr.hasNext()) {
-					// we need to insert new op
-					XmlQueryContext scontext = export_mgr.createQueryContext();
-					XmlUpdateContext ucontext = export_mgr.createUpdateContext();
-					XmlQueryExpression select = export_mgr.prepare( "/components/component[name='" + component + "']/methods", scontext );
-					XmlModify mod = export_mgr.createModify();
-					state_index += 1;
-					mod.addAppendStep(select,XmlModify.Element, "op","<name>" + op + "</name><param><name>" + param + "</name><state>" + xmldflt + "<index>" + 
-															state_index + "</index><invocation>0</invocation><tag>system</tag><tag>current</tag></state></param>");
-					XmlDocument doc = export_container.getDocument(component);
-					XmlValue docval = new XmlValue(doc);
-					mod.execute(docval,scontext,ucontext);
-				} else {
-					// we need to insert new component
-					try {
-						XmlUpdateContext ucontext = export_mgr.createUpdateContext();
-						state_index += 1;
-						export_container.putDocument(component,"<components><component><name>" + component + "</name>" + 
-														"<invocation_count>0</invocation_count>" +
-														"<methods><op><name>" + op + "</name>" + 
-														"<param><name>" + param + "</name>" + 
-														"<state>" + xmldflt + "<index>" + state_index + "</index>" + 
-														"<invocation>0</invocation><tag>system</tag><tag>current</tag></state></param></op></methods></component></components>", ucontext, null);
-					} catch(XmlException e) {
-						System.out.println(">>>> error creating component \"" + component + "\" document in defaults db");
-					}
-				}
-			}
-		} catch (XmlException e) {
-			System.out.println(">>>> dbxml " + e.getMessage());
-		}	
+//		if (xmldflt == null || xmldflt.length() == 0)
+//			xmldflt = "<value unset=\"true\"" + (param != null && param.length() > 0 ? " param=\"" + param + "\"" : "") + " />";
+//
+//		// export wasn't specified in coda setup file
+//		if ( export_file == null ) return;
+//
+//		// database uninitialized
+//		if ( export_container == null && export_aborted == false ) {
+//			try {
+//				export_mgr = new XmlManager();
+//				File out = new File(export_file);
+//				if (out.exists())
+//					export_container = export_mgr.openContainer(export_file);
+//				else
+//					export_container = export_mgr.createContainer(export_file);
+//			} catch (XmlException e) {
+//				System.out.println(">>>> dbxml " + e.getMessage());
+//				export_aborted = true;
+//
+//				if (export_mgr != null) {
+//					try {
+//						export_mgr.close();
+//					} catch (XmlException e1) {  }
+//					export_mgr = null;
+//				}
+//			} catch (FileNotFoundException e) {
+//				export_aborted = true;
+//				System.out.println(">>>> dbxml file does not exist");
+//				
+//				if (export_mgr != null) {
+//					try {
+//						export_mgr.close();
+//					} catch (XmlException e1) { }
+//					export_mgr = null;
+//				}
+//			}
+//			
+//			if (export_container != null) {
+//				try {
+//					XmlUpdateContext ucontext = export_mgr.createUpdateContext();
+//					state_index += 1;
+//					export_container.putDocument("casa-sig","<casasig><type>system</type><version>1</version></casasig>", ucontext, null);
+//				} catch(XmlException e) {
+//					System.out.println(">>>> error creating component \"" + component + "\" document in defaults db");
+//				}
+//			}
+//		}
+//		
+//		
+//
+//		// add component document
+//		if ( exported == null ) {
+//			exported = new HashMap();
+//		}
+//		
+//		if (exported.containsKey(component + "*" + op + "*" + param))
+//			return;
+//		
+//		exported.put(component + "*" + op + "*" + param, "1");
+//
+//		try {
+//			// do we have a node for this 'op'?
+//			XmlQueryContext context = export_mgr.createQueryContext();
+//			XmlQueryExpression expr = export_mgr.prepare("collection('" + export_file + "')/components/component[name='" + component + "']/methods/op[name='" + op + "']/param/state", context);
+//			XmlResults opr = expr.execute(context);
+//			
+//			if (opr.hasNext()) {
+//				// we need to append new param
+//				context = export_mgr.createQueryContext();
+//				XmlUpdateContext ucontext = export_mgr.createUpdateContext();
+//				String qs = "/components/component[name='" + component + "']/methods/op[name='" + op + "']";
+//				XmlQueryExpression select = export_mgr.prepare(qs, context);
+//				XmlModify mod = export_mgr.createModify();
+//				state_index += 1;
+//				// here we use '0' as the "location" because we get the parameters in the reverse order
+//				mod.addAppendStep(select,XmlModify.Element, "param", "<name>" + param + "</name><state>" + xmldflt + "<index>" + state_index +
+//															"</index><invocation>0</invocation><tag>system</tag><tag>current</tag></state>", 0);
+//				XmlDocument doc = export_container.getDocument(component);
+//				XmlValue docval = new XmlValue(doc);
+//				mod.execute(docval,context,ucontext);
+//
+//			} else {
+//				context = export_mgr.createQueryContext();
+//				expr = export_mgr.prepare("collection('" + export_file + "')/components/component[name='" + component + "']", context);
+//				XmlResults cmr = expr.execute(context);
+//				if (cmr.hasNext()) {
+//					// we need to insert new op
+//					XmlQueryContext scontext = export_mgr.createQueryContext();
+//					XmlUpdateContext ucontext = export_mgr.createUpdateContext();
+//					XmlQueryExpression select = export_mgr.prepare( "/components/component[name='" + component + "']/methods", scontext );
+//					XmlModify mod = export_mgr.createModify();
+//					state_index += 1;
+//					mod.addAppendStep(select,XmlModify.Element, "op","<name>" + op + "</name><param><name>" + param + "</name><state>" + xmldflt + "<index>" + 
+//															state_index + "</index><invocation>0</invocation><tag>system</tag><tag>current</tag></state></param>");
+//					XmlDocument doc = export_container.getDocument(component);
+//					XmlValue docval = new XmlValue(doc);
+//					mod.execute(docval,scontext,ucontext);
+//				} else {
+//					// we need to insert new component
+//					try {
+//						XmlUpdateContext ucontext = export_mgr.createUpdateContext();
+//						state_index += 1;
+//						export_container.putDocument(component,"<components><component><name>" + component + "</name>" + 
+//														"<invocation_count>0</invocation_count>" +
+//														"<methods><op><name>" + op + "</name>" + 
+//														"<param><name>" + param + "</name>" + 
+//														"<state>" + xmldflt + "<index>" + state_index + "</index>" + 
+//														"<invocation>0</invocation><tag>system</tag><tag>current</tag></state></param></op></methods></component></components>", ucontext, null);
+//					} catch(XmlException e) {
+//						System.out.println(">>>> error creating component \"" + component + "\" document in defaults db");
+//					}
+//				}
+//			}
+//		} catch (XmlException e) {
+//			System.out.println(">>>> dbxml " + e.getMessage());
+//		}	
 	}
 	
 	public void close( ) {
-		try {
-			if (export_container != null) {
-				// save our index
-				XmlQueryContext scontext = export_mgr.createQueryContext();
-				XmlUpdateContext ucontext = export_mgr.createUpdateContext();
-				XmlQueryExpression select = export_mgr.prepare( "/casasig", scontext );
-				XmlModify mod = export_mgr.createModify();
-				state_index += 1;
-				mod.addAppendStep(select,XmlModify.Element, "index",String.valueOf(state_index));
-				XmlDocument doc = export_container.getDocument("casa-sig");
-				XmlValue docval = new XmlValue(doc);
-				mod.execute(docval,scontext,ucontext);
-
-				export_container.close();
-			}
-			if (export_mgr != null)
-				export_mgr.close();
-		} catch (XmlException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			if (export_container != null) {
+//				// save our index
+//				XmlQueryContext scontext = export_mgr.createQueryContext();
+//				XmlUpdateContext ucontext = export_mgr.createUpdateContext();
+//				XmlQueryExpression select = export_mgr.prepare( "/casasig", scontext );
+//				XmlModify mod = export_mgr.createModify();
+//				state_index += 1;
+//				mod.addAppendStep(select,XmlModify.Element, "index",String.valueOf(state_index));
+//				XmlDocument doc = export_container.getDocument("casa-sig");
+//				XmlValue docval = new XmlValue(doc);
+//				mod.execute(docval,scontext,ucontext);
+//
+//				export_container.close();
+//			}
+//			if (export_mgr != null)
+//				export_mgr.close();
+//		} catch (XmlException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	public Map getAnyInfo(String transform_id, String target) {
