@@ -221,7 +221,9 @@ public class PythonTemplateManagerImpl
         		File src_dir = (File) src.next();
         		String[] candidates = src_dir.list();
 
-			System.err.println(">>>>>>>>>> " + candidates + "\n");
+			if ( candidates == null ) {
+			    System.err.println(">>>>>>>>>> " + node_type + "\n");
+			}
         		for (int i = 0; i < candidates.length; i++) {
         			File file = new File(src_dir, candidates[i]);
         			if (file.getName().startsWith(node_type)) {
