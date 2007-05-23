@@ -557,7 +557,7 @@ public class CppLocalGeneratorImpl extends CppGenerator
             }
 
             Template t = template_manager.getTemplate((idl_op_type instanceof MInterfaceDef ? "WrapperForwardCmptResult" : "WrapperForward"), current_name);
-	    System.err.println(">>>>>>>>>> " + vars + " - " + t + " - " + wvvars + "\n";
+	    System.err.println(">>>>>>>>>> " + vars + " - " + t + " - " + wvvars + "\n");
             vars.put("WrapperForward", t.substituteVariables(wvars));
         		
             if (idl_op_type instanceof MInterfaceDef) {
