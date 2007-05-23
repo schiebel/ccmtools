@@ -222,6 +222,7 @@ public class PythonTemplateManagerImpl
         		String[] candidates = src_dir.list();
 
 			if ( candidates == null ) {
+			    System.err.println("********>> " + src_dir.getPath() + "\n");
 			    System.err.println(">>>>>>>>>> " + node_type + "\n");
 			}
         		for (int i = 0; i < candidates.length; i++) {
