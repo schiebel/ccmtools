@@ -5,6 +5,7 @@
   <property name="prefix" location="${destroot}" />
   <property name="srcdir" value="." />
   <property name="pythonroot" value="${prefix}" />
+  <property name="pythonlibdir" value="${pythonroot}/lib" />
   <property name="pythonversion" value="2.5" />
   <property name="iflags" value="-I${destroot}/include -I/opt/local/include" />
   <property name="cflags" value="-g -fPIC -DHAVE_SSTREAM -DHAVE_MICO" />
@@ -78,7 +79,7 @@
   <property name="CCM_Python.dir.root" location="${srcdir}/ccm/CCM_Python" />
   <property name="CCM_Python.incdir.root" location="${destroot}/include/CCM_Python" />
   <property name="CCM_Python.lib.root" location="${destroot}/lib/libCCM_Python" />
-  <property name="CCM_Python.link.root" value="-L${pythonroot}/lib -Wl,-rpath -Wl,${pythonroot}/lib -lpython${pythonversion}" />
+  <property name="CCM_Python.link.root" value="-L${pythonlibdir} -Wl,-rpath -Wl,${pythonlibdir} -lpython${pythonversion}" />
 
   <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
   <!-- :::  Run generator on IDL files                                         ::: -->
