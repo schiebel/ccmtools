@@ -17,7 +17,7 @@ class Py {
 		std::string message_;
 	};
 
-	~Py( );
+	virtual ~Py( );
 	Py( );
 
 	virtual void lock( );
