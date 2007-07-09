@@ -7,6 +7,8 @@
   <property name="pythonroot" value="${prefix}" />
   <property name="pythonlibdir" value="${pythonroot}/lib" />
   <property name="pythonversion" value="2.5" />
+  <property name="micoroot" value="/opt/local" />
+  <property name="micoversion" value="2.3.11" />
   <property name="iflags" value="-I${destroot}/include -I/opt/local/include" />
   <property name="cflags" value="-g -fPIC -DHAVE_SSTREAM -DHAVE_MICO" />
   <property name="c++" value="c++ ${iflags} ${cflags}" />
@@ -63,7 +65,7 @@
   <property name="CCM_Local.link.LocalComponents" value="" />
 
   <property name="CCM_Remote.subdirs" value="RemoteComponents,SessionContainer" />
-  <property name="CCM_Remote.iflags" value="" />
+  <property name="CCM_Remote.iflags" value="-I${micoroot}/include" />
   <property name="CCM_Remote.dir.RemoteComponents" location="${srcdir}/ccm/CCM_Remote/RemoteComponents" />
   <property name="CCM_Remote.dir.SessionContainer" location="${srcdir}/ccm/CCM_Remote/SessionContainer" />
   <property name="CCM_Remote.incdir.SessionContainer" location="${destroot}/include/CCM_Remote" />
@@ -71,8 +73,8 @@
   <property name="CCM_Remote.incdir.RemoteComponents" location="${destroot}/include/Components" />
   <property name="CCM_Remote.lib.SessionContainer" location="${destroot}/lib/libCCM_Remote_SessionContainer" />
   <property name="CCM_Remote.lib.RemoteComponents" location="${destroot}/lib/libCCM_Remote_RemoteComponents" />
-  <property name="CCM_Remote.link.SessionContainer" value="-L${destroot}/lib -L/opt/local/lib -lCCM_Remote_RemoteComponents -lmico2.3.11 -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
-  <property name="CCM_Remote.link.RemoteComponents" value="-L/opt/local/lib -lmico2.3.11" />
+  <property name="CCM_Remote.link.SessionContainer" value="-L${destroot}/lib -L${micoroot}/lib -lCCM_Remote_RemoteComponents -lmico${micoversion} -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
+  <property name="CCM_Remote.link.RemoteComponents" value="-L${micoroot}/lib -lmico${micoversion}" />
 
   <property name="CCM_Python.subdirs" value="root" />
   <property name="CCM_Python.iflags" value="-I${pythonroot}/include/python${pythonversion}" />
