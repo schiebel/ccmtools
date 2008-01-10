@@ -3,9 +3,9 @@
 
   <property name="destroot" location="root" />
   <property name="prefix" location="${destroot}" />
+  <property name="lib" value="lib" />
   <property name="srcdir" value="." />
   <property name="pythonroot" value="${prefix}" />
-  <property name="pythonlibdir" value="${pythonroot}/lib" />
   <property name="pythonversion" value="2.5" />
   <property name="micoroot" value="/opt/local" />
   <property name="micoversion" value="2.3.11" />
@@ -44,13 +44,13 @@
   <property name="WX_Utils.incdir.error" location="${destroot}/include/WX/Utils" />
   <property name="WX_Utils.incdir.types" location="${destroot}/include/WX/Utils" />
   <property name="WX_Utils.incdir.measure" location="${destroot}/include/WX/Utils" />
-  <property name="WX_Utils.lib.code" location="${destroot}/lib/libWX_Utils_code" />
-  <property name="WX_Utils.lib.types" location="${destroot}/lib/libWX_Utils_types" />
-  <property name="WX_Utils.lib.error" location="${destroot}/lib/libWX_Utils_error" />
-  <property name="WX_Utils.lib.measure" location="${destroot}/lib/libWX_Utils_measurement" />
+  <property name="WX_Utils.lib.code" location="${destroot}/${lib}/libWX_Utils_code" />
+  <property name="WX_Utils.lib.types" location="${destroot}/${lib}/libWX_Utils_types" />
+  <property name="WX_Utils.lib.error" location="${destroot}/${lib}/libWX_Utils_error" />
+  <property name="WX_Utils.lib.measure" location="${destroot}/${lib}/libWX_Utils_measurement" />
   <property name="WX_Utils.link.code" value="" />
-  <property name="WX_Utils.link.error" value="-L${destroot}/lib -lWX_Utils_code" />
-  <property name="WX_Utils.link.types" value="-L${destroot}/lib -lWX_Utils_error -lWX_Utils_code" />
+  <property name="WX_Utils.link.error" value="-L${destroot}/${lib} -lWX_Utils_code" />
+  <property name="WX_Utils.link.types" value="-L${destroot}/${lib} -lWX_Utils_error -lWX_Utils_code" />
   <property name="WX_Utils.link.measure" value="" />
 
   <property name="CCM_Local.subdirs" value="HomeFinder,LocalComponents" />
@@ -59,9 +59,9 @@
   <property name="CCM_Local.dir.LocalComponents" location="${srcdir}/ccm/CCM_Local/LocalComponents" />
   <property name="CCM_Local.incdir.HomeFinder" location="${destroot}/include/CCM_Local" />
   <property name="CCM_Local.incdir.LocalComponents" location="${destroot}/include/LocalComponents" />
-  <property name="CCM_Local.lib.HomeFinder" location="${destroot}/lib/libCCM_Local_HomeFinder" />
-  <property name="CCM_Local.lib.LocalComponents" location="${destroot}/lib/libCCM_Local_LocalComponents" />
-  <property name="CCM_Local.link.HomeFinder" value="-L${destroot}/lib -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
+  <property name="CCM_Local.lib.HomeFinder" location="${destroot}/${lib}/libCCM_Local_HomeFinder" />
+  <property name="CCM_Local.lib.LocalComponents" location="${destroot}/${lib}/libCCM_Local_LocalComponents" />
+  <property name="CCM_Local.link.HomeFinder" value="-L${destroot}/${lib} -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
   <property name="CCM_Local.link.LocalComponents" value="" />
 
   <property name="CCM_Remote.subdirs" value="RemoteComponents,SessionContainer" />
@@ -71,17 +71,17 @@
   <property name="CCM_Remote.incdir.SessionContainer" location="${destroot}/include/CCM_Remote" />
   <property name="CCM_Remote.incdir.SessionContainer.CCMContainer.h" location="${destroot}/include/CCM" />
   <property name="CCM_Remote.incdir.RemoteComponents" location="${destroot}/include/Components" />
-  <property name="CCM_Remote.lib.SessionContainer" location="${destroot}/lib/libCCM_Remote_SessionContainer" />
-  <property name="CCM_Remote.lib.RemoteComponents" location="${destroot}/lib/libCCM_Remote_RemoteComponents" />
-  <property name="CCM_Remote.link.SessionContainer" value="-L${destroot}/lib -L${micoroot}/lib -lCCM_Remote_RemoteComponents -lmico${micoversion} -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
-  <property name="CCM_Remote.link.RemoteComponents" value="-L${micoroot}/lib -lmico${micoversion}" />
+  <property name="CCM_Remote.lib.SessionContainer" location="${destroot}/${lib}/libCCM_Remote_SessionContainer" />
+  <property name="CCM_Remote.lib.RemoteComponents" location="${destroot}/${lib}/libCCM_Remote_RemoteComponents" />
+  <property name="CCM_Remote.link.SessionContainer" value="-L${destroot}/${lib} -L${micoroot}/${lib} -lCCM_Remote_RemoteComponents -lmico${micoversion} -lWX_Utils_types -lWX_Utils_error -lWX_Utils_code" />
+  <property name="CCM_Remote.link.RemoteComponents" value="-L${micoroot}/${lib} -lmico${micoversion}" />
 
   <property name="CCM_Python.subdirs" value="root" />
   <property name="CCM_Python.iflags" value="-I${pythonroot}/include/python${pythonversion}" />
   <property name="CCM_Python.dir.root" location="${srcdir}/ccm/CCM_Python" />
   <property name="CCM_Python.incdir.root" location="${destroot}/include/CCM_Python" />
-  <property name="CCM_Python.lib.root" location="${destroot}/lib/libCCM_Python" />
-  <property name="CCM_Python.link.root" value="-L${pythonlibdir} -Wl,-rpath -Wl,${pythonlibdir} -lpython${pythonversion}" />
+  <property name="CCM_Python.lib.root" location="${destroot}/${lib}/libCCM_Python" />
+  <property name="CCM_Python.link.root" value="-L${pythonroot}/${lib} -Wl,-rpath -Wl,${pythonroot}/${lib} -lpython${pythonversion}" />
 
   <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
   <!-- :::  Run generator on IDL files                                         ::: -->
@@ -221,11 +221,11 @@
 	      <mapper type="merge" from="*.o" to="${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}"/>
 	      <sequential>
 		<shellscript shell="/bin/sh">
-		  mkdir -p ${destroot}/lib
+		  mkdir -p ${destroot}/${lib}
 		  ${ar} ${@{dir}.lib.@{tgt}}.a ${@{dir}.obj.@{tgt}}
 		  if [ -f ${@{dir}.lib.@{tgt}}.a ]; then ranlib ${@{dir}.lib.@{tgt}}.a; fi
 		  ${dylib} ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified} ${dylib.nameflag}${dylib.prefix.path}`basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}` ${@{dir}.obj.@{tgt}} ${@{dir}.link.@{tgt}}
-		  if [ -f ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified} ]; then (cd ${destroot}/lib;  ln -s `basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}` `basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.ext}`); fi
+		  if [ -f ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified} ]; then (cd ${destroot}/${lib};  ln -s `basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.qualified}` `basename ${@{dir}.lib.@{tgt}}.${dylib.suffix.ext}`); fi
 		</shellscript>
 	      </sequential>
 	    </outofdate>
