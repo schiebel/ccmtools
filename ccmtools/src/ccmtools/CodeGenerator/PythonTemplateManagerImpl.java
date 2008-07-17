@@ -22,18 +22,22 @@ package ccmtools.CodeGenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import ccmtools.Constants;
 import ccmtools.utils.Text;
+import java.lang.Runtime;
 
 public class PythonTemplateManagerImpl
     implements TemplateManager
 {
-    private List source;
+    private List<File> source;
+    private Map<String,List<Template>> template_cache = new HashMap<String,List<Template>>( );
 
     /**
      * Initialize the class instance by locating a likely directory for
@@ -47,7 +51,7 @@ public class PythonTemplateManagerImpl
         throws IOException
     {
     	
-    		source = new ArrayList();
+    		source = new ArrayList<File>();
     		int load_count = 1;
     		
     		System.out.println("Templates are loaded in the following order: ");
@@ -128,9 +132,9 @@ public class PythonTemplateManagerImpl
     public Set getVariables(String node_type)
     {
         Set ret = new HashSet();
-        List templates = loadTemplates(node_type);
-        for (Iterator i = templates.iterator(); i.hasNext(); ) {
-            Set variables = ((Template) i.next()).findVariables();
+        List<Template> templates = loadTemplates(node_type);
+        for (Iterator<Template> i = templates.iterator(); i.hasNext(); ) {
+            Set variables = i.next().findVariables();
             for (Iterator j = variables.iterator(); j.hasNext(); ) {
                 ret.add(j.next());
             }
@@ -157,7 +161,7 @@ public class PythonTemplateManagerImpl
      */
     public Template getTemplate(String node_type, String scope_id)
     {
-        Template template = getRawTemplate(node_type, scopeIdToFileName(scope_id));
+    	Template template = getRawTemplate(node_type, scopeIdToFileName(scope_id));
         if (template == null) {
             return null;
         } else {
@@ -191,9 +195,9 @@ public class PythonTemplateManagerImpl
      */
     public Template getRawTemplate(String node_type, String scope)
     {
-        List templates = loadTemplates(node_type);
-        for (Iterator i = templates.iterator(); i.hasNext(); ) {
-            Template template = (PythonTemplateImpl) i.next();
+        List<Template> templates = loadTemplates(node_type);
+        for (Iterator<Template> i = templates.iterator(); i.hasNext(); ) {
+            Template template = i.next();
             if (template.getName().equals(node_type) ||
             		template.getName().equals(node_type + "_" + scope)) {
                 return template;
@@ -213,23 +217,45 @@ public class PythonTemplateManagerImpl
      *                  library, i.e. a string starting with 'M' and ending with
      *                  'Def'.
      * @return  a (possibly empty) set of Template objects.
+     * @throws IOException 
      */
-    private List loadTemplates(String node_type)
+    private List<Template> loadTemplates(String node_type)
     {
-        List ret = new ArrayList();        
-        for(Iterator src = source.iterator(); src.hasNext();) {
-        		File src_dir = (File) src.next();
-        		String[] candidates = src_dir.list();
+        List<Template> ret = new ArrayList<Template>();
+        if ( template_cache.containsKey(node_type) ) {
+        	List<Template> value = template_cache.get(node_type);
+        	for ( Iterator<Template> i = value.iterator(); i.hasNext(); ) {
+        		ret.add(new PythonTemplateImpl((PythonTemplateImpl) i.next()));
+        	}
+        	return ret;
+        }
+        for(Iterator<File> src = source.iterator(); src.hasNext(); ) {
+        		File src_dir = src.next();
+         		String[] candidates = src_dir.list();
+         		if ( candidates == null ) {
+         			Runtime rt = Runtime.getRuntime();
+         			System.err.println("System IO error: directory listing failed");
+         			rt.halt(1);
+         		}
 
         		for (int i = 0; i < candidates.length; i++) {
         			File file = new File(src_dir, candidates[i]);
         			if (file.getName().startsWith(node_type)) {
+        				// Can throw IOException
         				try {
-        					ret.add(new PythonTemplateImpl(file));
-       				} catch (IOException e) {	 }
+							ret.add(new PythonTemplateImpl(file));
+						} catch (IOException e) {
+							System.err.println("Template creation for \"" + file + "\" failed");
+							e.printStackTrace(System.err);
+						}
         			}
         		}
         }
+        List<Template> nlist = new ArrayList<Template>();
+     	for ( Iterator<Template> i = ret.iterator(); i.hasNext(); ) {
+    		nlist.add(new PythonTemplateImpl((PythonTemplateImpl) i.next()));
+    	}
+        template_cache.put(node_type,nlist);
         return ret;
     }
 }

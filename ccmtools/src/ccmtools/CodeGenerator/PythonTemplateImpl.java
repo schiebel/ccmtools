@@ -59,7 +59,7 @@ public class PythonTemplateImpl
     private final static Pattern scoped_key_regex =
         Pattern.compile("%\\((\\w[\\w:]+)\\)s");
 
-    private Set variables;
+    private Set<String> variables;
     private String name;
     private String template;
 
@@ -97,6 +97,18 @@ public class PythonTemplateImpl
     }
 
     /**
+     * Copy constructor
+     * 
+     * @param other object to be copied
+     */
+    public PythonTemplateImpl( PythonTemplateImpl other )
+    {
+    	name = new String(other.name);
+    	template= new String(other.template);
+    	variables = new HashSet<String>(other.variables);
+    }
+
+	/**
      * Simple access function for name.
      *
      * @return the name of the file that the current template was loaded from.
@@ -121,12 +133,12 @@ public class PythonTemplateImpl
      *
      * @return a collection of variables found in this template.
      */
-    public Set findVariables()
+    public Set<String> findVariables()
     {
         if (variables != null) {
             return variables;
         } else {
-            Set ret = new HashSet();
+            Set<String> ret = new HashSet<String>();
             Matcher m = key_regex.matcher(template);
             while (m.find()) {
                 ret.add(m.group(1));
@@ -146,8 +158,8 @@ public class PythonTemplateImpl
      */
     public void scopeVariables(String scope_id)
     {
-        for (Iterator i = variables.iterator(); i.hasNext(); ) {
-            String var  = (String) i.next();
+        for (Iterator<String> i = variables.iterator(); i.hasNext(); ) {
+            String var  = i.next();
             String from = "%\\(" + var + "\\)s";
             String to   = "%(" + scope_id + "::" + var + ")s";
             template = template.replaceAll(from, to);

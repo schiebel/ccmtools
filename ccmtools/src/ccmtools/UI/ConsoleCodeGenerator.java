@@ -211,7 +211,7 @@ public class ConsoleCodeGenerator
                 catch(Exception e) {
                     System.err.println("Error generating code from " 
                                        + source + ":\n" + e);
-		    e.printStackTrace();
+                    e.printStackTrace(System.err);
                     return;
                 }
 
