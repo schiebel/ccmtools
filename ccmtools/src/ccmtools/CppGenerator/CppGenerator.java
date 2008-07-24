@@ -77,6 +77,7 @@ abstract public class CppGenerator extends CodeGenerator
 {
 
 	protected final static String long_type = "int";
+	protected final static String long_type_python_flag = "i";
 
     // reserved words in C++. identifiers that contain these words will be
     // mapped to new identifiers.

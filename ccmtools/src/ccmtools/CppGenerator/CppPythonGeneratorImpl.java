@@ -94,29 +94,29 @@ public class CppPythonGeneratorImpl
     private Map flag_mappings;
     private final static String[] flag_set = { 
             "", 
-            "O&",			// PK_ANY
-            "i",				// PK_BOOLEAN
-            "b",				// PK_CHAR
-            "d",				// PK_DOUBLE
-            "",				// PK_FIXED
-            "f",				// PK_FLOAT
-            "l",				// PK_LONG
-            "d",				// PK_LONGDOUBLE
-            "l",				// PK_LONGLONG
-            "",				// PK_NULL
-            "",				// PK_OBJREF
-            "i",				// PK_OCTET
-            "",				// PK_PRINCIPAL
-            "h",				// PK_SHORT
-            "s",				// PK_STRING
-            "",				// PK_TYPECODE
-            "k",				// PK_ULONG
-            "K",				// PK_ULONGLONG
-            "H",				// PK_USHORT
-            "",				// PK_VALUEBASE
-            "",				// PK_VOID
-            "",				// PK_WCHAR
-            ""				// PK_WSTRING
+            "O&",					// PK_ANY
+            "i",					// PK_BOOLEAN
+            "b",					// PK_CHAR
+            "d",					// PK_DOUBLE
+            "",						// PK_FIXED
+            "f",					// PK_FLOAT
+            long_type_python_flag,	// PK_LONG
+            "d",					// PK_LONGDOUBLE
+            "l",					// PK_LONGLONG
+            "",						// PK_NULL
+            "",						// PK_OBJREF
+            "i",					// PK_OCTET
+            "",						// PK_PRINCIPAL
+            "h",					// PK_SHORT
+            "s",					// PK_STRING
+            "",						// PK_TYPECODE
+            "k",					// PK_ULONG
+            "K",					// PK_ULONGLONG
+            "H",					// PK_USHORT
+            "",						// PK_VALUEBASE
+            "",						// PK_VOID
+            "",						// PK_WCHAR
+            ""						// PK_WSTRING
     };
 
     /**
@@ -125,28 +125,28 @@ public class CppPythonGeneratorImpl
     private Map type_mappings;
     private final static String[] type_set = { 
             "", 
-            "::WX::Utils::Value *",					// PK_ANY
-            "bool",									// PK_BOOLEAN
-            "char",									// PK_CHAR
+            "::WX::Utils::Value *",						// PK_ANY
+            "bool",										// PK_BOOLEAN
+            "char",										// PK_CHAR
             "double",									// PK_DOUBLE
             "(fixed data type not implemented)",		// PK_FIXED
             "float",									// PK_FLOAT
-            long_type,								// PK_LONG
+            long_type,									// PK_LONG
             "double",									// PK_LONGDOUBLE
-            "long",									// PK_LONGLONG
-            "NULL",									// PK_NULL
-            "",										// PK_OBJREF
+            "long",										// PK_LONGLONG
+            "NULL",										// PK_NULL
+            "",											// PK_OBJREF
             "unsigned char",							// PK_OCTET
             "(principal data type not implemented)",	// PK_PRINCIPAL
             "short",									// PK_SHORT
-            "std::string",							// PK_STRING
-            "",										// PK_TYPECODE
+            "std::string",								// PK_STRING
+            "",											// PK_TYPECODE
             "unsigned long",							// PK_ULONG
             "unsigned long",							// PK_ULONGLONG
             "unsigned short",							// PK_USHORT
-            "",										// PK_VALUEBASE
-            "void",									// PK_VOID
-            "wchar_t",								// PK_WCHAR
+            "",											// PK_VALUEBASE
+            "void",										// PK_VOID
+            "wchar_t",									// PK_WCHAR
             "std:wstring"								// PK_WSTRING
     };
 
@@ -156,22 +156,22 @@ public class CppPythonGeneratorImpl
             "",							// PK_ANY
             "boolean",					// PK_BOOLEAN
             "char",						// PK_CHAR
-            "double",						// PK_DOUBLE
+            "double",					// PK_DOUBLE
             "",							// PK_FIXED
-            "float",						// PK_FLOAT
+            "float",					// PK_FLOAT
             "long",						// PK_LONG
-            "double",						// PK_LONGDOUBLE
+            "double",					// PK_LONGDOUBLE
             "long",						// PK_LONGLONG
             "NULL",						// PK_NULL
             "",							// PK_OBJREF
-            "octet",						// PK_OCTET
+            "octet",					// PK_OCTET
             "",							// PK_PRINCIPAL
-            "short",						// PK_SHORT
-            "string",						// PK_STRING
+            "short",					// PK_SHORT
+            "string",					// PK_STRING
             "",							// PK_TYPECODE
-            "unsigned_long",				// PK_ULONG
-            "unsigned_long",				// PK_ULONGLONG
-            "unsigned_short",				// PK_USHORT
+            "unsigned_long",			// PK_ULONG
+            "unsigned_long",			// PK_ULONGLONG
+            "unsigned_short",			// PK_USHORT
             "",							// PK_VALUEBASE
             "void",						// PK_VOID
             "",							// PK_WCHAR
@@ -184,18 +184,18 @@ public class CppPythonGeneratorImpl
             "",							// PK_ANY
             "PyBool_Check",				// PK_BOOLEAN
             "PyInt_Check",				// PK_CHAR
-            "PyFloat_Check",				// PK_DOUBLE
+            "PyFloat_Check",			// PK_DOUBLE
             "",							// PK_FIXED
-            "PyFloat_Check",				// PK_FLOAT
+            "PyFloat_Check",			// PK_FLOAT
             "PyLong_Check",				// PK_LONG
-            "PyFloat_CHeck",				// PK_LONGDOUBLE
+            "PyFloat_CHeck",			// PK_LONGDOUBLE
             "PyLong_Check",				// PK_LONGLONG
             "",							// PK_NULL
             "",							// PK_OBJREF
-            "octet",						// PK_OCTET
+            "octet",					// PK_OCTET
             "",							// PK_PRINCIPAL
             "PyInt_Check",				// PK_SHORT
-            "PyString_Check",				// PK_STRING
+            "PyString_Check",			// PK_STRING
             "",							// PK_TYPECODE
             "PyLong_Check",				// PK_ULONG
             "PyLong_Check",				// PK_ULONGLONG
@@ -211,23 +211,23 @@ public class CppPythonGeneratorImpl
             "", 
             "any",						// PK_ANY
             "boolean",					// PK_BOOLEAN
-            "integer",						// PK_CHAR
-            "float",						// PK_DOUBLE
+            "integer",					// PK_CHAR
+            "float",					// PK_DOUBLE
             "",							// PK_FIXED
-            "float",						// PK_FLOAT
+            "float",					// PK_FLOAT
             "integer",					// PK_LONG
-            "double",						// PK_LONGDOUBLE
-            "integer",						// PK_LONGLONG
+            "double",					// PK_LONGDOUBLE
+            "integer",					// PK_LONGLONG
             "NULL",						// PK_NULL
             "",							// PK_OBJREF
             "",							// PK_OCTET
             "",							// PK_PRINCIPAL
             "integer",					// PK_SHORT
-            "string",						// PK_STRING
+            "string",					// PK_STRING
             "",							// PK_TYPECODE
-            "integer",						// PK_ULONG
-            "integer",						// PK_ULONGLONG
-            "integer",				// PK_USHORT
+            "integer",					// PK_ULONG
+            "integer",					// PK_ULONGLONG
+            "integer",					// PK_USHORT
             "",							// PK_VALUEBASE
             "void",						// PK_VOID
             "",							// PK_WCHAR
