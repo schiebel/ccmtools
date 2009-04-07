@@ -1153,6 +1153,7 @@ public class XMLFileManager extends CodaManager {
 				desc = replaceAll(desc, "\\c", "c");
 				desc = replaceAll(desc, "\\/", "/");
 				desc = replaceAll(desc, "\\ ", " ");
+				desc = replaceAll(desc, "\\_", "_");
 				// ----------------------------
 				description.put("short",desc);
 				Map info = new HashMap();
