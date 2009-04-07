@@ -1137,6 +1137,8 @@ public class XMLFileManager extends CodaManager {
 					desc += "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---\\n";
 				}
 				desc.replaceAll("\"", "\\\"");
+				// remove idiot math formatting
+				desc.replaceAll("\\c", "c");
 				// ----------------------------
 				description.put("short",desc);
 				Map info = new HashMap();
