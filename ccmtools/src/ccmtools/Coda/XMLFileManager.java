@@ -66,6 +66,18 @@ public class XMLFileManager extends CodaManager {
         }
         return buffer.toString();
     }
+    public static String replaceAll( String source, String toReplace, String replacement ) {
+    	int idx = source.lastIndexOf( toReplace );
+    	if ( idx != -1 ) {
+    		StringBuffer ret = new StringBuffer( source );
+    		ret.replace( idx, idx+toReplace.length(), replacement );
+    		while( (idx=source.lastIndexOf(toReplace, idx-1)) != -1 ) {
+    			ret.replace( idx, idx+toReplace.length(), replacement );
+    		}
+    		return ret.toString();
+    	}
+    	return source;
+    }
     
 	private static class CodaFileReader extends FileReader {
 		public CodaFileReader(File file) throws FileNotFoundException { super(file); }
@@ -1136,9 +1148,9 @@ public class XMLFileManager extends CodaManager {
 					desc += "\\n";
 					desc += "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---\\n";
 				}
-				desc.replaceAll("\"", "\\\"");
+				desc = replaceAll(desc, "\"", "\\\"");
 				// remove idiot math formatting
-				desc.replaceAll("\\c", "c");
+				desc = replaceAll(desc, "\\c", "c");
 				// ----------------------------
 				description.put("short",desc);
 				Map info = new HashMap();
