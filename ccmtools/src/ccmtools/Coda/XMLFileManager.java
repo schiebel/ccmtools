@@ -1146,7 +1146,7 @@ public class XMLFileManager extends CodaManager {
 					desc += "--- --- --- --- --- --- Parameters  --- --- --- --- --- ---\\n";
 					desc += join(params,"\\n");
 					desc += "\\n";
-					desc += "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---\\n";
+					desc += "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---";
 				}
 				desc = replaceAll(desc, "\"", "\\\"");
 				// remove idiot math formatting
