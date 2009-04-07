@@ -5,6 +5,7 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,6 +34,7 @@ import org.apache.xerces.parsers.SAXParser;
 
 import ccmtools.utils.Text;
 
+
 public class XMLFileManager extends CodaManager {
 	private String directory = null;
 	private static Map components = new HashMap();
@@ -53,6 +55,18 @@ public class XMLFileManager extends CodaManager {
 //	private static Map exported = null;
 //	private static long state_index = 0;
 	
+    public static String join(Collection s, String delimiter) {
+        StringBuffer buffer = new StringBuffer();
+        Iterator iter = s.iterator();
+        while (iter.hasNext()) {
+            buffer.append(iter.next());
+            if (iter.hasNext()) {
+                buffer.append(delimiter);
+            }
+        }
+        return buffer.toString();
+    }
+    
 	private static class CodaFileReader extends FileReader {
 		public CodaFileReader(File file) throws FileNotFoundException { super(file); }
 		public CodaFileReader(FileDescriptor fd) { super(fd); }
@@ -977,6 +991,12 @@ public class XMLFileManager extends CodaManager {
 						} else
 							throw new RuntimeException("<any> with no 'type' attribute");
 					}
+					else if (new_element.equals("description")) {
+						contents = "";
+						collecting_contents = true;
+						collecting_description = true;
+						description_type = "description";
+					}
 				}
 				else if (collecting_method) {
 					if (new_element.equals("param")) {
@@ -1031,6 +1051,7 @@ public class XMLFileManager extends CodaManager {
 					}
 					parameters = new HashMap();
 					description = new HashMap();
+					description.put("params", new ArrayList());
 					anytype = null;
 					collecting_method = true;
 				}
@@ -1089,6 +1110,13 @@ public class XMLFileManager extends CodaManager {
 				parameters.put(parameter_name,parameter);
 				collecting_parameter = false;
 			}
+			else if (new_element.equals("description")) {
+				if (! collecting_description || ! description_type.equals(new_element))
+					throw new RuntimeException("internal inconsistency: found </" + new_element + ">, but not collecting" + new_element );
+				if ( collecting_parameter ) {
+					((List)description.get("params")).add("    " + parameter_name + ": " + contents);
+				}
+			}
 			else if (new_element.equals("shortdescription")) {
 				if (! collecting_description || ! description_type.equals(new_element))
 					throw new RuntimeException("internal inconsistency: found </" + new_element + ">, but not collecting" + new_element );
@@ -1097,6 +1125,20 @@ public class XMLFileManager extends CodaManager {
 			else if (new_element.equals("method")) {
 				if (! collecting_method)
 					throw new RuntimeException("internal inconsistency: found </method>, but not collecting method");
+				// build description string...
+				List params = (List) description.get("params");
+				String st = (String) description.get("short");
+				String desc = st;
+				if (params.size() > 0) {
+					desc += "\\n";
+					desc += "--- --- --- --- --- --- Parameters  --- --- --- --- --- ---\\n";
+					desc += join(params,"\\n");
+					desc += "\\n";
+					desc += "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---\\n";
+				}
+				desc.replaceAll("\"", "\\\"");
+				// ----------------------------
+				description.put("short",desc);
 				Map info = new HashMap();
 				info.put("params",parameters);
 				info.put("desc",description);
