@@ -1126,7 +1126,7 @@ public class XMLFileManager extends CodaManager {
 				if (! collecting_description || ! description_type.equals(new_element))
 					throw new RuntimeException("internal inconsistency: found </" + new_element + ">, but not collecting" + new_element );
 				if ( collecting_parameter ) {
-					((List)description.get("params")).add("    " + parameter_name + ": " + contents);
+					((List)description.get("params")).add("  " + parameter_name + ": " + contents);
 				}
 			}
 			else if (new_element.equals("shortdescription")) {
