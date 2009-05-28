@@ -1038,9 +1038,14 @@ public class CppPythonGeneratorImpl
 					}
 				}
 			}
-			if (found_polymorph && info.containsKey("include"))
-				vars.put(getScopeID("CodaPolymorphInclude"),
-						Text.join("\n",((Map)info.get("include")).keySet()));
+			if (found_polymorph && info.containsKey("include")) {
+				// I am not sure why we go through this entire song and dance just to fetch
+				// CodaPolymorphInclude... there seems to be much room for optimization.
+				Map includes = (Map)info.get("include");
+				if (includes.containsKey("all"))
+					vars.put(getScopeID("CodaPolymorphInclude"),
+							Text.join("\n",((Map)includes.get("all")).keySet( )));
+			}
 		}
         if (data_type.equals("ConvertToPythonDecl") ||
         		data_type.equals("ConvertToPythonImpl")) {
@@ -1050,6 +1055,8 @@ public class CppPythonGeneratorImpl
 
         } else if (data_type.equals("LoopConvertTo")) {
         } else if (data_type.equals("LoopConvertFrom")) {
+        } else if (data_type.equals("CodaPolymorphInclude")) {
+        		return (String) vars.get(getScopeID("CodaPolymorphInclude"));
         }
         return data_value;
     }

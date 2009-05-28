@@ -26,6 +26,7 @@
 %(IncludeElementConvert)s
 #include <CCM_Python/BasicTypes.h>
 
+%(CodaPolymorphInclude)s
 %(ConvertToPythonInclude)s
 
 %(OpenNamespace)s
