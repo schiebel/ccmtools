@@ -25,6 +25,7 @@ PyTypeObject *%(Identifier)s_init( );
 %(IncludeLocalHeader)s
 #include <CCM_Python/BasicTypes.h>
 %(CodaConvertInclude)s
+%(CodaResultInclude)s
 
 %(MOperationDefInclude)s
 %(MOperationDefRetIncludeGen)s

@@ -47,6 +47,7 @@ public class XMLFileManager extends CodaManager {
 	private static Map privates = new HashMap();
 	private static Map substitute = new HashMap();
 	private static Map implement = new HashMap();
+	private static Map python = new HashMap();
 
 	private static String export_file = null;
 //	private static XmlManager export_mgr = null;
@@ -456,6 +457,10 @@ public class XMLFileManager extends CodaManager {
 		return macros;
 	}
 	
+	public Map getPython() {
+		return python;
+	}
+	
 	public String translateType(String type, String target) {
 		if (conversions.containsKey(type)) {
 			Map type_map = (Map) conversions.get(type);
@@ -549,6 +554,7 @@ public class XMLFileManager extends CodaManager {
 	private static class SetupReader extends DefaultHandler {
 
 		private boolean collecting_contents = false;
+		private boolean collecting_contents_preserve = false;
 		private boolean collecting_polymorph = false;
 		private boolean collecting_polymorph_target = false;
 		private boolean collecting_polymorph_include = false;
@@ -562,6 +568,10 @@ public class XMLFileManager extends CodaManager {
 		private String collecting_implement_catch_type = "";
 		private List catch_code = null;
 		private List catch_include = null;
+		
+		private boolean collecting_python = false;
+		private boolean collecting_python_code = false;
+		private String collecting_python_code_type = "";
 		
 		private String polymorph_tag = "";
 		private String polymorph_type = "";
@@ -582,6 +592,7 @@ public class XMLFileManager extends CodaManager {
 		
 		public void startDocument( ) { 
 			collecting_contents = false;
+			collecting_contents_preserve = false;
 			collecting_polymorph = false;
 			collecting_polymorph_target = false;
 			collecting_polymorph_include = false;
@@ -670,8 +681,17 @@ public class XMLFileManager extends CodaManager {
 					catch_code = new ArrayList();
 					catch_include = new ArrayList();
 				}
-			}
-			else if (new_element.equals("export")) {
+			} else if ( collecting_python ) {
+				if ( new_element.equals("include") ||
+						new_element.equals("prereturn") || 
+						new_element.equals("postreturn")) {
+					contents = "";
+					collecting_contents = true;
+					collecting_contents_preserve = true;
+					collecting_python_code = true;
+					collecting_python_code_type = new_element;
+				}
+			} else if (new_element.equals("export")) {
 				if (attr.getValue("type").length() > 0 &&
 						attr.getValue("name").length() > 0) {
 					exports.put(attr.getValue("type"), attr.getValue("name"));
@@ -710,6 +730,8 @@ public class XMLFileManager extends CodaManager {
 				}
 			} else if ( new_element.equals("implement")) {
 				collecting_implement = true;
+			} else if ( new_element.equals("python")) {
+				collecting_python = true;
 			} else if ( new_element.equals("output") ) {
 				String type = attr.getValue("type");
 				if (type != null) {
@@ -740,6 +762,7 @@ public class XMLFileManager extends CodaManager {
 		public void endElement(String uri, String name, String qName) {
 			String new_element = ("".equals(uri) ? qName : name);
 			collecting_contents = false;
+			collecting_contents_preserve = false;
 			if (collecting_polymorph_mod_detail) {
 				if (new_element.equals(polymorph_mod_detail)) {
 					polymorph_mod.put(polymorph_mod_detail,contents);
@@ -811,6 +834,26 @@ public class XMLFileManager extends CodaManager {
 				} else {
 					throw new RuntimeException("internal inconsistency: found </" + new_element + ">, expecting " + collecting_implement_catch_type);
 				}
+			} else if ( collecting_python_code ) {
+				if (new_element.equals(collecting_python_code_type)) {
+					if (new_element.equals("include")) {
+						if (! python.containsKey("include"))
+							python.put("include",new HashMap());
+						((Map)python.get("include")).put("#include <" + contents + ">","");
+					} else if (new_element.equals("prereturn")) {
+						if (! python.containsKey("prereturn"))
+							python.put("prereturn",new ArrayList());
+						((List)python.get("prereturn")).add(contents);
+					} else if (new_element.equals("postreturn")) {
+						if (! python.containsKey("postreturn"))
+							python.put("postreturn",new ArrayList());
+						((List)python.get("postreturn")).add(contents);
+					}
+					collecting_python_code = false;
+					collecting_python_code_type = "";
+				} else {
+					throw new RuntimeException("internal inconsistency: found </" + new_element + ">, expecting " + collecting_python_code_type);
+				}
 			} else if (collecting_implement_catch) {
 				if (new_element.equals("catch")) {
 					if (! implement.containsKey("catch"))
@@ -825,26 +868,42 @@ public class XMLFileManager extends CodaManager {
 				if (new_element.equals("implement")) {
 					collecting_implement = false;
 				}
+			} else if (collecting_python) {
+				if (new_element.equals("python")) {
+					collecting_python = false;
+				}
 			}
 		}
 		
+		
 		public void characters(char ch[], int start, int length) {
 			if (collecting_contents) {
-				for (int i=start; i < start+length; ++i) {
-					switch(ch[i]) {
-					case '\n':
-					case '\t':
-					case '\r':	contents += ' ';
-								break;
-					default:		contents += ch[i];
-								break;
+				if (collecting_contents_preserve) {
+					for (int i=start; i < start+length; ++i) {
+						switch(ch[i]) {
+						case '\r':	contents += ' ';
+									break;
+						default:		contents += ch[i];
+									break;
+						}
+					}
+				} else {
+					for (int i=start; i < start+length; ++i) {
+						switch(ch[i]) {
+						case '\n':
+						case '\t':
+						case '\r':	contents += ' ';
+									break;
+						default:		contents += ch[i];
+									break;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	
+		
 	private static class ComponentReader extends DefaultHandler {
 
 		private class ValueState {
@@ -1200,7 +1259,6 @@ public class XMLFileManager extends CodaManager {
 		}
 		
 		public void characters(char ch[], int start, int length) {
-			String xxx = new String(ch,start,length);
 			if (collecting_contents) {
 				if (collecting_contents_preserve) {
 					for (int i=start; i < start+length; ++i) {

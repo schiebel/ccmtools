@@ -691,6 +691,11 @@ public class CppPythonGeneratorImpl
 			Set thestuff = getOpIncludes(iface,"all", "python");
 			return Text.join("\n",thestuff);
 		}
+
+		else if (data_type.equals("CodaResultInclude"))
+			return pythonCodaResultInclude( );
+			
+
 		else if (data_type.equals("CodaTypeInclude")) {
 			if ((flags & FLAG_CODA_INFO) == 0)
 				return "";
@@ -782,6 +787,7 @@ public class CppPythonGeneratorImpl
 			Set thestuff = getOpIncludes(component,"all", "python");
 			return Text.join("\n",thestuff);
 		}
+        
 		else if (data_type.equals("CodaTypeInclude")) {
 			if ((flags & FLAG_CODA_INFO) == 0)
 				return "";
@@ -1462,7 +1468,7 @@ public class CppPythonGeneratorImpl
     		default_flag += " };\n";
     		default_objs += " };\n";
     		
-    		String keywords = "    static char *kwlist[] = { " + Text.join(",",keyword_list) + ", NULL };\n";
+    		String keywords = "    static char *kwlist[] = { " + Text.join(",","strdup",keyword_list) + ", NULL };\n";
     		String result = Text.join("\n",decl) + "\n/*" + default_objs + "\n" + default_flag + "\n" + xml_defaults + "\n" +
     					default_setobjs + "\", " + default_setobj_ptrs + " );\n" +
     					supplied_parameters + "*/";
@@ -1480,9 +1486,10 @@ public class CppPythonGeneratorImpl
     protected String pythonOperationExecute(MOperationDef op, String container ) {
     	
     	List pre = new ArrayList();
+    	List post = new ArrayList();
     	List args = new ArrayList();
     	List exceptions = new ArrayList();
-		
+    	
     	String Space = "";
     	String catchall_try = "    try {";
     	String catchall_catch = "\n    } catch(const LocalComponents::CCMException &ccme) {";
@@ -1507,6 +1514,18 @@ public class CppPythonGeneratorImpl
     		Catch = "\n    }\n" + Text.join("\n",exceptions) + "\n";
     		Space += "    ";
     	}
+    	
+		if ((flags & FLAG_CODA_INFO) != 0) {
+			Map pyinfo = coda.getPython( );
+			if (pyinfo.containsKey("prereturn")) {
+				List pypre = (List) pyinfo.get("prereturn");
+				pre.add(Text.join("\n",pypre));
+			}
+			if (pyinfo.containsKey("postreturn")) {
+				List pypost = (List) pyinfo.get("postreturn");
+				post.add(Text.join("\n",pypost));
+			}
+		}
 		
     	// setup arguments
     	for (Iterator params = op.getParameters().iterator(); params.hasNext();) {
@@ -1552,18 +1571,18 @@ public class CppPythonGeneratorImpl
     		deref = "";
         
     	if (ret_type.equals("void"))
-    		return (pre.size() > 0 ? "    " + Text.join("\n",pre) + "\n" : "") + 
+    		return (pre.size() > 0 ? "\n   " + Text.join("\n",pre) + "\n" : "") + 
         			catchall_try + Try + Space + "    (" + deref + "self->" + container + ")->" +
 					op.getIdentifier() + "( " +
 					Text.join( ", ",args) + ");" +
-					Catch + catchall_catch;
+					Catch + catchall_catch + (post.size() > 0 ? "    " + Text.join("\n",post) + "\n" : "");
         	else if (is_complex) {
         		return (pre.size() > 0 ? "    " + Text.join("\n",pre) + "\n" : "") +
         				"    ::" + ret_type + " result_;\n" + catchall_try + Try + Space + 
         				"    result_ = (" + deref + "self->" + container + ")->" + 
         				op.getIdentifier() + "( " +
         				Text.join( ", ",args) + " );" +
-        				Catch + catchall_catch;
+        				Catch + catchall_catch + (post.size() > 0 ? "\n    " + Text.join("\n",post) + "\n" : "");
         	} else {
         		MIDLType idl_type = ((MTyped)op).getIdlType();
         		if ((flags & FLAG_CODA_INFO) != 0) {
@@ -1597,7 +1616,7 @@ public class CppPythonGeneratorImpl
         				"    result_ = (" + deref + "self->" + container + ")->" +
         				op.getIdentifier() + "( " +
         				Text.join( ", ",args) + " );" +
-        				Catch + catchall_catch;
+        				Catch + catchall_catch + (post.size() > 0 ? "    " + Text.join("\n",post) + "\n" : "");
         	}
     }
  
@@ -1766,6 +1785,17 @@ public class CppPythonGeneratorImpl
 		}
 		return "";
 	}
+	private String pythonCodaResultInclude( ) {
+		if ((flags & FLAG_CODA_INFO) != 0) {
+			Map pyinfo = coda.getPython();
+			if (pyinfo.containsKey("include")) {
+				Map includes = (Map) pyinfo.get("include");
+				return Text.join("\n",includes.keySet());
+			}
+		}	
+		return "";
+	}
+
 	private String pythonOperationResultUsing(MOperationDef operation) {
 		MTyped type = (MTyped) operation;
 		MIDLType optype = operation.getIdlType();

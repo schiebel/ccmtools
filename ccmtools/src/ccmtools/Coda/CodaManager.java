@@ -25,4 +25,5 @@ public abstract class CodaManager implements CodaHandler {
 	abstract public  boolean doExportDefaults( );
 	abstract public void exportDefault(String component, String op, String param, String xmldflt);
 	abstract public void close( );
+	abstract public Map getPython();
 }
