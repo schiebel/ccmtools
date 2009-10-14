@@ -88,6 +88,26 @@ public class Text
     }
 
 
+    public static String join(String separator, String func, Collection parts)
+    {
+        if (parts != null) {
+            if (parts.size() > 1) {
+                StringBuffer ret = new StringBuffer("");
+                for (Iterator i = parts.iterator(); i.hasNext(); ) {
+                    String part = (String) i.next();
+                    ret.append( func + "(" + part + ")" + (i.hasNext() ? separator : ""));
+                }
+                String s = ret.toString();
+                return s;
+//                ret = ret.reverse();
+//                ret = new StringBuffer(ret.substring(separator.length()));
+//                return ret.reverse().toString();
+            }
+            if (parts.size() == 1) return func + "(" + parts.iterator().next() + ")";
+        }
+        return new String("");
+    }
+
     /**
      * Slice a part of the given list. If start is negative, the function will
      * return the part of the collection that includes all but the last "start"
