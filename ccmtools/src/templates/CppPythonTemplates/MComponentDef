@@ -9,6 +9,7 @@
 %(IncludeLocalComponent)s
 %(IncludeLocalInterface)s
 %(CodaTypeInclude)s
+%(CodaResultInclude)s
 
 %(MProvidesDefEqInterfaceLocalCtorIncl)s
 %(MProvidesDefEqInterfaceLocalCtorUsing)s

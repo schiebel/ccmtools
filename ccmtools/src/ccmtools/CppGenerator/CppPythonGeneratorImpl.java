@@ -788,6 +788,9 @@ public class CppPythonGeneratorImpl
 			return Text.join("\n",thestuff);
 		}
         
+		else if (data_type.equals("CodaResultInclude"))
+			return pythonCodaResultInclude( );
+        
 		else if (data_type.equals("CodaTypeInclude")) {
 			if ((flags & FLAG_CODA_INFO) == 0)
 				return "";
