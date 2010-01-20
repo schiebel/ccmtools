@@ -99,6 +99,12 @@ public class ConsoleCodeGenerator
     private static int generate_flags = 0;
 	private static String inputPath;
 
+	public static void main(String args[])
+	{
+		if ( main_(args) == false )
+			System.exit(1);
+	}
+	
     /**
      * Parse and generate code for each input IDL3 file. For each input file, we
      * need to (0) run the C preprocessor on the file to assemble includes and
@@ -106,10 +112,10 @@ public class ConsoleCodeGenerator
      * output code. Exits with nonzero status if errors are encountered during
      * parsing or generation.
      */
-    public static void main(String args[])
+    public static boolean main_(String args[])
     {
         if(!parseArgs(args)) {
-            return; // No further processing needed
+            return true; // No further processing needed
         }
 
         ArrayList handlers = new ArrayList();
@@ -125,13 +131,13 @@ public class ConsoleCodeGenerator
             GraphTraverser traverser = new CCMMOFGraphTraverserImpl();
             if(traverser == null) {
                 printUsage("failed to create a graph traverser");
-                return;
+                return false;
             }
 
             ParserManager manager = new ParserManager(par_mask);
             if(manager == null) {
                 printUsage("failed to create a parser manager");
-                return;
+                return false;
             }
        
             for(Iterator l = languages.iterator(); l.hasNext();) {
@@ -183,7 +189,7 @@ public class ConsoleCodeGenerator
                 catch(Exception e) {
                     System.err.println("Error preprocessing " + source
                             + ": Please verify your include paths.");
-                    return;
+                    return false;
                 }
 
                 // step (1). parse the resulting preprocessed file.
@@ -197,7 +203,7 @@ public class ConsoleCodeGenerator
                 }
                 catch(Exception e) {
                     System.err.println("Error parsing " + source + ":\n" + e);
-                    return;
+                    return false;
                 }
                 String kopf_name = source.getName().split("\\.")[0];
                 kopf_name = kopf_name.replaceAll("[^\\w]", "_");
@@ -212,7 +218,7 @@ public class ConsoleCodeGenerator
                     System.err.println("Error generating code from " 
                                        + source + ":\n" + e);
                     e.printStackTrace(System.err);
-                    return;
+                    return false;
                 }
 
                 // delete the preprocessed temporary file if everything worked.
@@ -225,10 +231,12 @@ public class ConsoleCodeGenerator
             System.err.println("Error: CCM Tools have been finished with an error:");
             System.err.println(e.getMessage());
             System.err.println("Please post a bug report to <ccmtools-devel@lists.sourceforge.net>");
+            return false;
         } finally {
         		for (Iterator i = handlers.iterator(); i.hasNext(); )
         			((TemplateHandler)i.next()).close();
         }
+        return true;
     }
 
     /** *********************************************************************** */
