@@ -265,6 +265,7 @@ public class ConsoleCodeGenerator
     {
         System.out.println("CCM Tools version " + Constants.VERSION);
         System.out.println("Copyright (C) 2002 - 2005 Salomon Automation");
+        System.out.println("Copyright (C) 2007 - 2010 Associated Universities Inc.");
         System.out.println("The CCM Tools library is distributed under the");
         System.out.println("terms of the GNU Lesser General Public License.");
     }

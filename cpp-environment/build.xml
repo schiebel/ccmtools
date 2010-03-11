@@ -14,7 +14,7 @@
   <property name="c++" value="c++ ${iflags} ${cflags}" />
   <property name="idl" value="idl ${iflags}" />
   <property name="ar" value="ar -rc" />
-  <property name="root.version" value="0.5.5" />
+  <property name="root.version" value="0.5.8" />
 
   <!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
        :::::::::::::::::::::::::::::::linux:::::::::::::::::::::::::::::::::::::::

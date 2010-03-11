@@ -24,7 +24,7 @@
 
   	<!-- Define project related constants in Java -->
   	<property name="PACKAGE" value="ccmtools" />
-  	<property name="VERSION" value="0.5.5" />
+  	<property name="VERSION" value="0.5.8" />
   	<property name="TEMPLATE_ROOT" location="${prefix}/templates" />
   	<property name="CPP_PATH" value="gcc -x c -E" />
 
