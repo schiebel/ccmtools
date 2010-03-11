@@ -72,7 +72,7 @@ endef
 %.o: %.cpp
 	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
 
-all: setup install_headers $(LOCALCPPLNK_PATH) install_jars install_scripts
+all: setup install_headers $(LOCALCPPLNK_PATH) install_jars install_scripts install_templates
 
 idl: $(IDLHDR) 
 
@@ -119,3 +119,5 @@ install_scripts:
 	sed -i -e 's|^CCMTOOLS_HOME="/usr.*|CCMTOOLS_HOME="$(_DESTROOT)"|' $(_BINDIR)/ccmtools
 	chmod 755 $(_BINDIR)/ccmtools
 
+install_templates:
+	tar -C ccmtools/src -cf - templates | tar -C $(_DESTROOT) -xf -
