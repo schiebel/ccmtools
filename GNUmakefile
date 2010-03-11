@@ -50,8 +50,9 @@ ifeq "$(C++)" ""
 C++ := g++
 endif
 
+LIB := lib
 _DESTROOT := $(abspath $(DESTROOT))
-_LIBDIR := $(_DESTROOT)/lib
+_LIBDIR := $(_DESTROOT)/$(LIB)
 _INCDIR := $(_DESTROOT)/include
 _JAVADIR := $(_DESTROOT)/share/java/ccmtools
 _BINDIR := $(_DESTROOT)/bin
