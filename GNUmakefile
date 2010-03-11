@@ -67,10 +67,10 @@ endef
 	cd $(dir $<) && $(IDL) $(notdir $<)
 
 %.o: %.cc
-	$(C++) -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
+	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
 
 %.o: %.cpp
-	$(C++) -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
+	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
 
 all: setup install_headers $(LOCALCPPLNK_PATH) install_jars install_scripts
 
