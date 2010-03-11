@@ -96,8 +96,9 @@ endif
 
 $(LOCALCPPLNK_PATH): $(LOCALCPPLIB_PATH)
 	rm -f $@
-	cd $(dir $<) && ln -fs $(notdir $<) $(notdir $@) && \
+	cd $(dir $<) && ln -fs $(notdir $<) $(notdir $@)
 
+#                                                          && \
 #	ln -fs $(notdir $<) libCCM_Python.$(SO) && \
 #	ln -fs $(notdir $<) libWX_Utils_code.$(SO) && \
 #	ln -fs $(notdir $<) libWX_Utils_error.$(SO) && \
