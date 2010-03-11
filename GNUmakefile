@@ -97,10 +97,12 @@ endif
 $(LOCALCPPLNK_PATH): $(LOCALCPPLIB_PATH)
 	rm -f $@
 	cd $(dir $<) && ln -fs $(notdir $<) $(notdir $@) && \
-	ln -fs $(notdir $<) libCCM_Python.dylib && \
-	ln -fs $(notdir $<) libWX_Utils_code.dylib && \
-	ln -fs $(notdir $<) libWX_Utils_error.dylib && \
-	ln -fs $(notdir $<) libWX_Utils_types.dylib
+	ln -fs $(notdir $<) libCCM_Python.$(SO) && \
+	ln -fs $(notdir $<) libWX_Utils_code.$(SO) && \
+	ln -fs $(notdir $<) libWX_Utils_error.$(SO) && \
+	ln -fs $(notdir $<) libWX_Utils_types.$(SO) && \
+	ln -fs $(notdir $<) libCCM_Local_HomeFinder.$(SO) && \
+	ln -fs $(notdir $<) libWX_Utils_types.$(SO)
 
 install_jars:
 	cp -p ccmtools/lib/antlr.jar $(_JAVADIR)
