@@ -121,4 +121,4 @@ install_scripts:
 	chmod 755 $(_BINDIR)/ccmtools
 
 install_templates:
-	tar -C ccmtools/src -cf - templates | tar -C $(_DESTROOT) -xf -
+	tar -C ccmtools/src --exclude .svn -cf - templates | tar -C $(_DESTROOT) -xf -
