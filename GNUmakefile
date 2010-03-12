@@ -9,7 +9,7 @@ PYTHONINC := /opt/local/include/python2.5
 os := $(shell uname | tr 'A-Z' 'a-z')
 arch := $(shell uname -p)
 
-VERSION := 0.5.8
+VERSION := 0.5.5
 
 ifeq "$(os)" "darwin"
 SO := dylib
