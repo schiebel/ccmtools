@@ -20,16 +20,6 @@ SO := so
 SOV := so.$(VERSION)
 endif
 
-##
-## setup INSTDIR
-##
-ifneq "$(INSTDIR)" ""
-instlib_path := $(INSTDIR)/lib/
-else
-instlib_path :=
-endif
-
-
 ifeq "$(IDL)" ""
 IDL    := idl
 endif
@@ -56,6 +46,20 @@ _LIBDIR := $(_DESTROOT)/$(LIB)
 _INCDIR := $(_DESTROOT)/include
 _JAVADIR := $(_DESTROOT)/share/java/ccmtools
 _BINDIR := $(_DESTROOT)/bin
+
+##
+## setup INSTDIR
+##
+ifneq "$(INSTDIR)" ""
+instlib_path := $(INSTDIR)/$(LIB)/
+instjava_path := $(INSTDIR)/share/java/ccmtools
+instroot_path := $(INSTDIR)
+else
+instlib_path :=
+instjava_path := $(_JAVADIR)
+instroot_path := $(_DESTROOT)
+endif
+
 
 LOCALCPPLIB_PATH := $(_LIBDIR)/libccmtools_local.$(SOV)
 LOCALCPPLNK_PATH := $(_LIBDIR)/libccmtools_local.$(SO)
@@ -116,8 +120,8 @@ install_jars:
 
 install_scripts:
 	cp -p ccmtools/bin/ccmtools $(_BINDIR)
-	sed -i -e 's|^CCMTOOLS_LIB="/usr.*|CCMTOOLS_LIB="$(_JAVADIR)"|' $(_BINDIR)/ccmtools
-	sed -i -e 's|^CCMTOOLS_HOME="/usr.*|CCMTOOLS_HOME="$(_DESTROOT)"|' $(_BINDIR)/ccmtools
+	sed -i -e 's|^CCMTOOLS_LIB="/usr.*|CCMTOOLS_LIB="$(instjava_path)"|' $(_BINDIR)/ccmtools
+	sed -i -e 's|^CCMTOOLS_HOME="/usr.*|CCMTOOLS_HOME="$(instroot_path)"|' $(_BINDIR)/ccmtools
 	chmod 755 $(_BINDIR)/ccmtools
 
 install_templates:
