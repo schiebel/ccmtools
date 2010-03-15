@@ -78,7 +78,10 @@ Debug::Debug(
 
 Debug::~Debug()
 {
-   delete impl_;
+   if ( impl_ ) {
+	delete impl_;
+	impl_ = 0;
+   }
 }
 
 void
