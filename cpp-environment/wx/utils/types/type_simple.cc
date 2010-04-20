@@ -9,8 +9,10 @@
 
 #include <WX/Utils/error_macros.h>
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstdlib>
 #include <cassert>
+#include <cstring>
 
 namespace WX {
 namespace Utils {

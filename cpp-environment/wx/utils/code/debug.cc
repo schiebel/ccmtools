@@ -6,6 +6,7 @@
 
 #include <set>
 #include <iostream>
+#include <cstdlib>
 
 namespace WX {
 namespace Utils {

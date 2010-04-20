@@ -8,6 +8,8 @@
 #include "errorout_ostream.h"
 
 #include <sstream>
+#include <cstdlib>
+#include <cstring>
 
 #ifndef WIN32
 #  include <unistd.h>
