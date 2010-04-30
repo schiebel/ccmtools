@@ -1,7 +1,6 @@
 
 C++ :=
 IDL :=
-DESTROOT := ./build
 PYTHONINC := /opt/local/include/python2.5
 
 -include makedefs
@@ -41,15 +40,38 @@ C++ := g++
 endif
 
 LIB := lib
+ifeq "$(DESTROOT)" ""
+DESTROOT := $(shell echo $$CASAPATH | perl -pe "s|(\S+).*|\$$1|")
+ifneq "$(DESTROOT)" ""
+_ARCH := $(shell echo $$CASAPATH | perl -pe "s|\S+\s+(\S+).*|\$$1|")
+ifneq "$(_ARCH)" ""
+_DESTROOT := $(DESTROOT)
+_LIBDIR := $(_DESTROOT)/$(_ARCH)/lib
+_INCDIR := $(_DESTROOT)/include
+_JAVADIR := $(_DESTROOT)/share/java/ccmtools
+_BINDIR := $(_DESTROOT)/$(_ARCH)/bin
+instlib_path := $(DESTROOT)/$(_ARCH)/lib
+instjava_path := $(_JAVADIR)
+instroot_path := $(_DESTROOT)
+endif
+endif
+endif
+
+ifeq "$(_DESTROOT)" ""
+DESTROOT := "./build"
 _DESTROOT := $(abspath $(DESTROOT))
 _LIBDIR := $(_DESTROOT)/$(LIB)
 _INCDIR := $(_DESTROOT)/include
 _JAVADIR := $(_DESTROOT)/share/java/ccmtools
 _BINDIR := $(_DESTROOT)/bin
+endif
 
 ##
 ## setup INSTDIR
 ##
+ifeq "$(instlib_path)" ""
+ifeq "$(instjava_path)" ""
+ifeq "$(instroot_path)" ""
 ifneq "$(INSTDIR)" ""
 instlib_path := $(INSTDIR)/$(LIB)/
 instjava_path := $(INSTDIR)/share/java/ccmtools
@@ -59,7 +81,9 @@ instlib_path :=
 instjava_path := $(_JAVADIR)
 instroot_path := $(_DESTROOT)
 endif
-
+endif
+endif
+endif
 
 LOCALCPPLIB_PATH := $(_LIBDIR)/libccmtools_local.$(SOV)
 LOCALCPPLNK_PATH := $(_LIBDIR)/libccmtools_local.$(SO)
