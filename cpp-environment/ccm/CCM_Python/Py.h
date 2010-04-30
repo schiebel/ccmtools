@@ -35,7 +35,8 @@ class Py {
 	virtual PyThreadState *thread( ) { return main_thread; }
 
 	static void init( int argc, char **argv, std::string load_path="", std::string init_file="",
-			  bool setup_ipython=true, std::string ipython_namespace="__ipython_namespace__" );
+			  bool setup_ipython=true, std::string ipython_namespace="__ipython_namespace__",
+			  bool setup_default_paths=false );
 
     protected:
 	unsigned int lock_count;
@@ -53,6 +54,8 @@ class Py {
 	static std::string ipython_ns;
 	static std::list<std::string> *path;
 	bool did_lock;
+
+	static bool insert_default_paths;
 
 	static PyThreadState *main_thread;
 

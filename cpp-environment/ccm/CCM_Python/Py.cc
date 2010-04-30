@@ -23,6 +23,7 @@ int Py::argc = 0;
 char **Py::argv = 0;
 unsigned int Py::ref_count = 0;
 bool Py::using_ipython = false;
+bool Py::insert_default_paths = false;
 PyThreadState *Py::main_thread = NULL;
 std::string Py::init_file;
 std::string Py::load_path;
@@ -132,7 +133,7 @@ void Py::init_substitute( ) {
     char *user_path_count = strdup(load_path.c_str());
     char *user_path = strdup(user_path_count);
 
-    for ( int i=0; dirs_init[i]; ++i ) ++dir_count;
+    if ( insert_default_paths ) { for ( int i=0; dirs_init[i]; ++i ) ++dir_count; }
     for ( char *ptr = strtok(user_path_count,":"); ptr; ptr = strtok(0,":")) ++dir_count;
     free(user_path_count);
 
@@ -155,8 +156,10 @@ void Py::init_substitute( ) {
     dirs[offset][prefix_len++] = file_separator;
     memcpy( &dirs[offset++][prefix_len], "python%V", 9 );
 
-    for ( int i=0; dirs_init[i]; ++i )
-	dirs[offset++] = strdup(dirs_init[i]);
+    if ( insert_default_paths ) {
+	for ( int i=0; dirs_init[i]; ++i )
+	    dirs[offset++] = strdup(dirs_init[i]);
+    }
 
     dirs[offset] = 0;
 
@@ -344,13 +347,14 @@ char *Py::findfile( const char *file ) {
 }
 
 void Py::init( int c, char **v, std::string load_path_, std::string init_file_,
-	       bool setup_ipython, std::string ipython_namespace ) {
+	       bool setup_ipython, std::string ipython_namespace, bool setup_default_paths ) {
     argc = c;
     argv = v;
     using_ipython = setup_ipython;
     init_file = init_file_;
     load_path = load_path_;
     ipython_ns = ipython_namespace;
+    insert_default_paths = setup_default_paths;
 }
 
 
