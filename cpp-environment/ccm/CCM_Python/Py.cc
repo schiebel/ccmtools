@@ -430,7 +430,6 @@ Py::Py( ) : lock_count(0), did_lock(false), suspended_thread(0) {
 	}
 	free( pypath );
 	PySys_SetArgv(argc, argv);
-	PyRun_SimpleString("print sys.path");
 
 	if ( using_ipython ) {
 	    PyObject *global_dict = PyModule_GetDict(PyImport_AddModule("__main__"));
@@ -441,7 +440,6 @@ Py::Py( ) : lock_count(0), did_lock(false), suspended_thread(0) {
 	    evalString("import IPython");
 	}
 
-	PyRun_SimpleString("print sys.path");
 	if ( ! init_file.empty()) {
 	    evalFile(init_file.c_str());
 	}
