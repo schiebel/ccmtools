@@ -203,6 +203,9 @@ void Py::init( ) {
     }
 
     Py_Initialize( );
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("print sys.path");
+    fprintf( stderr, "--------------- %s ---------------\n", Py_GetPath( ) );
     init_substitute( );
 }
 
@@ -254,6 +257,7 @@ void Py::init_path( ) {
 	struct stat sb;
 
 	for ( char **dptr = dirs; *dptr; ++dptr, ++mpath_count ) {
+	    fprintf( stderr, "\t<path> %s\n", *dptr );
 	    for ( const char **sptr = subdirs; *sptr; ++sptr ) {
 
 		const char *base = *dptr;
@@ -426,6 +430,7 @@ Py::Py( ) : lock_count(0), did_lock(false), suspended_thread(0) {
 
 	char *pypath = findpath( );
 	PySys_SetPath( pypath );
+	fprintf( stderr, ">>>>>>>>> %s\n", pypath );
 	PySys_SetArgv(argc, argv);
 	free( pypath );
 	PyRun_SimpleString("print sys.path");
