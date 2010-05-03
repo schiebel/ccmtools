@@ -363,7 +363,6 @@ char *Py::findpath( ) {
 		    }
 		}
 		free( lp );
-
 	    } else {
 		// if we fail to retrieve a list for sys.path,
 		// fall back to Py_GetPath( )...
@@ -372,6 +371,7 @@ char *Py::findpath( ) {
 		    resultStr += PATH_SEP;
 		resultStr += Py_GetPath( );
 	    }
+	}
     }
 
     char *result = strdup( resultStr.c_str() );
