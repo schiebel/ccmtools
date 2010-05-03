@@ -357,9 +357,9 @@ char *Py::findpath( ) {
 		    while ( ptr > lp && *ptr != ':' ) --ptr;
 		    if ( *ptr == ':' ) {
 			*ptr = '\0';
-			PyList_Insert( sys_path, insertion_point, ptr+1 );
+			PyList_Insert( sys_path, insertion_point, PyString_FromString(ptr+1) );
 		    } else {
-			PyList_Insert( sys_path, insertion_point, ptr+1 );
+			PyList_Insert( sys_path, insertion_point, PyString_FromString(ptr) );
 		    }
 		}
 		free( lp );
