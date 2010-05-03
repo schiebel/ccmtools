@@ -144,19 +144,19 @@ void Py::init_substitute( ) {
 	dirs[offset++] = strdup(ptr);
     free( user_path );
 
-    char *prefix = strdup(Py_GetPrefix());
-    dirs[offset++] = prefix;
-    int prefix_len = strlen(prefix);
-    dirs[offset] = (char*) malloc(prefix_len + 15);
-    memcpy( dirs[offset], prefix, prefix_len );
-    dirs[offset][prefix_len++] = file_separator;
-    dirs[offset][prefix_len++] = 'l';
-    dirs[offset][prefix_len++] = 'i';
-    dirs[offset][prefix_len++] = 'b';
-    dirs[offset][prefix_len++] = file_separator;
-    memcpy( &dirs[offset++][prefix_len], "python%V", 9 );
-
     if ( insert_default_paths ) {
+	char *prefix = strdup(Py_GetPrefix());
+	dirs[offset++] = prefix;
+	int prefix_len = strlen(prefix);
+	dirs[offset] = (char*) malloc(prefix_len + 15);
+	memcpy( dirs[offset], prefix, prefix_len );
+	dirs[offset][prefix_len++] = file_separator;
+	dirs[offset][prefix_len++] = 'l';
+	dirs[offset][prefix_len++] = 'i';
+	dirs[offset][prefix_len++] = 'b';
+	dirs[offset][prefix_len++] = file_separator;
+	memcpy( &dirs[offset++][prefix_len], "python%V", 9 );
+
 	for ( int i=0; dirs_init[i]; ++i )
 	    dirs[offset++] = strdup(dirs_init[i]);
     }
@@ -174,13 +174,34 @@ void Py::init_substitute( ) {
 }
 
 void Py::init( ) {
-    char **ptr;
     struct stat sb;
-    for ( ptr = python_path; *ptr; ++ptr ) 
-	if ( ! stat(*ptr, &sb) )
-	    break;
+    bool python_path_set = false;
 
-    if ( *ptr ) Py_SetProgramName( *ptr );
+    // first try <prefix>/bin/python<version>
+    // and       <prefix>/bin/python
+    const char *prefix = Py_GetPrefix();
+    char *path_to_python_executable = (char*) malloc(sizeof(char) * (strlen(prefix) + 25));
+    sprintf( path_to_python_executable, "%s/bin/python%d.%d", prefix, PY_MAJOR_VERSION, PY_MINOR_VERSION );
+    if ( ! stat( path_to_python_executable, &sb ) ) {
+	python_path_set = true;
+	Py_SetProgramName( path_to_python_executable );
+    } else {
+	sprintf( path_to_python_executable, "%s/bin/python", prefix );
+	if ( ! stat( path_to_python_executable, &sb ) ) {
+	    python_path_set = true;
+	    Py_SetProgramName( path_to_python_executable );
+	}
+    }
+
+    if ( python_path_set == false ) {
+	char **ptr;
+	for ( ptr = python_path; *ptr; ++ptr ) 
+	    if ( ! stat(*ptr, &sb) )
+		break;
+
+	if ( *ptr ) Py_SetProgramName( *ptr );
+    }
+
     Py_Initialize( );
     init_substitute( );
 }
@@ -295,23 +316,59 @@ void Py::init_path( ) {
 }
 
 char *Py::findpath( ) {
+
     const char PATH_SEP = ':';
-
-    if ( ! path ) init_path( );
-
     std::string resultStr("");
 
-    for ( std::list<std::string>::iterator iter = (*path).begin(); iter != (*path).end(); ++iter ) {
-	// append the path element
-	resultStr.append(*iter);
+    if ( insert_default_paths ) {
+	if ( ! path ) init_path( );
 
-	// delete any trailing file_sep characters
-	resultStr.erase ( resultStr.find_last_not_of ( file_separator ) + 1 );
-	resultStr += PATH_SEP;
+	for ( std::list<std::string>::iterator iter = (*path).begin(); iter != (*path).end(); ++iter ) {
+	    // append the path element
+	    resultStr.append(*iter);
+
+	    // delete any trailing file_sep characters
+	    resultStr.erase ( resultStr.find_last_not_of ( file_separator ) + 1 );
+	    resultStr += PATH_SEP;
+	}
+
+	// delete any trailing PATH_SEP
+	resultStr.erase ( resultStr.find_last_not_of ( PATH_SEP ) + 1 );
+    } else {
+
+	if ( load_path.size( ) > 0 ) {
+	    // first try inserting into the sys.path list...
+	    // because Py_GetPath( ) does not return the same list as "print sys.path"...
+	    PyObject *sys_path = PySys_GetObject("path");
+	    if ( sys_path && PyList_Check(sys_path) ) {
+		PyObject *first_element = PyList_GetItem( sys_path, 0 );
+		int insertion_point = 0;
+		if ( first_element && PyString_Check(first_element) &&
+		     PyString_Size(first_element) == 0 )
+		    insertion_point = 1;
+
+		char *lp = strdup(load_path.c_str( ));
+		char *ptr = lp + strlen(lp);
+		while ( ptr > lp ) {
+		    while ( ptr > lp && *ptr != ':' ) --ptr;
+		    if ( *ptr == ':' ) {
+			*ptr = '\0';
+			PyList_Insert( sys_path, insertion_point, ptr+1 );
+		    } else {
+			PyList_Insert( sys_path, insertion_point, ptr+1 );
+		    }
+		}
+		free( lp );
+
+	    } else {
+		// if we fail to retrieve a list for sys.path,
+		// fall back to Py_GetPath( )...
+		resultStr += load_path;
+		if ( resultStr.size( ) > 0 )
+		    resultStr += PATH_SEP;
+		resultStr += Py_GetPath( );
+	    }
     }
-
-    // delete any trailing PATH_SEP
-    resultStr.erase ( resultStr.find_last_not_of ( PATH_SEP ) + 1 );
 
     char *result = strdup( resultStr.c_str() );
     return result ? result : strdup("");
@@ -371,6 +428,7 @@ Py::Py( ) : lock_count(0), did_lock(false), suspended_thread(0) {
 	PySys_SetPath( pypath );
 	PySys_SetArgv(argc, argv);
 	free( pypath );
+	PyRun_SimpleString("print sys.path");
 
 	if ( using_ipython ) {
 	    PyObject *global_dict = PyModule_GetDict(PyImport_AddModule("__main__"));
@@ -381,6 +439,7 @@ Py::Py( ) : lock_count(0), did_lock(false), suspended_thread(0) {
 	    evalString("import IPython");
 	}
 
+	PyRun_SimpleString("print sys.path");
 	if ( ! init_file.empty()) {
 	    evalFile(init_file.c_str());
 	}
