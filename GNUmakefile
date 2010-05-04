@@ -1,7 +1,8 @@
 
 C++ :=
 IDL :=
-PYTHONINC := /opt/local/include/python2.5
+PYTHONROOT := /opt/local
+PYTHONINC := $(PYTHONROOT)/include/python2.5
 
 -include makedefs
 
@@ -117,7 +118,7 @@ install_headers:
 
 $(LOCALCPPLIB_PATH): $(CPPOBJ)
 ifeq "$(os)" "darwin"
-	$(C++) -dynamiclib -install_name $(instlib_path)$(notdir $@) -o $@ $(filter %.o,$^) -L/opt/local/lib -lpython2.5
+	$(C++) -dynamiclib -install_name $(instlib_path)$(notdir $@) -o $@ $(filter %.o,$^) -L$(PYTHONROOT)/lib -lpython2.5
 endif
 ifeq "$(os)" "linux"
 	$(C++) -shared -Wl,-soname,$(notdir $@) -o $@ $(filter %.o,$^)
