@@ -403,8 +403,13 @@ char *Py::findfile( const char *file ) {
     return 0;
 }
 
-void Py::init( int c, char **v, std::string load_path_, std::string init_file_,
-	       bool setup_ipython, std::string ipython_namespace, bool setup_default_paths ) {
+void Py::init( int argc, char **argv, std::string load_path, std::string init_file,
+	       bool setup_ipython, std::string ipython_namespace ) {
+    init( argc, argv, load_path, init_file, setup_ipython, ipython_namespace, false );
+}
+
+void Py::init( int c, char **v, const std::string &load_path_, const std::string &init_file_,
+	       bool setup_ipython, const std::string &ipython_namespace, bool setup_default_paths ) {
     argc = c;
     argv = v;
     using_ipython = setup_ipython;

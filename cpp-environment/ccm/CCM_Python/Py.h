@@ -34,9 +34,13 @@ class Py {
 	static PyThreadState *mainThread( ) { return main_thread; }
 	virtual PyThreadState *thread( ) { return main_thread; }
 
-	static void init( int argc, char **argv, std::string load_path="", std::string init_file="",
-			  bool setup_ipython=true, std::string ipython_namespace="__ipython_namespace__",
+	static void init( int argc, char **argv, const std::string &load_path="", const std::string &init_file="",
+			  bool setup_ipython=true, const std::string &ipython_namespace="__ipython_namespace__",
 			  bool setup_default_paths=false );
+
+	// for backward compatibility...
+	static void init( int argc, char **argv, std::string load_path, std::string init_file,
+			  bool setup_ipython, std::string ipython_namespace );
 
     protected:
 	unsigned int lock_count;
