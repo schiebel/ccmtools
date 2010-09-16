@@ -59,7 +59,7 @@ endif
 endif
 
 ifeq "$(_DESTROOT)" ""
-DESTROOT := "./build"
+DESTROOT := ./build
 _DESTROOT := $(abspath $(DESTROOT))
 _LIBDIR := $(_DESTROOT)/$(LIB)
 _INCDIR := $(_DESTROOT)/include
@@ -90,7 +90,7 @@ LOCALCPPLIB_PATH := $(_LIBDIR)/libccmtools_local.$(SOV)
 LOCALCPPLNK_PATH := $(_LIBDIR)/libccmtools_local.$(SO)
 
 define install-headers
-  @echo $1 | perl -e 'use File::Basename; use File::Path; use File::Copy; $$from=<>; $$_=$$from; s|\./cpp-environment/wx/(?:[^/ ]+)/(?:[^/ ]+/)?|$(_INCDIR)/WX/Utils/|g; s|\./cpp-environment/ccm/|$(_INCDIR)/|g; s|/HomeFinder/HomeFinder.h|/HomeFinder.h|g; s|/CCM_Local/LocalComponents/|/LocalComponents/|g; @from=split(/\s+/,$$from); @to=split(/\s+/,$$_); while ( (scalar @from) > 0 && (scalar @to) > 0 ) { $$from = shift(@from); $$to = shift(@to); if ( ! -d dirname($$to) ) { mkpath(dirname($$to)); } copy($$from,$$to) or die "Copy failed: $$!"; }'
+  @echo $1 | perl -e 'use File::Basename; use File::Path; use File::Copy; $$from=<>; $$_=$$from; s|\./cpp-environment/wx/(?:[^/ ]+)/(?:[^/ ]+/)?|$(_INCDIR)/WX/Utils/|g; s|\./cpp-environment/ccm/|$(_INCDIR)/|g; s|/HomeFinder/HomeFinder.h|/HomeFinder.h|g; s|/CCM_Local/LocalComponents/|/LocalComponents/|g; @from=split(/\s+/,$$from); @to=split(/\s+/,$$_); while ( (scalar @from) > 0 && (scalar @to) > 0 ) { $$from = shift(@from); $$to = shift(@to); print "$$to\n"; if ( ! -d dirname($$to) ) { mkpath(dirname($$to)); } copy($$from,$$to) or die "Copy failed: $$!"; }'
 endef
 
 %.h: %.idl
