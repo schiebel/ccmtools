@@ -22,6 +22,9 @@
 // %(Identifier)s - python conversion implementation - <MAliasDef>
 //==============================================================================
 
+// with gcc 4.4.5 there is a conflict between tolower, toupper, etc. and
+// bits/basic_ios.h... which is resolved by including <complex> first...
+#include <complex>
 #include "%(Identifier)s_python.h"
 %(IncludeElementConvert)s
 #include <CCM_Python/BasicTypes.h>
