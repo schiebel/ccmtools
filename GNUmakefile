@@ -19,7 +19,7 @@ SOV := so.$(VERSION)
 endif
 
 PYTHONVER := $(shell python -V 2>&1 | perl -pe "s|^.*?(\d+\.\d+)\.\d+\$$|\$$1|")
-PYTHONLIBD := $(shell python -c "import sys; print sys.prefix" | perl -e "\$$_=<>; s|\n||g; if ( -e \"\$$_/lib/python$(PYTHONVER)/config/libpython$(PYTHONVER).$(SO)\" ) { print \"\$$_/lib/python$(PYTHONVER)/config/lib\" } elsif ( -e \"\$$_/lib64/libpython.$(SO)\" ) { print \"\$$_/lib64/libpython.$(SO)\" } elsif ( -e \"\$$_/lib/libpython.$(SO)\" ) { print \"\$$_/lib/libpython.$(SO)\" }" )
+PYTHONLIBD := $(shell python -c "import sys; print sys.prefix" | perl -e "\$$_=<>; s|\n||g; if ( -e \"\$$_/lib/python$(PYTHONVER)/config/libpython$(PYTHONVER).$(SO)\" ) { print \"\$$_/lib/python$(PYTHONVER)/config\" } elsif ( -e \"\$$_/lib64/libpython.$(SO)\" ) { print \"\$$_/lib64/libpython.$(SO)\" } elsif ( -e \"\$$_/lib/libpython.$(SO)\" ) { print \"\$$_/lib/libpython.$(SO)\" }" )
 PYTHONINCD := $(shell python -c "import sys; print sys.prefix" | perl -e "\$$_=<>; s|\n||g; if ( -e \"\$$_/Headers/Python.h\" ) { print \"\$$_/Headers\" } elsif ( -e \"\$$_/include/python$(PYTHONVER)/Python.h\" ) { print \"\$$_/include/python$(PYTHONVER)\" }" )
 
 ifeq "$(IDL)" ""
