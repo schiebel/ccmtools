@@ -1,8 +1,6 @@
 
 C++ :=
 IDL :=
-PYTHONROOT := /opt/local
-PYTHONINC := $(PYTHONROOT)/include/python2.5
 
 -include makedefs
 
@@ -19,6 +17,10 @@ ifeq "$(os)" "linux"
 SO := so
 SOV := so.$(VERSION)
 endif
+
+PYTHONVER := $(shell python -V 2>&1 | perl -pe "s|^.*?(\d+\.\d+)\.\d+\$$|\$$1|")
+PYTHONLIBD := $(shell python -c "import sys; print sys.prefix" | perl -e "\$$_=<>; s|\n||g; if ( -e \"\$$_/lib/python$(PYTHONVER)/config/libpython$(PYTHONVER).$(SO)\" ) { print \"\$$_/lib/python$(PYTHONVER)/config/lib\" } elsif ( -e \"\$$_/lib64/libpython.$(SO)\" ) { print \"\$$_/lib64/libpython.$(SO)\" } elsif ( -e \"\$$_/lib/libpython.$(SO)\" ) { print \"\$$_/lib/libpython.$(SO)\" }" )
+PYTHONINCD := $(shell python -c "import sys; print sys.prefix" | perl -e "\$$_=<>; s|\n||g; if ( -e \"\$$_/Headers/Python.h\" ) { print \"\$$_/Headers\" } elsif ( -e \"\$$_/include/python$(PYTHONVER)/Python.h\" ) { print \"\$$_/include/python$(PYTHONVER)\" }" )
 
 ifeq "$(IDL)" ""
 IDL    := idl
@@ -97,10 +99,10 @@ endef
 	cd $(dir $<) && $(IDL) $(notdir $<)
 
 %.o: %.cc
-	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
+	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINCD) $< -o $@
 
 %.o: %.cpp
-	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINC) $< -o $@
+	$(C++) -fPIC -c $(OPT) -I$(_INCDIR) -I$(PYTHONINCD) $< -o $@
 
 all: setup install_headers $(LOCALCPPLNK_PATH) install_jars install_scripts install_templates
 
@@ -118,7 +120,7 @@ install_headers:
 
 $(LOCALCPPLIB_PATH): $(CPPOBJ)
 ifeq "$(os)" "darwin"
-	$(C++) -dynamiclib -install_name $(instlib_path)$(notdir $@) -o $@ $(filter %.o,$^) -L$(PYTHONROOT)/lib -lpython2.5
+	$(C++) -dynamiclib -install_name $(instlib_path)$(notdir $@) -o $@ $(filter %.o,$^) -L$(PYTHONLIBD) -lpython$(PYTHONVER)
 endif
 ifeq "$(os)" "linux"
 	$(C++) -shared -Wl,-soname,$(notdir $@) -o $@ $(filter %.o,$^)
