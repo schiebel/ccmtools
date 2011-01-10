@@ -1,3 +1,4 @@
+emerge antlr
 /bin/cp -f /usr/share/java/antlr.jar ccmtools/lib/antlr.jar
 make INSTDIR=/usr/local
 tar -C build -cf - . | tar -C /usr/local -xf -
