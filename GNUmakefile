@@ -123,7 +123,7 @@ ifeq "$(os)" "darwin"
 	$(C++) -dynamiclib -install_name $(instlib_path)$(notdir $@) -o $@ $(filter %.o,$^) -L$(PYTHONLIBD) -lpython$(PYTHONVER)
 endif
 ifeq "$(os)" "linux"
-	$(C++) -shared -Wl,-soname,$(notdir $@) -o $@ $(filter %.o,$^)
+	$(C++) -shared -Wl,-soname,$(notdir $@) -o $@ $(filter %.o,$^) -L$(PYTHONLIBD) -lpython$(PYTHONVER)
 endif
 
 $(LOCALCPPLNK_PATH): $(LOCALCPPLIB_PATH)
