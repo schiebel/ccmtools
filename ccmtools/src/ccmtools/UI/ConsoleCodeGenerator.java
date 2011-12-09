@@ -265,7 +265,7 @@ public class ConsoleCodeGenerator
     {
         System.out.println("CCM Tools version " + Constants.VERSION);
         System.out.println("Copyright (C) 2002 - 2005 Salomon Automation");
-        System.out.println("Copyright (C) 2007 - 2010 Associated Universities Inc.");
+        System.out.println("Copyright (C) 2007 - 2011 Associated Universities Inc.");
         System.out.println("The CCM Tools library is distributed under the");
         System.out.println("terms of the GNU Lesser General Public License.");
     }
@@ -475,6 +475,8 @@ public class ConsoleCodeGenerator
             		generate_flags |= OVERWRITE_FILES;
             else if(arg.startsWith("--home="))
                 setHome(arg.split("=")[1]);
+            else if(arg.startsWith("--templates="))
+            	setTemplates(arg.split("==")[1]);
             else if(arg.charAt(0) == '-')
                 do {
                     if(arg.charAt(0) == 'a') {
@@ -573,7 +575,16 @@ public class ConsoleCodeGenerator
         props.setProperty("CCMTOOLS_HOME", val);
         System.setProperties(props);
     }
-
+    
+    private static void setTemplates(String val)
+    {
+        if( ! val.trim().equals("")) {
+        	Properties props = System.getProperties();
+        	props.setProperty("CCMTOOLS_TEMPLATES", val);
+        	System.setProperties(props);
+        }
+    }
+    
     private static void setCodaStartupFile(String val)
     {
         if(val.trim().equals(""))
