@@ -62,9 +62,21 @@ public class PythonTemplateManagerImpl
     		//   CppLocalTemplates/
     		//   CppRemoteTemplates/
     		//   etc.
-    		String templatesDir = language + "Templates";
-
+    		
     		// Option 1:
+    		// Load templates from CCMTOOLS_TEMPLATES system property.
+    		// This property is set when calling the ccmtools-generate script,
+    		// with an operating system environment variable.
+    		String templatesDir = language + "Templates";
+    		String directory = System.getProperty("CCMTOOLS_TEMPLATES");
+    		File templ_src = new File(directory, templatesDir);
+    		if (templ_src.exists() && templ_src.isDirectory()) {
+    			System.out.println("  (" + load_count + ") " + templ_src + "  (CCMTOOLS_TEMPLATES)");
+    			source.add(templ_src);
+    			load_count++;
+    		}
+    		
+    		// Option 2:
     		// Load templates from output/templates directory.
     		// This directory is used so that templates can be recursively expanded. 
     		// Should it be automatically cleaned at the start (probably so)?
@@ -79,11 +91,10 @@ public class PythonTemplateManagerImpl
     			load_count++;
     		}
     		
-    		// Option 2:
+    		// Option 3:
     		// Load templates from src/templates directory of the source tree.
     		// This directory is used as default path for easy development. 
-    		String directory = System.getProperty("user.dir") + File.separator + 
-					"src" + File.separator + "templates";
+    		directory = System.getProperty("user.dir") + File.separator + "src" + File.separator + "templates";
     		File user_src = new File(directory, templatesDir);
     		if (user_src.exists() && user_src.isDirectory()) {
     			System.out.println("  (" + load_count + ") " + user_src + "  (user)");
@@ -91,10 +102,10 @@ public class PythonTemplateManagerImpl
     			load_count++;
     		}
 
-    		// Option 2:
+    		// Option 4:
     		// Load templates from CCMTOOLS_HOME system property.
     		// This property is set, when calling the ccmtools-generate script,
-    		// with a operationg system environment variable value.
+    		// with a operating system environment variable value.
     		directory = System.getProperty("CCMTOOLS_HOME") + File.separator + "templates";
     		File env_src = new File(directory, templatesDir);
     		if (env_src.exists() && env_src.isDirectory()) {
@@ -103,7 +114,7 @@ public class PythonTemplateManagerImpl
     			load_count++;
     		}
 
-    		// Option 3:
+    		// Option 5:
     		// Load templates from TEMPLATE_ROOT directory specified in 
     		// the Constants.java file.
     		// In the build process, the Constants.java file is generated
