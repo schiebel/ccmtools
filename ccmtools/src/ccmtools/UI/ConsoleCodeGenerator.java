@@ -476,9 +476,10 @@ public class ConsoleCodeGenerator
             		generate_flags |= OVERWRITE_FILES;
             else if(arg.startsWith("--home="))
                 setHome(arg.split("=")[1]);
-            else if(arg.startsWith("--templates="))
-            	setTemplates(arg.split("==")[1]);
-            else if(arg.charAt(0) == '-')
+            else if(arg.startsWith("--templates=")) {
+            	String[] templ_arg = arg.split("=");
+            	if ( templ_arg.length > 1 ) setTemplates(templ_arg[1]);
+            } else if(arg.charAt(0) == '-')
                 do {
                     if(arg.charAt(0) == 'a') {
                         generate_flags |= GENERATE_APPLICATION_FILES;
