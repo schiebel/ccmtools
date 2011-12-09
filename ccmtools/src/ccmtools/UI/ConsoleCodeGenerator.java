@@ -59,6 +59,7 @@ public class ConsoleCodeGenerator
             + "  -a, --application             Generate skeletons for business logic *\n"
             + "  --coda[=<setup file>]         Generate argument defaults via info outside IDL"
             + "                                (implies --application)\n"
+            + "  --templates=<path>            Specify the directory which contains the templates\n"
             + "  --overwrite                   Don't create *.new files, always overwrite\n"
             + "  -h, --help                    Display this help\n"
             + "  -Ipath                        Add path to the preprocessor include path\n"
