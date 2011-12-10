@@ -1460,9 +1460,7 @@ abstract public class CppGenerator extends CodeGenerator
             return "throw (LocalComponents::CCMException, " + join(", ", ret)
                     + " )";
         }
-        else {
-            return "throw (LocalComponents::CCMException)";
-        }
+        return "";
     }
 
     /**

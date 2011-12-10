@@ -2381,14 +2381,6 @@ public class CppPythonGeneratorImpl
         }
         return ret.toString();
     }
-    
-    /**
-     * Override CppGenerator::getOperationExcepts( ) so that the
-     * the generated functions will have *no* throw( ) statement...
-     */
-    protected String getOperationExcepts(MOperationDef op) {
-    	return "";
-    }
 
     /**
 	 * Get a variable hash table sutable for filling in the template from the
